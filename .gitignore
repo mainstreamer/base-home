@@ -21,3 +21,12 @@ yarn-error.log
 ###> symfony/web-server-bundle ###
 /.web-server-pid
 ###< symfony/web-server-bundle ###
+
+
+# PHP Storm
+.idea/*
+
+# Finder
+.DS_Store
+yarn-error.log
+package-lock.json
