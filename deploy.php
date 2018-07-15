@@ -21,7 +21,7 @@ set('env', [
 host('178.62.215.91')
     ->user('root')
     ->set('branch', 'master')
-    ->stage('live')
+    ->stage('production')
     ->set('deploy_path', '/var/www/base');
 
 // Tasks
