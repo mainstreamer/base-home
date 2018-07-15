@@ -3,6 +3,7 @@
 namespace Deployer;
 
 require 'recipe/symfony4.php';
+
 // Configuration
 set('repository', 'git@base.github.com:mainstreamer/base-home.git');
 set('git_tty', false); // [Optional] Allocate tty for git on first deployment
@@ -15,23 +16,20 @@ set('env', [
     'APP_ENV' => 'prod',
     'DATABASE_URL' => 'mysql://webapp:12345678@127.0.0.1:3306/base',
 ]);
+
 // Hosts
-//localhost()
-//    ->stage('production')
-//    ->set('deploy_path', '/var/www/webapp');
 host('178.62.215.91')
     ->user('root')
     ->set('branch', 'master')
     ->stage('live')
     ->set('deploy_path', '/var/www/base');
-//localhost('production')
-//    ->stage('production')
-//    ->set('deploy_path', '/var/www/webapp');
+
 // Tasks
 desc('Restart PHP-FPM service');
 task('php-fpm:restart', function () {
-    // The user must have rights for restart service
-    // /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart php-fpm.service
+
+// The user must have rights for restart service
+// /etc/sudoers: username ALL=NOPASSWD:/bin/systemctl restart php-fpm.service
     run('sudo service php7.2-fpm restart');
 });
 after('deploy:symlink', 'php-fpm:restart');
