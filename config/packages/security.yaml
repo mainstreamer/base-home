@@ -4,7 +4,7 @@ security:
         user_db_provider:
             entity:
                 class: App\Entity\User
-                property: username
+                property: email
     encoders:
         App\Entity\User: bcrypt
     firewalls:

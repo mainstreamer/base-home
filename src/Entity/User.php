@@ -12,7 +12,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Entity
  * @UniqueEntity (fields="email", message="Email already taken")
- * @UniqueEntity (fields="username", message="Username already taken")
  */
 
 class User implements UserInterface
@@ -30,12 +29,6 @@ class User implements UserInterface
      * @Assert\Email()
      */
     private $email;
-
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     * @Assert\NotBlank()
-     */
-    private $username;
 
     /**
      * @Assert\NotBlank()
@@ -58,7 +51,7 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->roles = array('ROLE_USER');
+        $this->roles = ['ROLE_USER'];
     }
 
     // other properties and methods
@@ -75,12 +68,12 @@ class User implements UserInterface
 
     public function getUsername()
     {
-        return $this->username;
+        return $this->email;
     }
 
     public function setUsername($username)
     {
-        $this->username = $username;
+        $this->setEmail($username);
     }
 
     public function getPlainPassword()
