@@ -1,0 +1,23 @@
+/*LOGIN FORM*/
+.btn.btn-outline-white {
+    color: #ffffff;
+    background-color: transparent;
+    background-image: none;
+    border-color: #ffffff;
+}
+
+.btn.btn-outline-white:hover {
+    color: #000000;
+    background-color: #ffffff;
+    background-image: none;
+    border-color: #ffffff;
+}
+
+div.row.p-b-30 .custom-control-input:checked~.custom-control-label:before {
+    background-color: #7460ee;
+}
+
+html {
+    -webkit-tap-highlight-color:transparent!important;
+}
+/*END LOGIN FORM*/
