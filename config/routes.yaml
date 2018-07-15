@@ -1,3 +1,10 @@
 index:
     path: /
     controller: App\Controller\DefaultController::index
+
+registration:
+    resource: App\Controller\RegistrationController
+    type:     annotation
+scurity:
+    resource: App\Controller\SecurityController
+    type:     annotation
