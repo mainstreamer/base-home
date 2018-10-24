@@ -20,4 +20,9 @@ div.row.p-b-30 .custom-control-input:checked~.custom-control-label:before {
 html {
     -webkit-tap-highlight-color:transparent!important;
 }
+
+.form-control:focus {
+    border-color: #7460ee;
+}
+
 /*END LOGIN FORM*/

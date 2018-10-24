@@ -11,7 +11,6 @@ class DefaultController extends Controller
     {
         $vars = ['a'=>'EMOJII'];
 
-
         return $this->render('default.html.twig', $vars);
     }
 }
