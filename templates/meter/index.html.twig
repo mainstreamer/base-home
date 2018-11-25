@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bill index{% endblock %}
+
+{% block content %}
+    <h1>Meter index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for meter in meters %}
+            <tr>
+                <td>{{ meter.id }}</td>
+                <td>{{ meter.name }}</td>
+                {#<td>{{ meter.amount }}</td>#}
+                <td>
+                    <a href="{{ path('meter_show', {'id': meter.id}) }}">show</a>
+                    <a href="{{ path('meter_edit', {'id': meter.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('meter_new') }}">Create new</a>
+{% endblock %}

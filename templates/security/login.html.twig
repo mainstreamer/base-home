@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'onlystyles.html.twig' %}
 {% block body %}
     <div class="main-wrapper">
         <!-- ============================================================== -->
@@ -20,7 +20,7 @@
             <div class="auth-box bg-dark border-top border-secondary">
                 <div id="loginform">
                     <div class="text-center p-t-0 p-b-0 text-white">
-                        <span style="font-size: 25px" class="font-weight-light" s>Цифровий дім</span>
+                        <span style="font-size: 25px" class="font-weight-light">Цифровий дім</span>
                     </div>
                     <!-- Form -->
                     <form class="form-horizontal m-t-20" id="loginform" action="{{ path('login') }}" method="post">
@@ -36,7 +36,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-primary text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                     </div>
-                                    <input type="text" class="form-control form-control-lg" placeholder="{{ 'Password'|trans }}" aria-label="Password" aria-describedby="basic-addon1" required="" id="password" name="_password">
+                                    <input type="password" class="form-control form-control-lg" placeholder="{{ 'Password'|trans }}" aria-label="Password" aria-describedby="basic-addon1" required="" id="password" name="_password">
                                     <div class="invalid-feedback">
                                         Please correct the error
                                     </div>
@@ -45,9 +45,10 @@
                                     <input type="hidden" name="_target_path" value="{{ path('index') }}" />
                                 </div>
 
-                                <div class="custom-control custom-checkbox mr-sm-2" style="outline-style:none;">
+                                <div class="custom-control custom-checkbox mr-sm-2" style="outline-style:none; margin-right: 0px!important;">
                                     <input type="checkbox" class="custom-control-input" style="outline-style:none;" id="remember_me" name="_remember_me">
                                     <label class="custom-control-label text-white font-weight-light" style="padding-top: 2px;outline-style:none!important;" for="remember_me">{{ 'Keep me logged in' |trans }}</label>
+                                    <button type="submit" class="btn btn-outline-white float-right">{{ 'login' |trans |capitalize}}</button>
                                 </div>
                             </div>
                         </div>
@@ -55,8 +56,9 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <div class="p-t-20">
-                                        <button class="btn btn-outline-white " id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> {{ 'Lost password?' |trans |capitalize}}</button>
-                                        <button type="submit" class="btn btn-outline-white float-right">{{ 'login' |trans |capitalize}}</button>
+                                        <button class="btn btn-outline-white" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> {{ 'Lost password?' |trans |capitalize}}</button>
+                                        <a href="{{ path('registration') }}"  class="btn btn-outline-white float-right" role="button">{{ 'sign up' |trans |capitalize}}</a>
+                                        {#<button type="button" class="btn btn-outline-white float-right" onclick="window.location.href='{{ path('registration') }}'">{{ 'sign up' |trans |capitalize}}</button>#}
                                     </div>
                                 </div>
                             </div>

@@ -1,0 +1,11 @@
+App\Entity\MeterType:
+    meterType_1:
+        name: 'Electricity'
+    meterType_2:
+        name: 'Gas'
+    meterType_3:
+        name: 'Cold Water'
+    meterType_4:
+        name: 'Heating'
+    meterType_5:
+        name: 'Hot Water'

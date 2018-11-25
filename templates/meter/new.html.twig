@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Meter{% endblock %}
+
+{% block content %}
+    <h1>Create new Meter</h1>
+
+    {{ include('meter/_form.html.twig') }}
+
+    <a href="{{ path('meter_index') }}">back to list</a>
+{% endblock %}

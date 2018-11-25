@@ -1,0 +1,30 @@
+App\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            length: 255
+        password:
+            type: string
+            length: 255
+        firstName:
+            type: string
+            length: 255
+        roles:
+            type: string
+            length: 255
+            nullable: true
+
+    oneToMany:
+        places:
+            targetEntity: App\Entity\Place
+            mappedBy: user
+            cascade: ['persist', 'remove']

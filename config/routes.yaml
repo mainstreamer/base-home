@@ -1,10 +1,139 @@
 index:
     path: /
-    controller: App\Controller\DefaultController::index
+    controller: App\Controller\ProfileController::index
 
-registration:
-    resource: App\Controller\RegistrationController
-    type:     annotation
-scurity:
-    resource: App\Controller\SecurityController
-    type:     annotation
+#registration:
+#    resource: App\Controller\RegistrationController
+#    type:     annotation
+#scurity:
+#    resource: App\Controller\SecurityController
+#    type:     annotation
+
+
+register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+
+login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+logout:
+    path: /logout
+
+homepage:
+    path: /
+    controller: App\Controller\ProfileController::indexAction
+
+router:
+    path:     /check
+    controller: App\Controller\SecurityController::routerAction
+
+bill_index:
+    path: /bills
+    controller: App\Controller\BillController::index
+
+bill_new:
+    path: /bills/new
+    controller: App\Controller\BillController::new
+
+bill_show:
+    path: /bills/{id}
+    controller: App\Controller\BillController::show
+
+bill_edit:
+    path: /bills/{id}/edit
+    controller: App\Controller\BillController::edit
+
+bill_delete:
+    path: /bills/{id}/delete
+    controller: App\Controller\BillController::delete
+
+place_index:
+    path: /places
+    controller: App\Controller\PlaceController::index
+
+my_places:
+    path: /myplaces
+    controller: App\Controller\PlaceController::myPlaces
+
+place_new:
+    path: /places/new
+    controller: App\Controller\PlaceController::new
+
+my_place_new:
+    path: /myplaces/new
+    controller: App\Controller\PlaceController::myNew
+
+place_show:
+    path: /places/{id}
+    controller: App\Controller\PlaceController::show
+
+place_edit:
+    path: /places/{id}/edit
+    controller: App\Controller\PlaceController::edit
+
+place_delete:
+    path: /places/{id}/delete
+    controller: App\Controller\PlaceController::delete
+
+user_index:
+    path: /users
+    controller: App\Controller\UserController::index
+
+user_new:
+    path: /users/new
+    controller: App\Controller\UserController::new
+
+user_show:
+    path: /users/{id}
+    controller: App\Controller\UserController::show
+
+user_edit:
+    path: /users/{id}/edit
+    controller: App\Controller\UserController::edit
+
+user_delete:
+    path: /users/{id}/delete
+    controller: App\Controller\UserController::delete
+
+meter_index:
+    path: /meters
+    controller: App\Controller\MeterController::index
+
+meter_new:
+    path: /meters/new
+    controller: App\Controller\MeterController::new
+
+meter_show:
+    path: /meters/{id}
+    controller: App\Controller\MeterController::show
+
+meter_edit:
+    path: /meters/{id}/edit
+    controller: App\Controller\MeterController::edit
+
+meter_delete:
+    path: /meters/{id}/delete
+    controller: App\Controller\MeterController::delete
+
+
+indication_index:
+    path: /indications
+    controller: App\Controller\IndicationController::index
+
+indication_new:
+    path: /indications/new
+    controller: App\Controller\IndicationController::new
+
+indication_show:
+    path: /indications/{id}
+    controller: App\Controller\IndicationController::show
+
+indication_edit:
+    path: /indications/{id}/edit
+    controller: App\Controller\IndicationController::edit
+
+indication_delete:
+    path: /indications/{id}/delete
+    controller: App\Controller\IndicationController::delete

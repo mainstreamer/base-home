@@ -1,0 +1,9 @@
+App\Entity\Unit:
+    unit_1:
+        name: 'kW/H'
+    unit_2:
+        name: 'm3'
+    unit_3:
+        name: 'l'
+    unit_4:
+        name: 'Gk'

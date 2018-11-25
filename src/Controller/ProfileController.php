@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Place;
+use App\Entity\Bill;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class ProfileController extends Controller
 {
 
     public function index()
     {
+//        exit;
         $vars = ['a'=>'EMOJII'];
 
 
-        return $this->render('default.html.twig', $vars);
+
+        return $this->render('content.html.twig', $vars);
     }
 }
