@@ -1,0 +1,22 @@
+App\Entity\Bill:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\BillRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: false
+        amount:
+            type: integer
+            nullable: true
+    manyToOne:
+        place:
+            targetEntity: App\Entity\Place
+            inversedBy: bills

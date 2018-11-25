@@ -1,0 +1,28 @@
+App\Entity\Place:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\PlaceRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: false
+    oneToMany:
+        bills:
+            targetEntity: App\Entity\Bill
+            mappedBy: place
+            cascade: ['persist', 'remove']
+        meters:
+            targetEntity: App\Entity\Meter
+            mappedBy: place
+            cascade: ['persist', 'remove']
+    manyToOne:
+        user:
+            targetEntity: App\Entity\User
+            inversedBy: places

@@ -1,0 +1,33 @@
+App\Entity\Meter:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\MeterRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: false
+
+#        type:
+#        amount:
+#            type: integer
+#            nullable: true
+    manyToOne:
+        type:
+            targetEntity: App\Entity\MeterType
+        unit:
+            targetEntity: App\Entity\Unit
+        place:
+            targetEntity: App\Entity\Place
+            inversedBy: meters
+    oneToMany:
+        indications:
+            targetEntity: App\Entity\Indication
+            mappedBy: meter
+            cascade: ['persist', 'remove']

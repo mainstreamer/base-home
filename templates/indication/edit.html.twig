@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Bill{% endblock %}
+
+{% block content %}
+    <h1>Edit indication</h1>
+
+    {{ include('indication/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('indication_index') }}">back to list</a>
+
+    {{ include('indication/_delete_form.html.twig') }}
+{% endblock %}

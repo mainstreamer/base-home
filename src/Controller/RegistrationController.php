@@ -11,14 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * Class RegistrationController
- * @package App\Controller
+ * Class RegistrationController.
  */
 class RegistrationController extends Controller
 {
     /**
-     * @param Request $request
+     * @param Request                      $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     *
      * @return mixed
      * @Route("/register", name="registration")
      * @Template
@@ -28,7 +28,7 @@ class RegistrationController extends Controller
         $form = $this->createForm(UserType::class, $user = new User());
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
+            $password = $passwordEncoder->encodePassword($user, $user->plainPassword);
             $user->setPassword($password);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

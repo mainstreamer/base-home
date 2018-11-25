@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Place;
@@ -14,6 +16,7 @@ class PlaceType extends AbstractType
         $builder
             ->add('name')
             ->add('user')
+            ->add('bills')
         ;
     }
 

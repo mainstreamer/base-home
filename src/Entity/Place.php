@@ -1,42 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\PlaceRepository")
- */
 class Place
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $name;
 
-    /**
-     * @var
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="places")
-     */
     private $user;
 
-    /**
-     * @var
-     * @ORM\OneToMany(targetEntity="App\Entity\Bill", mappedBy="place")
-     */
     private $bills;
+
+    private $meters;
 
     public function __construct()
     {
         $this->bills = new ArrayCollection();
+        $this->meters = new ArrayCollection();
     }
 
     /**
@@ -57,6 +43,7 @@ class Place
 
     /**
      * @param string $name
+     *
      * @return Place
      */
     public function setName(string $name): self
@@ -85,5 +72,45 @@ class Place
     public function __toString(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getBills(): Collection
+    {
+        return $this->bills;
+    }
+
+    public function addBill(Bill $item): void
+    {
+        $this->bills[] = $item;
+        $item->setPlace($this);
+    }
+
+    public function removeBill(Bill $item): void
+    {
+        $this->bills->remove($item);
+        $item->setPlace(null);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getMeters(): Collection
+    {
+        return $this->meters;
+    }
+
+    public function addMeter(Meter $item): void
+    {
+        $this->meters[] = $item;
+        $item->setPlace($this);
+    }
+
+    public function removeMeter(Meter $item): void
+    {
+        $this->meters->remove($item);
+        $item->setPlace(null);
     }
 }
