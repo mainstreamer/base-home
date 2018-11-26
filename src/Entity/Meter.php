@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 
 class Meter
 {
@@ -82,7 +83,9 @@ class Meter
      */
     public function getIndications(): Collection
     {
-        return $this->indications;
+        $criteria = Criteria::create()->orderBy(['date' => Criteria::DESC]);
+
+        return $this->indications->matching($criteria);
     }
 
     public function addIndication(Indication $item): void

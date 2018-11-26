@@ -105,4 +105,9 @@ class Indication
     {
         $this->unit = $unit;
     }
+
+    public function __toString()
+    {
+        return (string) $this->value;
+    }
 }

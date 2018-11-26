@@ -3,34 +3,84 @@
 {% block title %}Місця{% endblock %}
 
 {% block content %}
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Мої місця</h4>
-        </div>
-        <div class="comment-widgets scrollable ps-container ps-theme-default" data-ps-id="493509b2-b404-1b50-a26f-38795a5c6698">
-            <!-- Comment Row -->
-        {% for place in places %}
-                <div class="d-flex flex-row comment-row m-t-0">
-                {#<div class="p-2"><img src="../../assets/images/users/1.jpg" alt="user" width="50" class="rounded-circle"></div>#}
+    <div class="row">
+    {% for place in places %}
 
-                <div class="comment-text w-100">
-                    <h6 class="font-medium">{{ place.name }}</h6>
-                    <span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>
-                    <div class="comment-footer">
-                        {#<span class="text-muted float-right">April 14, 2016</span>#}
-                        <a class="btn btn-info btn-sm" href="{{ path('place_show', {'id': place.id}) }}">Переглянути</a>
-                        <a class="btn btn-cyan btn-sm" href="{{ path('place_edit', {'id': place.id}) }}">Редагувати</a>
+        <div class="col-12">
+            <a href="{{ path('place_show', {'id': place.id}) }}">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" style="flex-wrap: nowrap">
+                            <div class="col-6">
+                                <h5 class="card-title">{{ place.name }}</h5>
+                                <p class="text-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            </div>
+                            <div class="col-1">
 
-                        {#<button type="button" class="btn btn-success btn-sm">Publish</button>#}
-                        <button type="button" class="btn btn-danger btn-sm">Видалити</button>
+                                <a  style="max-height: 50px;" href="{{ path('place_edit', {'id': place.id}) }}">
+                                    <div class="box bg-white text-center card-hover">
+
+                                        <h3 class="font-light text-white"><i class="text-dark fas fa-cog"></i></h3>
+                                        <small class="text-dark">Опції</small>
+
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-                    </a>
-            </div>
-        {% endfor %}
-            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>
+            </a>
+        </div>
+        {#<div class="col-1">#}
+            {#<div class="row">#}
+                {#<div class="card card-hover">#}
+                    {#<div class="box bg-warning text-center">#}
+                        {#<h3 class="font-light text-white"><i class="mdi mdi-collage"></i></h3>#}
+                        {#<h6 class="text-white">Widgets</h6>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="row">#}
+                {#<div class="card card-hover">#}
+                    {#<div class="box bg-warning text-center">#}
+                        {#<h3 class="font-light text-white"><i class="fas fa-cog"></i></h3>#}
+                        {#<h6 class="text-white">Widgets</h6>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
 
+    {% endfor %}
     </div>
+
+    {#<div class="card">#}
+        {#<div class="card-body">#}
+            {#<h4 class="card-title">Мої місця</h4>#}
+        {#</div>#}
+        {#<div class="comment-widgets scrollable ps-container ps-theme-default" data-ps-id="493509b2-b404-1b50-a26f-38795a5c6698">#}
+            {#<!-- Comment Row -->#}
+        {#{% for place in places %}#}
+                {#<div class="d-flex flex-row comment-row m-t-0">#}
+                {#<div class="p-2"><img src="../../assets/images/users/1.jpg" alt="user" width="50" class="rounded-circle"></div>#}
+
+                {#<div class="comment-text w-100">#}
+                    {#<h6 class="font-medium">{{ place.name }}</h6>#}
+                    {#<span class="m-b-15 d-block">Lorem Ipsum is simply dummy text of the printing and type setting industry. </span>#}
+                    {#<div class="comment-footer">#}
+                        {#<span class="text-muted float-right">April 14, 2016</span>#}
+                        {#<a class="btn btn-info btn-sm" href="{{ path('place_show', {'id': place.id}) }}">Переглянути</a>#}
+                        {#<a class="btn btn-cyan btn-sm" href="{{ path('place_edit', {'id': place.id}) }}">Редагувати</a>#}
+
+                        {#<button type="button" class="btn btn-success btn-sm">Publish</button>#}
+                        {#<button type="button" class="btn btn-danger btn-sm">Видалити</button>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#{% endfor %}#}
+            {#<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 3px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>#}
+
+    {#</div>#}
 
 
 
