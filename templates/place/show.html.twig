@@ -29,10 +29,10 @@
         <div class="col-md-9">
             <div class="row">
                 {% for meter in place.meters %}
-                    <div class="col-2">
+                    <div class="col-2 card card-hover">
                         <a href="{{ path('meter_show', {'id': meter.id}) }}">
                             <div class="bg-dark p-10 text-white text-center">
-                                 <span class="font-24">🔆️</span>
+                                 <span class="font-24">️{{ meter.type.icon}}</span>
                                 <h5 class="m-b-0 m-t-5">{{ meter.indications.first |default('0') }} {{ meter.unit.name }}</h5>
                                 <small class="font-light">{{ meter.type.name |capitalize}}</small><br>
                             </div>
@@ -97,12 +97,15 @@
             </tr>
             </thead>
             <tbody>
+            {% for bill in place.bills %}
             <tr>
-                <td>{{ place.id }}</td>
-                <td>{{ place.name }}</td>
-                <td>{{ place.user.firstName }}</td>
-                <td>{% for meter in place.meters %} ( <a href="{{ path('meter_show', {'id': meter.id}) }}">{{ meter.name }} {{ meter.type.name }}</a>){% endfor %}</td>
+                <td>{{ bill.id }}</td>
+                <td>{{ bill.amount }}</td>
+                <td>{{ bill.date | date }}</td>
+                <td>{{ bill.status }}</td>
+                <td></td>
             </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>

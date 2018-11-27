@@ -16,6 +16,15 @@ App\Entity\Bill:
         amount:
             type: integer
             nullable: true
+        period:
+            type: string
+            length: 255
+            nullable: true
+        status:
+            type: string
+            length: 255
+        date:
+            type: datetime
     manyToOne:
         place:
             targetEntity: App\Entity\Place

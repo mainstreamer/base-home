@@ -13,6 +13,10 @@ App\Entity\MeterType:
             type: string
             length: 255
             nullable: false
+        icon:
+            type: string
+            length: 255
+            nullable: true
 
 #        type:
 #        amount:

@@ -6,6 +6,12 @@ namespace App\Entity;
 
 class Bill
 {
+    const STATUSES = [self::PAID, self::UNPAID];
+
+    const PAID = 'PAID';
+
+    const UNPAID = 'UNPAID';
+
     private $id;
 
     private $name;
@@ -13,6 +19,18 @@ class Bill
     private $amount;
 
     private $place;
+
+    private $period;
+
+    private $date;
+
+    private $status;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+        $this->status = self::UNPAID;
+    }
 
     public function getId()
     {
@@ -56,5 +74,55 @@ class Bill
     public function __toString(): string
     {
         return $this->name.' '.$this->amount;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPeriod()
+    {
+        return $this->period;
+    }
+
+    /**
+     * @param mixed $period
+     */
+    public function setPeriod($period): void
+    {
+        $this->period = $period;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate(): \DateTime
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param \DateTime $date
+     */
+    public function setDate(\DateTime $date): void
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status): void
+    {
+        if (in_array(self::STATUSES, $status)) {
+            $this->status = $status;
+        }
     }
 }

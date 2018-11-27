@@ -15,6 +15,7 @@ class BillType extends AbstractType
             ->add('name')
             ->add('amount')
             ->add('place')
+            ->add('date')
         ;
     }
 
