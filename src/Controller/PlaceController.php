@@ -4,19 +4,28 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Bill;
 use App\Entity\Place;
 use App\Event\StartPlaceEditionEvent;
 use App\Form\PlaceType;
 use App\Repository\PlaceRepository;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+use Omines\DataTablesBundle\Column\DateTimeColumn;
+use Omines\DataTablesBundle\DataTableFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Event\StartPlaceCreationEvent;
+use Omines\DataTablesBundle\Column\TextColumn;
+use Omines\DataTablesBundle\Controller\DataTablesTrait;
 
-class PlaceController extends AbstractController
+class PlaceController extends Controller
 {
+//    use DataTablesTrait;
+
+    use DataTablesTrait;
     private $dispatcher;
 
     public function __construct(EventDispatcherInterface $dispatcher)
@@ -49,9 +58,27 @@ class PlaceController extends AbstractController
         ]);
     }
 
-    public function show(Place $place): Response
+    public function show(Request $request, Place $place, DataTableFactory $f): Response
     {
-        return $this->render('place/show.html.twig', ['place' => $place]);
+        $table = $this->createDataTable()
+            ->add('id', TextColumn::class, ['field' => 'bill.id'])
+            ->add('amount', TextColumn::class, ['field' => 'bill.amount'])
+            ->add('status', TextColumn::class, ['field' => 'bill.status', 'render' => function ($value, $entity) {
+                $url = $this->generateUrl('bill_show', ['id' => $entity->getId()]);
+
+                return "<a href=$url>$value</a>";
+            }])
+            ->add('date', DateTimeColumn::class, ['field' => 'bill.date'])
+            ->createAdapter(ORMAdapter::class, [
+                'entity' => Bill::class,
+            ])
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table]);
     }
 
     public function edit(Request $request, Place $place): Response

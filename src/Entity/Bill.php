@@ -121,7 +121,7 @@ class Bill
      */
     public function setStatus($status): void
     {
-        if (in_array(self::STATUSES, $status)) {
+        if (in_array($status, self::STATUSES)) {
             $this->status = $status;
         }
     }
