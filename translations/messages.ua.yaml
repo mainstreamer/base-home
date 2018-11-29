@@ -9,3 +9,6 @@ indications: Показники
 indication: Показання
 meter: Лічильник
 date: Дата
+id: Номер
+due: До сплати
+status: Статус

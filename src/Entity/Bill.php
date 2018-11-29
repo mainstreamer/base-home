@@ -24,12 +24,15 @@ class Bill
 
     private $date;
 
+    private $textDate;
+
     private $status;
 
     public function __construct()
     {
         $this->date = new \DateTime();
         $this->status = self::UNPAID;
+        $this->textDate = $this->date->format('d-m-Y');
     }
 
     public function getId()
@@ -106,6 +109,7 @@ class Bill
     public function setDate(\DateTime $date): void
     {
         $this->date = $date;
+        $this->textDate = $date->format('d-m-Y');
     }
 
     /**
@@ -124,5 +128,21 @@ class Bill
         if (in_array($status, self::STATUSES)) {
             $this->status = $status;
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTextDate()
+    {
+        return $this->textDate;
+    }
+
+    /**
+     * @param mixed $textDate
+     */
+    public function setTextDate($textDate): void
+    {
+        $this->textDate = $textDate;
     }
 }

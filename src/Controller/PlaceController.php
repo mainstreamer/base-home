@@ -11,7 +11,7 @@ use App\Form\PlaceType;
 use App\Repository\PlaceRepository;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\DateTimeColumn;
-use Omines\DataTablesBundle\DataTableFactory;
+use Omines\DataTablesBundle\Column\TwigColumn;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -20,12 +20,14 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Event\StartPlaceCreationEvent;
 use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\Controller\DataTablesTrait;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class PlaceController extends Controller
 {
 //    use DataTablesTrait;
 
     use DataTablesTrait;
+
     private $dispatcher;
 
     public function __construct(EventDispatcherInterface $dispatcher)
@@ -58,17 +60,42 @@ class PlaceController extends Controller
         ]);
     }
 
-    public function show(Request $request, Place $place, DataTableFactory $f): Response
+    public function show(Request $request, Place $place, TranslatorInterface $translator): Response
     {
         $table = $this->createDataTable()
-            ->add('id', TextColumn::class, ['field' => 'bill.id'])
-            ->add('amount', TextColumn::class, ['field' => 'bill.amount'])
-            ->add('status', TextColumn::class, ['field' => 'bill.status', 'render' => function ($value, $entity) {
-                $url = $this->generateUrl('bill_show', ['id' => $entity->getId()]);
+//            ->add('id', TextColumn::class, ['field' => 'bill.id', 'label' => ''])
+//            ->add('id', TextColumn::class, ['field' => 'bill.id', 'label' => ''])
+            ->add('id', TwigColumn::class, [
+                'className' => 'd-flex flex-row comment-row',
+                'template' => 'tables/cell.html.twig',
+                'label' => $translator->trans('id'),
+            ])
+            ->add('amount', TwigColumn::class, [
+                'className' => '',
+                'template' => 'tables/cell.html.twig',
+                'label' => $translator->trans('due'),
+            ])
+            ->add('status', TwigColumn::class, [
+                'className' => '',
+                'template' => 'tables/cell.html.twig',
+                'label' => $translator->trans('status'),
+            ])
 
-                return "<a href=$url>$value</a>";
-            }])
-            ->add('date', DateTimeColumn::class, ['field' => 'bill.date'])
+//            ->add('amount', TextColumn::class, ['field' => 'bill.amount'])
+
+//            ->add('status', TextColumn::class, ['field' => 'bill.status', 'render' => function ($value, $entity) {
+//                $url = $this->generateUrl('bill_show', ['id' => $entity->getId()]);
+//
+//                return "<a href=$url>$value</a>";
+//            }])
+            ->add('textDate', TwigColumn::class, [
+                'className' => '',
+                'template' => 'tables/cell.html.twig',
+                'label' => $translator->trans('date'),
+            ])
+//            ->add('date', TextColumn::class, ['field' => 'bill.textDate'])
+//            ->add('date', DateTimeColumn::class, ['field' => 'bill.date'])
+//            ->add('date', DateTimeColumn::class, ['format' => 'd-m-Y'])
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Bill::class,
             ])
