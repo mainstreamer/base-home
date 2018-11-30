@@ -88,13 +88,14 @@ class PlaceController extends Controller
 //
 //                return "<a href=$url>$value</a>";
 //            }])
-            ->add('textDate', TwigColumn::class, [
+
+            /*->add('textDate', TwigColumn::class, [
                 'className' => '',
                 'template' => 'tables/cell.html.twig',
                 'label' => $translator->trans('date'),
-            ])
+            ])*/
 //            ->add('date', TextColumn::class, ['field' => 'bill.textDate'])
-//            ->add('date', DateTimeColumn::class, ['field' => 'bill.date'])
+            ->add('date', DateTimeColumn::class, ['format' => 'Y-m-d', 'field' => 'bill.date', 'label' => $translator->trans('date')])
 //            ->add('date', DateTimeColumn::class, ['format' => 'd-m-Y'])
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Bill::class,
