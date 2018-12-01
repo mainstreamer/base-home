@@ -25,6 +25,9 @@ App\Entity\Bill:
             length: 255
         date:
             type: datetime
+        textDate:
+            type: string
+            length: 255
     manyToOne:
         place:
             targetEntity: App\Entity\Place

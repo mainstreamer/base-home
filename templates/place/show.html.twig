@@ -1,8 +1,52 @@
 {% extends 'base.html.twig' %}
-
+{##}
 {% block title %}Place{% endblock %}
+{##}
 
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>
+
+
+
+    {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/fh-3.1.4/sc-1.5.0/datatables.min.css"/>#}
+
+    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/fh-3.1.4/sc-1.5.0/datatables.min.js"></script>#}
+
+    {#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>#}
+    {#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>#}
+    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/b-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/fh-3.1.4/sc-1.5.0/datatables.min.js"></script>#}
+
+
+
+    {#<script#}
+            {#src="https://code.jquery.com/jquery-3.3.1.slim.min.js"#}
+            {#integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="#}
+            {#crossorigin="anonymous"></script>#}
+
+    {#<script src="/bundles/datatables/js/datatables.js"></script>#}
+
+    {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>#}
+    {#<script#}
+            {#src="https://code.jquery.com/jquery-3.3.1.js"#}
+            {#integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
+            {#crossorigin="anonymous"></script>#}
+{% endblock head %}
+
+    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>#}
+    {#<script src="/bundles/datatables/js/datatables.js"></script>#}
 {% block content %}
+
+{#<head>#}
+    {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>#}
+    {#<script#}
+            {#src="https://code.jquery.com/jquery-3.3.1.js"#}
+            {#integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
+            {#crossorigin="anonymous"></script>#}
+    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>#}
+    {#<script src="/bundles/datatables/js/datatables.js"></script>#}
+{#</head>#}
+{#<body>#}
+
     <div class="page-breadcrumb card">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
@@ -20,12 +64,7 @@
 
     {#</div>#}
 
-        {#<i class="fa fas fa-fire m-b-5 font-24"></i>#}{# gas#}
-        {#<i class="mdi mdi-radiator m-b-5 font-24"></i>#}{# heating#}
-        {#<i class="mdi mdi-lightbulb-on-outline m-b-5 font-24"></i>#}{# ;ligth#}
-        {#<i class="fa fas fa-bath m-b-5 font-24"></i>  🛁hot water#}
-        {#cold water 💦#}
-        {#<span class="font-24">🔆️</span>#}
+
         <div class="col-md-9">
             <div class="row">
                 {% for meter in place.meters %}
@@ -40,81 +79,32 @@
                     </div>
                 {% endfor %}
 
-                {#<div class="col-2">#}
-                    {#<div class="bg-dark p-10 text-white text-center">#}
-                        {#<i class="fa fa-user m-b-5 font-16"></i>#}
-                        {#<h5 class="m-b-0 m-t-5">2540</h5>#}
-                        {#<small class="font-light">Електро</small>#}
-                    {#</div>#}
-                {#</div>#}
-                {#<div class="col-2">#}
-                    {#<div class="bg-dark p-10 text-white text-center">#}
-                        {#<i class="fa fa-plus m-b-5 font-16"></i>#}
-                        {#<h5 class="m-b-0 m-t-5">1233312</h5>#}
-                        {#<small class="font-light">Опалення</small>#}
-                    {#</div>#}
-                {#</div>#}
-                {#<div class="col-2">#}
-                    {#<div class="bg-dark p-10 text-white text-center">#}
-                        {#<i class="fa fa-plus m-b-5 font-16"></i>#}
-                        {#<h5 class="m-b-0 m-t-5">1233312</h5>#}
-                        {#<small class="font-light">Газ</small>#}
-                    {#</div>#}
-                {#</div>#}
-                {#<div class="col-2">#}
-                    {#<div class="bg-dark p-10 text-white text-center">#}
-                        {#<i class="fa fa-plus m-b-5 font-16"></i>#}
-                        {#<h5 class="m-b-0 m-t-5">1233312</h5>#}
-                        {#<small class="font-light">Холодна вода</small>#}
-                    {#</div>#}
-                {#</div>#}
-                {#<div class="col-2">#}
-                    {#<div class="bg-dark p-10 text-white text-center">#}
-                        {#<i class="fa fa-plus m-b-5 font-16"></i>#}
-                        {#<h5 class="m-b-0 m-t-5">1233312</h5>#}
-                        {#<small class="font-light">Гаряча вода</small>#}
-                    {#</div>#}
-                {#</div>#}
+
             </div>
         </div>
 
     {#<div class="card">#}
         <div class="card-body">
-            <h5 class="card-title">Full Width</h5>
+            <h5 class="card-title">Квартира/Будиок/Житлове приміщення</h5>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </div>
 
         <div class="card-body">
-            <h5 class="card-title">Місце</h5>
+            <h5 class="card-title">Рахунки</h5>
         </div>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Назва</th>
-                <th scope="col">Власник</th>
-                <th scope="col">Лічильники</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for bill in place.bills %}
-            <tr>
-                <td>{{ bill.id }}</td>
-                <td>{{ bill.amount }}</td>
-                <td>{{ bill.date | date }}</td>
-                <td>{{ bill.status }}</td>
-                <td></td>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+
+        <div id="presidents" class=" table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
+
     </div>
+
 
     {#<a href="{{ path('place_index') }}">back to list</a>#}
 
     {#<a href="{{ path('place_edit', {'id': place.id}) }}">edit</a>#}
 
     {#{{ include('place/_delete_form.html.twig') }}#}
+
+
 {% endblock %}
 
 
@@ -130,10 +120,43 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{ path('bill_new') }}">Додати рахунок</a>
             <a class="dropdown-item" href="{{ path('meter_new') }}">Додати лічильник</a>
-            {#<a class="dropdown-item" href="#">Another action</a>#}
+            <a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ path('place_edit', {'id': place.id}) }}">Редагувати місце</a>
         </div>
     </li>
 {% endblock actions %}
 
+{% block javascripts %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>
+
+
+    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/fh-3.1.4/sc-1.5.0/datatables.min.js"></script>#}
+    {#<script#}
+            {#src="https://code.jquery.com/jquery-3.3.1.js"#}
+            {#integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
+            {#crossorigin="anonymous"></script>#}
+
+
+    <!-- Insert this at the end of your body element, but before the closing tag -->
+    <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+    <script>
+        $(function() {
+            $('#presidents').initDataTables({{ datatable_settings(datatable) }},  {
+                searching: true
+                // dom:'<"html5buttons"B>lTfgitp',
+                // buttons: [
+                //     'copy'
+                // //     { extend: 'pdf', title: 'domains'},
+                // //     { extend: 'print' }
+                // ]
+            });
+        });
+    </script>
+    {#<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>#}
+    {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>#}
+    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>#}
+    {#<script src="/bundles/datatables/js/datatables.js"></script>#}
+{% endblock javascripts %}
+
+{#</body>#}

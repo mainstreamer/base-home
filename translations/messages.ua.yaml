@@ -8,4 +8,7 @@ sign up: Реєстрація
 indications: Показники
 indication: Показання
 meter: Лічильник
-date: Дата
+date: Дата (рік-місяць-день)
+id: Номер
+due: До сплати
+status: Статус
