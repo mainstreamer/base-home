@@ -9,6 +9,7 @@ use App\Entity\Place;
 use App\Event\StartPlaceEditionEvent;
 use App\Form\PlaceType;
 use App\Repository\PlaceRepository;
+use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\DateTimeColumn;
 use Omines\DataTablesBundle\Column\TwigColumn;
@@ -18,7 +19,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Event\StartPlaceCreationEvent;
-use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\Controller\DataTablesTrait;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -63,8 +63,6 @@ class PlaceController extends Controller
     public function show(Request $request, Place $place, TranslatorInterface $translator): Response
     {
         $table = $this->createDataTable()
-//            ->add('id', TextColumn::class, ['field' => 'bill.id', 'label' => ''])
-//            ->add('id', TextColumn::class, ['field' => 'bill.id', 'label' => ''])
             ->add('id', TwigColumn::class, [
                 'className' => 'd-flex flex-row comment-row',
                 'template' => 'tables/cell.html.twig',
@@ -80,26 +78,19 @@ class PlaceController extends Controller
                 'template' => 'tables/cell.html.twig',
                 'label' => $translator->trans('status'),
             ])
-
-//            ->add('amount', TextColumn::class, ['field' => 'bill.amount'])
-
-//            ->add('status', TextColumn::class, ['field' => 'bill.status', 'render' => function ($value, $entity) {
-//                $url = $this->generateUrl('bill_show', ['id' => $entity->getId()]);
-//
-//                return "<a href=$url>$value</a>";
-//            }])
-
-            /*->add('textDate', TwigColumn::class, [
-                'className' => '',
-                'template' => 'tables/cell.html.twig',
-                'label' => $translator->trans('date'),
-            ])*/
-//            ->add('date', TextColumn::class, ['field' => 'bill.textDate'])
-            ->add('date', DateTimeColumn::class, ['format' => 'Y-m-d', 'field' => 'bill.date', 'label' => $translator->trans('date')])
-//            ->add('date', DateTimeColumn::class, ['format' => 'd-m-Y'])
+            ->add('date', DateTimeColumn::class, ['field' => 'bill.textDate', 'orderField' => 'bill.date', 'format' => 'd-m-Y', 'label' => $translator->trans('date')])
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Bill::class,
-            ])
+
+                'query' => function (QueryBuilder $builder) use ($place) {
+                    $builder
+                        ->select('bill')
+                        ->from(Bill::class, 'bill')
+                        ->where('bill.place = :id')
+                        ->setParameter('id', $place->getId())
+                    ;
+                },
+            ])->addOrderBy('date', 'DESC')
             ->handleRequest($request);
 
         if ($table->isCallback()) {
