@@ -28,6 +28,10 @@ App\Entity\Bill:
         textDate:
             type: string
             length: 255
+        type:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         place:
             targetEntity: App\Entity\Place

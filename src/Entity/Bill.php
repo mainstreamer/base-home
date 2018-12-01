@@ -28,6 +28,8 @@ class Bill
 
     private $status;
 
+    private $type;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -144,5 +146,21 @@ class Bill
     public function setTextDate($textDate): void
     {
         $this->textDate = $textDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type): void
+    {
+        $this->type = $type;
     }
 }
