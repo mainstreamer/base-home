@@ -12,3 +12,12 @@ date: Дата
 id: Номер
 due: До сплати
 status: Статус
+gas: Газ
+hot water: Гаряча вода
+cold water: Холодна вода
+heating: Опалення
+electricity: Електроенергія
+payDate: Дата оплати
+actuallyPaid: Фактично слачено
+billDate: Дата рахунку
+billPeriod: Розрахунковий період

@@ -12,6 +12,7 @@ use App\Repository\PlaceRepository;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\DateTimeColumn;
+use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\Column\TwigColumn;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,8 +25,6 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class PlaceController extends Controller
 {
-//    use DataTablesTrait;
-
     use DataTablesTrait;
 
     private $dispatcher;
@@ -62,23 +61,46 @@ class PlaceController extends Controller
 
     public function show(Request $request, Place $place, TranslatorInterface $translator): Response
     {
+//        \setlocale(LC_ALL,'uk_UA');
+//        dump( ucfirst(strftime("%b %Y")));exit;
+//
+//            $formatter = new \IntlDateFormatter('uk', \IntlDateFormatter::MEDIUM, \IntlDateFormatter::MEDIUM);
+//            $formatter->setPattern('M Y');
+//         $str =    new \DateTime('');
+//
+//
+//        dump(
+//            \IntlDateFormatter::formatObject($str, "MMMM y", 'uk')
+//            );exit;
+//
+//
+//            dump(\IntlDateFormatter::formatObject(new \DateTime(), \IntlDateFormatter::MEDIUM, 'uk'));
+//            exit;
         $table = $this->createDataTable()
-            ->add('id', TwigColumn::class, [
-                'className' => 'd-flex flex-row comment-row',
+//            ->add('id', TwigColumn::class, [
+//                'className' => 'd-flex flex-row comment-row',
+//                'template' => 'tables/cell.html.twig',
+//                'label' => $translator->trans('id'),
+//            ])
+            ->add('status', TwigColumn::class, [
+                'className' => '',
                 'template' => 'tables/cell.html.twig',
-                'label' => $translator->trans('id'),
+                'label' => $translator->trans('status'),
             ])
             ->add('amount', TwigColumn::class, [
                 'className' => '',
                 'template' => 'tables/cell.html.twig',
                 'label' => $translator->trans('due'),
             ])
-            ->add('status', TwigColumn::class, [
+            ->add('actuallyPaid', TwigColumn::class, [
                 'className' => '',
                 'template' => 'tables/cell.html.twig',
-                'label' => $translator->trans('status'),
+                'label' => $translator->trans('actuallyPaid'),
             ])
-            ->add('date', DateTimeColumn::class, ['field' => 'bill.textDate', 'orderField' => 'bill.date', 'format' => 'd-m-Y', 'label' => $translator->trans('date')])
+
+            ->add('date', DateTimeColumn::class, ['field' => 'bill.textDate', 'orderField' => 'bill.date', 'format' => 'd-m-Y', 'label' => $translator->trans('billDate')])
+            ->add('payDate', DateTimeColumn::class, ['format' => 'd-m-Y', 'label' => $translator->trans('payDate')])
+            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Bill::class,
 

@@ -1,4 +1,61 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr' : {'class' : 'form-horizontal'}}) }}
+ <div class="form-group row col-lg-9 col-md-9 col-sm-12">
+         <div class="input-group">
+        {{ form_widget(form.type, {'attr' : {'placeholder' : 'Тип послуг', 'class' : 'w-100 p-3 select2 form-control select2 select2-container form-control' }}) }}
+      </div>
+ <div class="input-group">
+     {#<div class="form-group row">#}
+        {{ form_widget(form.amount, {'attr' : {'placeholder' : 'Сума', 'class' : 'form-control', 'step' : '1', 'min' : '0' }}) }}
+     <div class="input-group-append">
+         <span class="input-group-text" id="basic-addon2">ГРН</span>
+     </div>
+     <input type="text" pattern="\d*" maxlength="2" style="min-width: 45px; max-width: 45px;" class="col-1 form-control" min="0" max="99" step="1" placeholder="00">
+     <div class="input-group-append">
+         <span class="input-group-text" id="basic-addon2">КОП</span>
+     </div>
+     {#</div>#}
+ </div>
+
+ <div class="input-group">
+     {{ form_widget(form.place, {'attr' :  { 'class' :  'select2 form-control select2 select2-container w-100 p-3' }}) }}
+ </div>
+     <div class="input-group">
+         {{ form_widget(form.date, {'attr' : { 'readonly' : 'readonly', 'autocomplete' : 'off', 'class' : 'form-control datepicker-autoclose', 'placeholder' : 'Дата виставлення рахунку'}}) }}
+         <div class="input-group-append">
+             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+         </div>
+     </div>
+
+     <div class="input-group">
+         {{ form_widget(form.period, {'attr' : {'readonly' : 'readonly', 'autocomplete' : 'off', 'class' : 'form-control billing-period', 'placeholder' : 'Розрахунковий період'}}) }}
+         <div class="input-group-append">
+             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+         </div>
+     </div>
+
+     <div class="input-group">
+         {{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'placeholder' : 'Нотатки'}}) }}
+         {#<div class="input-group-append">#}
+             {#<span class="input-group-text"><i class="fa fa-calendar"></i></span>#}
+         {#</div>#}
+     </div>
+     {##}
+     {#<div class="input-group">#}
+         {#<input type="text" class="form-control" id="datepicker-autoclose" placeholder="mm/dd/yyyy">#}
+         {#{{ form_widget(form.date, {'attr' : {'id' : 'datepicker-autoclose', 'class' : 'form-control'}}) }}#}
+         {#<div class="input-group-append">#}
+             {#<span class="input-group-text"><i class="fa fa-calendar"></i></span>#}
+         {#</div>#}
+     {#</div>#}
+
+     {#<div class="form-group row">#}
+
+     </div>
+<div class="border-top col-lg-9 col-md-9 col-sm-12">
+    <div class="card-body pl-0">
+        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    </div>
+</div>
+
+
 {{ form_end(form) }}
