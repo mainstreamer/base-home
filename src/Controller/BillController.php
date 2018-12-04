@@ -22,10 +22,12 @@ class BillController extends AbstractController
     {
         $bill = new Bill();
         $form = $this->createForm(BillType::class, $bill);
+//        dump($bill);exit;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+//            dump($bill);exit;
             $em->persist($bill);
             $em->flush();
 

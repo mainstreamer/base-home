@@ -18,6 +18,11 @@ cold water: Холодна вода
 heating: Опалення
 electricity: Електроенергія
 payDate: Дата оплати
-actuallyPaid: Фактично слачено
+actuallyPaid: Фактично сплачено
 billDate: Дата рахунку
 billPeriod: Розрахунковий період
+UNPAID: Не оплачено
+PAID: Сплачено
+yes: Так
+no: Ні
+service: Послуга

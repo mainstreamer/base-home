@@ -50,6 +50,8 @@ class Bill
 
     private $payDate;
 
+    private $payDateText;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -117,7 +119,10 @@ class Bill
         $this->period = $period;
         if ($period) {
             setlocale(LC_ALL, 'uk_UA');
-            $this->textPeriod = strftime('%b %Y', $period->getTimestamp());
+            $value = strftime('%b %Y', $period->getTimestamp());
+//            $this->textPeriod = strftime('%b %Y', $period->getTimestamp());
+
+            $this->textPeriod = mb_strtoupper(mb_substr($value, 0, 1)).mb_substr($value, 1);
         }
     }
 
@@ -250,5 +255,22 @@ class Bill
     public function setPayDate($payDate): void
     {
         $this->payDate = $payDate;
+        $this->payDateText = $payDate->format('d-m-Y') ? $payDate->format('d-m-Y') : 'немає';
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayDateText()
+    {
+        return $this->payDateText;
+    }
+
+    /**
+     * @param mixed $payDateText
+     */
+    public function setPayDateText($payDateText): void
+    {
+        $this->payDateText = $payDateText;
     }
 }

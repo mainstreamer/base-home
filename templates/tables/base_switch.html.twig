@@ -1,0 +1,89 @@
+<html>
+
+<head>
+    {#<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">#}
+    {#<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">#}
+    {#<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>#}
+    {#<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>#}
+    <style>
+        .outerDivFull { margin:50px; }
+
+        .switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
+        .switchToggle label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 30px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
+        .switchToggle label:after {content: ''; position: absolute; top: 2px; left: 2px; width: 26px; height: 26px; background: #fff; border-radius: 90px; transition: 0.3s; }
+        .switchToggle input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
+        .switchToggle input + label:before, .switchToggle input + input + label:before {content: "{{ 'no'|trans }}"; position: absolute; top: 5px; left: 35px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {content: "{{ 'yes'|trans }}"; position: absolute; top: 5px; left: 10px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
+        .switchToggle label:active:after {width: 60px; }
+        .toggle-switchArea { margin: 10px 0 10px 0; }
+    </style>
+
+    {#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">#}
+    {#<style>#}
+        {#/***#}
+         {#Material Design Switches for Bootstrap 4 and Material Design Bootstrap (MDB)#}
+         {#by djibe#}
+         {#JSFiddle : https://jsfiddle.net/djibe89/9deak9dh/#}
+     {#***/#}
+
+        {#.material-switch > input[type="checkbox"] {#}
+            {#display: none;#}
+        {#}#}
+
+        {#.material-switch > label {#}
+            {#cursor: pointer;#}
+            {#height: 0px;#}
+            {#position: relative;#}
+            {#top: 2px;#}
+            {#width: 40px;#}
+        {#}#}
+
+        {#.material-switch > label::before {#}
+            {#background: rgb(0, 0, 0);#}
+            {#box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);#}
+            {#border-radius: 8px;#}
+            {#content: '';#}
+            {#height: 16px;#}
+            {#margin-top: -8px;#}
+            {#position: absolute;#}
+            {#opacity: 0.3;#}
+            {#transition: all 0.4s ease-in-out;#}
+            {#width: 40px;#}
+        {#}#}
+
+        {#.material-switch > label::after {#}
+            {#background: rgb(255, 255, 255);#}
+            {#border-radius: 16px;#}
+            {#box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);#}
+            {#content: '';#}
+            {#height: 24px;#}
+            {#left: -4px;#}
+            {#margin-top: -8px;#}
+            {#position: absolute;#}
+            {#top: -4px;#}
+            {#transition: all 0.3s ease-in-out;#}
+            {#width: 24px;#}
+        {#}#}
+
+        {#.material-switch > input[type="checkbox"]:checked + label::before {#}
+            {#background: inherit;#}
+            {#opacity: 0.5;#}
+        {#}#}
+
+        {#.material-switch > input[type="checkbox"]:checked + label::after {#}
+            {#background: inherit;#}
+            {#left: 20px;#}
+        {#}#}
+
+    {#</style>#}
+</head>
+<body>
+{% block content %}
+
+{% endblock content %}
+{#<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>#}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>#}
+{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>#}
+</body>
+</html>

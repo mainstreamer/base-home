@@ -18,9 +18,7 @@ App\Entity\Bill:
             nullable: true
         period:
             type: datetime
-#            type: string
-#            length: 255
-
+            nullable: true
         textPeriod:
             type: string
             length: 255
@@ -44,6 +42,10 @@ App\Entity\Bill:
             nullable: true
         payDate:
             type: datetime
+            nullable: true
+        payDateText:
+            type: string
+            length: 255
             nullable: true
     manyToOne:
         place:

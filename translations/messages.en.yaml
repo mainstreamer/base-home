@@ -16,3 +16,8 @@ payDate: Payment Date
 actuallyPaid: Actually Paid
 billDate: Bill Date
 billPeriod: Billing period
+UNPAID: Unpaid
+PAID: Paid
+yes: Yes
+no: No
+service: Service

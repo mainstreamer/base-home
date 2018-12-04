@@ -65,7 +65,7 @@ class BillType extends AbstractType
                                 // transform the array to a string
 //                            dump($stringToDate);
 
-                                $stringToDate = str_replace('Червень', 6, $stringToDate);
+                                $stringToDate = str_replace(['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], $stringToDate);
 
 //                                        dump($stringToDate);
 

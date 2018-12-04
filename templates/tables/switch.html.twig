@@ -1,0 +1,49 @@
+{#{% extends 'tables/base_switch.html.twig' %}#}
+
+{#{% block content %}#}
+    {#<div class="outerDivFull" >#}
+        <div class="switchToggle">
+            <input type="checkbox" class="switch">
+            <label for="switch">Toggle</label>
+        </div>
+<script>
+
+    $('label').click(function() {
+        var input = $(this).parent().find('input');
+        var toggle = !input.prop("checked");
+        console.log(toggle);
+        input.prop("checked", toggle);
+        input.trigger('change');
+    });
+    // $('.switch').on("click", function () {
+    //     alert();
+    //     // $(this).prop( "checked", true  );
+    // });
+
+    // alert('as');
+// $('input').on("click", function () {
+//     alert('iinput');
+//     // $(this).prop( "checked", true  );
+// });
+
+</script>
+
+        {#<div class="switchToggle">#}
+            {#<input type="checkbox" id="switch1">#}
+            {#<label for="switch1">Toggle</label>#}
+        {#</div>#}
+
+    {#</div>#}
+
+                    {#<div class="row">#}
+                        {#<div class="col-1">#}
+                            {#<div class="md-form">#}
+                                {#<div class="material-switch">#}
+                                    {#<input id="switch-default" name="switch-default" type="checkbox">#}
+                                    {#<label for="switch-default" class="default-color"></label>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</div>#}
+                    {#</div>#}
+
+{#{% endblock content %}#}

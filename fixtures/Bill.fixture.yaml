@@ -6,3 +6,4 @@ App\Entity\Bill:
         amount: '<randomNumber(3)>'
         date: '<dateTime()>'
         period: '<dateTime()>'
+        payDate: '<dateTime()>'
