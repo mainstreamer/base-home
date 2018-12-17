@@ -49,6 +49,10 @@ bill_delete:
     path: /bills/{id}/delete
     controller: App\Controller\BillController::delete
 
+bill_toggle_payment:
+    path: /bills/payment/{id}
+    controller: App\Controller\BillController::togglePayment
+
 place_index:
     path: /places
     controller: App\Controller\PlaceController::index
@@ -137,3 +141,4 @@ indication_edit:
 indication_delete:
     path: /indications/{id}/delete
     controller: App\Controller\IndicationController::delete
+

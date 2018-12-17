@@ -7,7 +7,13 @@
 
     {{ include('meter/_form.html.twig', {'button_label': 'Update'}) }}
 
+    <div class="border-top col-lg-9 col-md-9 col-sm-12">
+        <div class="card-body pl-0 d-flex flex-row justify-content-between">
+            {{ include('meter/_delete_form.html.twig') }}
+        </div>
+    </div>
+
     <a href="{{ path('meter_index') }}">back to list</a>
 
-    {{ include('meter/_delete_form.html.twig') }}
+    {#{{ include('meter/_delete_form.html.twig') }}#}
 {% endblock %}

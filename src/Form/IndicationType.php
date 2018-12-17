@@ -16,6 +16,7 @@ class IndicationType extends AbstractType
             ->add('value')
             ->add('date')
             ->add('meter')
+//            ->add('unit')
         ;
     }
 

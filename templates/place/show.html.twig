@@ -19,22 +19,29 @@
     <style>
         .outerDivFull { margin:50px; }
 
-        .switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
-        .switchToggle label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 30px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
-        .switchToggle label:after {content: ''; position: absolute; top: 2px; left: 2px; width: 26px; height: 26px; background: #fff; border-radius: 90px; transition: 0.3s; }
-        .switchToggle input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
-        .switchToggle input + label:before, .switchToggle input + input + label:before {content: "{{ 'no'|trans }}"; position: absolute; top: 5px; left: 35px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
-        .switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {content: "{{ 'yes'|trans }}"; position: absolute; top: 5px; left: 10px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
-        .switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
-        .switchToggle label:active:after {width: 60px; }
-        .toggle-switchArea { margin: 10px 0 10px 0; }
+        .custom-switch input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
+        .custom-switch label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 30px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
+        .custom-switch label:after {content: ''; position: absolute; top: 2px; left: 2px; width: 26px; height: 26px; background: #fff; border-radius: 90px; transition: 0.3s; }
+        .custom-switch input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
+        .custom-switch input + label:before, .switchToggle input + input + label:before {content: "{{ 'no'|trans }}"; position: absolute; top: 5px; left: 35px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .custom-switch input:checked + label:before, .switchToggle input:checked + input + label:before {content: "{{ 'yes'|trans }}"; position: absolute; top: 5px; left: 10px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .custom-switch input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
+        .custom-switch label:active:after {width: 60px; }
+        /*.toggle-switchArea { margin: 10px 0 10px 0; }*/
+
+        #dt_filter, #dt_length { display: inline-block;}
+        #dt_filter {float: right;}
+        #dt_filter label input {display: inline-block; width: 240px; float: right;}
+        #dt_length label, #dt_filter label {width: 300px;}
+        #dt_length  select.form-control.form-control-sm { display: inline-block; width: 40px;}
+
     </style>
 
 
-    {#<script#}
-            {#src="https://code.jquery.com/jquery-3.3.1.slim.min.js"#}
-            {#integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="#}
-            {#crossorigin="anonymous"></script>#}
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+            crossorigin="anonymous"></script>
 
     {#<script src="/bundles/datatables/js/datatables.js"></script>#}
 
@@ -106,9 +113,13 @@
 
         <div class="card-body">
             <h5 class="card-title">Рахунки</h5>
+            <div class="table-responsive">
+                <div id="presidents" class=" table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
+            </div>
         </div>
 
-        <div id="presidents" class=" table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
+
+
 
     </div>
 
@@ -143,6 +154,7 @@
 {% endblock actions %}
 
 {% block javascripts %}
+
 
     {#<script src="/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>#}
     {#<script src="/assets/extra-libs/multicheck/jquery.multicheck.js"></script>#}
@@ -183,9 +195,6 @@
     <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
 
     {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/fh-3.1.4/sc-1.5.0/datatables.min.js"></script>#}
-
-
-
     <!-- Insert this at the end of your body element, but before the closing tag -->
     <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
     <script>
@@ -194,38 +203,37 @@
         $(function() {
             $('#presidents').initDataTables({{ datatable_settings(datatable) }},  {
                 searching: true
-                // dom:'<"html5buttons"B>lTfgitp',
-                // buttons: [
-                //     'copy'
-                // //     { extend: 'pdf', title: 'domains'},
-                // //     { extend: 'print' }
-                // ]
             });
 
-            $('input').on("click", function () {
-                alert('a');
-            });
-
-            // $('.switchToggle').on("click", function () {
-            //
-            //     // alert('a');
-            //     // var element = $(this).find('input:first');
-            //     // $(this).find('input');
-            //     // var ischecked = !!element.prop( "checked");
-            //     // console.log(element);
-            //     // element.prop( "checked", !ischecked  );
-            //     // element.trigger('change');
-            //
-            //     // console.log($(this).children));
-            //     // this.('input').prop('checked');
-            // });
         });
+
     </script>
 
     <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
 
 
+<script>
 
+        $('#presidents').on("click", ".custom-switch", (function () {
+
+            var url = "/bills/payment/";
+
+            var jqxhr = $.ajax( url+$(this).find('input').prop("id").replace('switch-', ''))
+                .done ((data) => {
+                    $(this).find('input').prop("checked", !$(this).find('input').prop("checked"));
+                    $(this).parent().parent().find('.sorting_1').next().text(data)
+                })
+                .fail( () => {
+                    alert( "error" );
+                })
+                // .always(function() {
+                //     alert( "complete" );
+                // })
+            ;
+
+        }));
+
+</script>
 
     {#<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>#}
     {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>#}

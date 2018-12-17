@@ -7,7 +7,9 @@ namespace App\Controller;
 use App\Entity\Bill;
 use App\Form\BillType;
 use App\Repository\BillRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -71,5 +73,25 @@ class BillController extends AbstractController
         }
 
         return $this->redirectToRoute('bill_index');
+    }
+
+    /**
+     * @param Request $request
+     * @param Bill $bill
+     * @return JsonResponse
+     * @Security("user === bill.getPlace().getUser()")
+     */
+
+    public function togglePayment(Bill $bill)
+    {
+        $bill->setStatus($bill->getStatus() === Bill::PAID ? Bill::UNPAID : Bill::PAID);
+        if ($bill->getStatus() === Bill::PAID) { $bill->setPayDate(new \DateTime());
+        $response = $bill->getPayDateText();}
+        else {
+            $response = '–––'; //TODO think about moving this away
+        }
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse( $response, Response::HTTP_OK);
     }
 }

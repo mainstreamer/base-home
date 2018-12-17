@@ -2,31 +2,11 @@
 
 {#{% block content %}#}
     {#<div class="outerDivFull" >#}
-        <div class="switchToggle">
-            <input type="checkbox" class="switch">
+        <div class="custom-switch">
+            <input type="checkbox" id="switch-{{ row.id }}" class="switch" {% if row.status == 'PAID' %}checked{% endif %}>
             <label for="switch">Toggle</label>
         </div>
-<script>
 
-    $('label').click(function() {
-        var input = $(this).parent().find('input');
-        var toggle = !input.prop("checked");
-        console.log(toggle);
-        input.prop("checked", toggle);
-        input.trigger('change');
-    });
-    // $('.switch').on("click", function () {
-    //     alert();
-    //     // $(this).prop( "checked", true  );
-    // });
-
-    // alert('as');
-// $('input').on("click", function () {
-//     alert('iinput');
-//     // $(this).prop( "checked", true  );
-// });
-
-</script>
 
         {#<div class="switchToggle">#}
             {#<input type="checkbox" id="switch1">#}

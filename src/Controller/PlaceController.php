@@ -87,6 +87,7 @@ class PlaceController extends Controller
                 'template' => 'tables/switch.html.twig',
                 'label' => $translator->trans('PAID'),
             ])
+            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])
             ->add('type', TwigColumn::class, [
                 'className' => '',
                 'template' => 'tables/cell.html.twig',
@@ -105,7 +106,6 @@ class PlaceController extends Controller
 
             ->add('date', DateTimeColumn::class, ['field' => 'bill.textDate', 'orderField' => 'bill.date', 'format' => 'd-m-Y', 'label' => $translator->trans('billDate')])
             ->add('payDateText', DateTimeColumn::class, ['nullValue' => '–––', 'orderField' => 'bill.payDateText', 'format' => 'd-m-Y', 'label' => $translator->trans('payDate')])
-            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Bill::class,
 
