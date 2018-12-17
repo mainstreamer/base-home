@@ -55,22 +55,22 @@ class MeterController extends Controller
         $table = $this->createDataTable()
             ->add('id', TwigColumn::class, [
                 'className' => 'd-flex flex-row comment-row',
-                'template' => 'tables/cell.html.twig',
+                'template' => 'indication/cell.html.twig',
                 'label' => $translator->trans('id'),
             ])
             ->add('name', TwigColumn::class, [
                 'className' => '',
-                'template' => 'tables/cell.html.twig',
+                'template' => 'indication/cell.html.twig',
                 'label' => $translator->trans('name'),
             ])
             ->add('unit', TwigColumn::class, [
                 'className' => '',
-                'template' => 'tables/cell.html.twig',
+                'template' => 'indication/cell.html.twig',
                 'label' => $translator->trans('unit'),
             ])
             ->add('value', TwigColumn::class, [
                 'className' => '',
-                'template' => 'tables/cell.html.twig',
+                'template' => 'indication/cell.html.twig',
                 'label' => $translator->trans('value'),
             ])
 //            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])

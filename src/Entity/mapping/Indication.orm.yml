@@ -20,6 +20,9 @@ App\Entity\Indication:
         unit:
             type: string
             nullable: true
+        file:
+            type: string
+            nullable: true
 #        unit:
 #        type:
 #        amount:

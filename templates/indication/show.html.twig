@@ -3,7 +3,7 @@
 {% block title %}Indication{% endblock %}
 
 {% block content %}
-    <h1>Bill</h1>
+    <h1>INDICATION</h1>
 
     <table class="table">
         <tbody>
@@ -15,6 +15,10 @@
                 <th>Name</th>
                 <td>{{ indication.name }}</td>
             </tr>
+            <tr>
+                <th>File</th>
+                <td>{{ indication.file }}</td>
+            </tr>
             {#<tr>#}
                 {#<th>Amount</th>#}
                 {#<td>{{ indication.amount }}</td>#}
@@ -22,9 +26,48 @@
         </tbody>
     </table>
 
+    <div class="row el-element-overlay">
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="el-card-item">
+                    <div class="el-card-avatar el-overlay-1">
+                        {#<img src="../../assets/images/big/img1.jpg" alt="user">#}
+                        {#<img src="/{{ indication.file }}">#}
+                        {% if '.pdf' in indication.file %}
+                            <img src="https://i.gadgets360cdn.com/large/pdf_pixabay_1493877090501.jpg">
+                        {% elseif indication.file matches '/(.jpg|.jpeg|.png|.gif|.bmp|.svg)$/' %}
+                            <img src="/{{ indication.file }}">
+                        {% else %}
+                            {#<img src="https://openclipart.org/image/2400px/svg_to_png/212223/rodentia-icons_file-x-generic.png">#}
+                            <img src="https://cdn3.iconfinder.com/data/icons/brands-applications/512/File-512.png">
+                        {% endif %}
+                        <div class="el-overlay">
+                            <ul class="list-style-none el-info">
+                                {% if indication.file matches '/(.jpg|.jpeg|.png|.gif|.bmp|.svg)$/'%}
+                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="/{{ indication.file }}"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                {% endif %}
+                                <li class="el-item"><a class="btn default btn-outline el-link " download="{{ indication.file }}" href="/{{ indication.file }}"><i class="mdi mdi-download"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="el-card-content">
+                        <h4 class="m-b-0">Project title</h4> <span class="text-muted">subtitle of project</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <a href="{{ path('indication_index') }}">back to list</a>
 
     <a href="{{ path('indication_edit', {'id': indication.id}) }}">edit</a>
 
     {{ include('indication/_delete_form.html.twig') }}
 {% endblock %}
+
+{% block javascripts %}
+    <link href="/assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <script src="/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    {#<script src="../../assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>#}
+    <script src="/assets/libs/magnific-popup/meg.init.js"></script>
+{% endblock javascripts %}
