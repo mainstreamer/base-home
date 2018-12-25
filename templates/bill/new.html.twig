@@ -1,11 +1,178 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}New Bill{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/assets/libs/select2/dist/css/select2.min.css">
+    {#<link rel="stylesheet" type="text/css" href="/assets/libs/select2/dist/js/select2.min.js">#}
+    <link rel="stylesheet" type="text/css" href="/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <style>
+        .select2-selection.select2-selection--single {
+            border: 1px solid #e9ecef;
+            border-radius: 0px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #59616A;
+
+        }
+
+        .select2-selection.select2-selection--single {
+            height: 35px;
+        }
+
+        .select2.select2-container.select2-container--default {
+            height: 35px;
+            width: 100%!important;
+        }
+
+        .select2-selection__rendered {
+
+            padding-top: 5px;
+            padding-left: 12px!important;
+        }
+
+        .select2-selection__arrow {
+            height: 35px!important;
+        }
+
+        .form-control[readonly] {
+            background-color: #ffffff;
+        }
+
+        .form-control[readonly]:hover {
+            cursor: pointer;
+        }
+
+        .mh-1000 {
+            min-height: 1000px;
+        }
+
+        /*.form-group label {*/
+            /*padding-left: 10px;*/
+        /*}*/
+        label.custom-file-label {
+
+            font-weight: 400;
+            color: rgb(108,117,125);
+
+        }
+
+        label.custom-file-label:after {
+            font-family: "Material Design Icons";
+            content: "\f552";
+        }
+
+        /*h5.form-group.row {margin-bottom: 0px;}*/
+
+    </style>
+{% endblock head %}
 
 {% block content %}
-    <h1>Create new Bill</h1>
+    <a class="m-l-15 waves-effect waves-light " href="{{ path('place_show', {'id' : place.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
 
-    {{ include('bill/_form.html.twig') }}
+            <div class="card col-12 mh-1000"  >
+                {#<h1>Create new Bill</h1>#}
+                <div class="card-body">
+                    {#{{ include('bill/_form.html.twig') with {'title' : 'НОВИЙ РАХУНОК'} }}#}
+                    {% include 'bill/_form.html.twig' with {'title' : 'НОВИЙ РАХУНОК'} %}
+                </div>
 
-    <a href="{{ path('bill_index') }}">back to list</a>
+                {#<a href="{{ path('bill_index') }}">back to list</a>#}
+
+            </div>
+    {#</div>#}
+</div>
 {% endblock %}
+{% block javascripts %}
+    {#<script src="../../dist/js/custom.min.js"></script>#}
+    <script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/assets/libs/select2/dist/js/i18n/uk.js"></script>
+    {#<script src="/assets/libs/select2/dist/js/select2.full.min.js"></script>#}
+    {#<script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>#}
+    <script src="/assets/libs/bootstrap-datepicker/dist/locales/bootstrap-datepicker.uk.min.js"></script>
+
+    <script src="/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="/dist/js/pages/mask/mask.init.js"></script>
+    <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+    <script>
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+        // //***********************************//
+        // // For select 2
+        // //***********************************//
+        $(".select2").select2({
+            language: "uk"
+        });
+        //
+        // /*colorpicker*/
+        // $('.demo').each(function() {
+        //     //
+        //     // Dear reader, it's actually very easy to initialize MiniColors. For example:
+        //     //
+        //     //  $(selector).minicolors();
+        //     //
+        //     // The way I've done it below is just for the demo, so don't get confused
+        //     // by it. Also, data- attributes aren't supported at this time...they're
+        //     // only used for this demo.
+        //     //
+        //     $(this).minicolors({
+        //         control: $(this).attr('data-control') || 'hue',
+        //         position: $(this).attr('data-position') || 'bottom left',
+        //
+        //         change: function(value, opacity) {
+        //             if (!value) return;
+        //             if (opacity) value += ', ' + opacity;
+        //             if (typeof console === 'object') {
+        //                 console.log(value);
+        //             }
+        //         },
+        //         theme: 'bootstrap'
+        //     });
+        //
+        // });
+        /*datwpicker*/
+        // jQuery('.mydatepicker').datepicker();
+        // jQuery('#datepicker-autoclose').datepicker.defaults.format = "dd/mm/yyyy";
+        jQuery('.datepicker-autoclose').datepicker({
+            autoclose: true,
+            // todayHighlight: true,
+            language: 'uk',
+            format : "dd/mm/yyyy",
+            orientation: 'bottom',
+
+        }).val('');
+        jQuery('.billing-period').datepicker({
+            autoclose: true,
+            language: 'uk',
+            format : "MM yyyy",
+            viewMode: "months",
+            minViewMode: "months",
+            orientation: 'bottom'
+        });
+
+
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            // alert('The file "' + fileName +  '" has been selected.');
+
+            $('.custom-file-label').text(fileName);
+        });
+
+
+
+        // var quill = new Quill('#editor', {
+        //     theme: 'snow'
+        // });
+        // $(".formHorizontal").validate();
+
+    </script>
+{% endblock javascripts %}

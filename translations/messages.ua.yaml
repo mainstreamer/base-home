@@ -8,7 +8,27 @@ sign up: Реєстрація
 indications: Показники
 indication: Показання
 meter: Лічильник
-date: Дата (рік-місяць-день)
+date: Дата
 id: Номер
 due: До сплати
 status: Статус
+gas: Газ
+hot water: Гаряча вода
+cold water: Холодна вода
+heating: Опалення
+electricity: Електроенергія
+payDate: Дата оплати
+actuallyPaid: Фактично сплачено
+billDate: Дата рахунку
+billPeriod: Розрахунковий період
+UNPAID: Не оплачено
+PAID: Сплачено
+yes: Так
+no: Ні
+service: Послуга
+last indication date: Дата останнього показання
+no data: Немає даних
+name: Назва
+type: Тип
+made with: Розроблено з
+Service type: Тип послуги

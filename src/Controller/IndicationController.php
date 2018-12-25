@@ -5,9 +5,13 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Indication;
+use App\Entity\Meter;
 use App\Form\IndicationType;
 use App\Repository\IndicationRepository;
+use App\Services\FileUploader;
+use App\Services\FileUploaderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,13 +22,48 @@ class IndicationController extends AbstractController
         return $this->render('indication/index.html.twig', ['indications' => $indicationRepository->findAll()]);
     }
 
-    public function new(Request $request): Response
+    public function new(Request $request, FileUploaderService $fileUploaderService): Response
     {
         $item = new Indication();
         $form = $this->createForm(IndicationType::class, $item);
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+//            $fileUploaderService->upload($item->getFile());
+//            $item->setFile( new File($this->getParameter('uploads_directory').'/'.$item->getFile()));
+            $item->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($item->getFile())));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($item);
+            $em->flush();
+
+            return $this->redirectToRoute('indication_index');
+        }
+
+        return $this->render('indication/new.html.twig', [
+            'indication' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function newIndicationForMeter(Request $request, Meter $meter, FileUploaderService $fileUploaderService): Response
+    {
+        $item = new Indication();
+        $item->setMeter($meter);
+        $form = $this->createForm(IndicationType::class, $item);
+        $form->remove('meter');
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+//            $fileUploaderService->upload($item->getFile());
+//            $item->setFile( new File($this->getParameter('uploads_directory').'/'.$item->getFile()));
+            $item->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($item->getFile())));
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
@@ -45,7 +84,11 @@ class IndicationController extends AbstractController
 
     public function edit(Request $request, Indication $indication): Response
     {
+        $indication->setFile(
+            new File($indication->getFile())
+        );
         $form = $this->createForm(IndicationType::class, $indication);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

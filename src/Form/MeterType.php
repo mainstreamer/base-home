@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Meter;
+use App\Entity\Unit;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,9 +15,9 @@ class MeterType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('type')
+            ->add('type', EntityType::class, ['class' => \App\Entity\MeterType::class, 'placeholder' => 'Тип лічильника', 'choice_translation_domain' => 'messages'] )
             ->add('place')
-            ->add('unit')
+            ->add('unit', EntityType::class, ['class' => Unit::class, 'placeholder' => 'Одиниця виміру'])
         ;
     }
 
