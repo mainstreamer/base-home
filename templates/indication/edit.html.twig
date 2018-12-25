@@ -2,44 +2,134 @@
 
 {% block title %}Edit Bill{% endblock %}
 
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <style>
+        .form-control[readonly] {
+            background-color: #ffffff;
+        }
+
+        .form-control[readonly]:hover {
+            cursor: pointer;
+        }
+
+        .mh-1000 {
+            min-height: 1000px;
+        }
+
+        /*.form-group label {*/
+        /*padding-left: 10px;*/
+        /*}*/
+        label.custom-file-label {
+
+            font-weight: 400;
+            color: rgb(108,117,125);
+
+        }
+
+        label.custom-file-label:after {
+            font-family: "Material Design Icons";
+            content: "\f552";
+        }
+    </style>
+{% endblock head %}
+
+
 {% block content %}
-    <h1>Edit indication</h1>
-
-    {{ include('indication/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('indication_index') }}">back to list</a>
-
-    {{ include('indication/_delete_form.html.twig') }}
-    <div class="row el-element-overlay">
-        <div class="col-lg-3 col-md-6">
-            <div class="card">
-                <div class="el-card-item">
-                    <div class="el-card-avatar el-overlay-1">
-                        {#<img src="../../assets/images/big/img1.jpg" alt="user">#}
-                        {% if '.pdf' in indication.file %}
-                        <img src="https://i.gadgets360cdn.com/large/pdf_pixabay_1493877090501.jpg">
-                        {% else %}
-                        <img src="https://i.gadgets360cdn.com/large/pdf_pixabay_1493877090501.jpg">
-                        {#<img src="/{{ indication.file }}">#}
-                        {% endif %}
-                        <div class="el-overlay">
-                            <ul class="list-style-none el-info">
-                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="/{{ indication.file }}"><i class="mdi mdi-magnify-plus"></i></a></li>
-                                <li class="el-item"><a class="btn default btn-outline el-link " download="{{ indication.file }}.jpg" href="/{{ indication.file }}"><i class="mdi mdi-download"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    {#<div class="el-card-content">#}
-                        {#<h4 class="m-b-0">Project title</h4> <span class="text-muted">subtitle of project</span>#}
-                    {#</div>#}
-                </div>
+    <div class="page-breadcrumb">
+        <div class="row">
+            {#<div class="col-12 d-flex no-block align-items-left">#}
+            <h4 class="page-title text-center">
+                {#<div class="row">#}
+                {#<div class="nav-item d-none d-md-block">#}
+                <a class="waves-effect waves-light p-l-5" href="{{ path('meter_show', {'id' : indication.meter.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
+                {#</div>#}
+                {#<i class="mdi mdi-arrow-left"></i>#}
+                {#</div>#}
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
             </div>
+            {#</div>#}
         </div>
     </div>
+    {%  include 'indication/_form.html.twig' with {'title': 'Редагувати показання'} %}
+
 {% endblock %}
 {% block javascripts %}
     <link href="/assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
     <script src="/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
     {#<script src="../../assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>#}
     <script src="/assets/libs/magnific-popup/meg.init.js"></script>
+
+
+    {#<script src="../../dist/js/custom.min.js"></script>#}
+    <script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/assets/libs/select2/dist/js/i18n/uk.js"></script>
+    {#<script src="/assets/libs/select2/dist/js/select2.full.min.js"></script>#}
+    {#<script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>#}
+    <script src="/assets/libs/bootstrap-datepicker/dist/locales/bootstrap-datepicker.uk.min.js"></script>
+
+    <script src="/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="/dist/js/pages/mask/mask.init.js"></script>
+    <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+    <script>
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+        jQuery('.datepicker-autoclose').datepicker({
+            autoclose: true,
+            // todayHighlight: true,
+            language: 'uk',
+            format : "dd/mm/yyyy",
+            orientation: 'bottom',
+
+        });
+
+        {% if indication.file %}
+        $('.custom-file-label').text('{{ indication.file }}');
+        var url = '{{ path('indication_delete_file', {'id' : indication.id}) }}';
+
+        $('#tooltip-file').attr('data-original-title', 'Видалити файл');
+
+        $('#file-icon').removeClass('mdi-upload').addClass(['mdi-close-box', 'text-danger']);
+        $('#file-icon').on('click', function (e) {
+
+            if ($(this).hasClass('mdi-close-box')) {
+
+                $.ajax(url)
+                    .done ((data) => {
+                        $('#file-icon').removeClass(['mdi-close-box', 'text-danger']).addClass('mdi-upload');
+                        $('.custom-file-label').text('Оберіть файл');
+                        $('#tooltip-file').attr('data-original-title', 'Додайте електронну версію рахунку (не обов`язково)');
+                    })
+                    .fail( () => {
+                        alert( "error" );
+                    })
+                ;
+            }
+        });
+
+        {% endif %}
+
+        $('input[type="file"]').change(function(e){
+
+            var fileName = e.target.files[0].name;
+
+            $('.custom-file-label').text(fileName);
+
+        });
+
+    </script>
 {% endblock javascripts %}

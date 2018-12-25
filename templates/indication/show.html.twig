@@ -1,5 +1,135 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Bill{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-body printableArea">
+                <div class="row">
+                    <div class="col-1">
+                        <a class="waves-effect waves-light p-l-5" href="{{ path('meter_show', {'id' : indication.meter.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
+                    </div>
+                    <div class="col-11">
+                        {#<h3 class="text-right {% if bill.status == 'UNPAID' %}text-danger{% else %}text-success{% endif %}"><b>{{ bill.status | trans }}</b> </h3>#}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right text-left">
+                            <address>
+                                <h5 >Address: <span class="font-weight-light">{{ indication.meter.place.name }} </span></h5>
+                                <p class="m-t-30"><i class="fa fa-calendar"></i> <b>{{ indication.date | date('d-m-Y') }}</b> -  Дата показання </p>
+                                {#<p><i class="fa fa-calendar"></i> <b>{{ bill.payDateText | default('не оплачено') }}</b> - Pay Date </p>#}
+                            </address>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title m-b-0">Показання</h5>
+                </div>
+                <table class="table">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Назва</td>
+                        <td>{{ indication.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Показання лічильника</td>
+                        <td>{{ indication.value }}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата показання</td>
+                        <td>{{ indication.date |date('d-m-Y') }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            {% if indication.file %}
+                <div class="text-right"><div class="row el-element-overlay">
+                        <div class="card w-25 m-t-40 p-t-20">
+                            <div class="el-card-item">
+                                <div class="el-card-avatar el-overlay-1">
+                                    {% if '.pdf' in indication.file %}
+                                        <img src="https://i.gadgets360cdn.com/large/pdf_pixabay_1493877090501.jpg">
+                                    {% elseif indication.file matches '/(.jpg|.jpeg|.png|.gif|.bmp|.svg)$/' %}
+                                        <img src="/{{ indication.file }}">
+                                    {% else %}
+                                        <img src="https://cdn3.iconfinder.com/data/icons/brands-applications/512/File-512.png">
+                                    {% endif %}
+                                    <div class="el-overlay">
+                                        <ul class="list-style-none el-info">
+                                            {% if indication.file matches '/(.jpg|.jpeg|.png|.gif|.bmp|.svg)$/'%}
+                                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="/{{ indication.file }}"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                            {% endif %}
+                                            <li class="el-item"><a class="btn default btn-outline el-link " download="{{ indication.file }}" href="/{{ indication.file }}"><i class="mdi mdi-download"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="el-card-content">
+                                    <h4 class="m-b-0">Project title</h4> <span class="text-muted">subtitle of project</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block actions %}
+    <!-- ============================================================== -->
+    <!-- create new -->
+    <!-- ============================================================== -->
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="d-none d-md-block">Дії <i class="fa fa-angle-down"></i></span>
+            <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {#<a class="dropdown-item" href="{{ path('bill_new') }}">Додати рахунок</a>#}
+            {#<a class="dropdown-item" href="{{ path('bill_new_for_place', {'place' : place.id}) }}">Додати рахунок</a>#}
+            {#<a class="dropdown-item" href="{{ path('meter_new') }}">Додати лічильник</a>#}
+            {#<a class="dropdown-item" href="{{ path('meter_new_for_place', {'place' : place.id}) }}">Додати лічильник</a>#}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ path('indication_edit', {'id': indication.id}) }}">Редагувати показання</a>
+            <a class="dropdown-item text-danger" href="{{ path('indication_edit', {'id': indication.id}) }}">Видалити показання</a>
+        </div>
+    </li>
+{% endblock actions %}
+
+
+{% block javascripts %}
+    <link href="/assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <script src="/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    {#<script src="../../assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>#}
+    <script src="/assets/libs/magnific-popup/meg.init.js"></script>
+{% endblock javascripts %}
+
+
+
+
+{#
+
+
+
+
+{% extends 'base.html.twig' %}
+
 {% block title %}Indication{% endblock %}
 
 {% block content %}
@@ -19,10 +149,18 @@
                 <th>File</th>
                 <td>{{ indication.file }}</td>
             </tr>
-            {#<tr>#}
-                {#<th>Amount</th>#}
-                {#<td>{{ indication.amount }}</td>#}
-            {#</tr>#}
+            #}
+{#<tr>#}{#
+
+                #}
+{#<th>Amount</th>#}{#
+
+                #}
+{#<td>{{ indication.amount }}</td>#}{#
+
+            #}
+{#</tr>#}{#
+
         </tbody>
     </table>
 
@@ -31,14 +169,20 @@
             <div class="card">
                 <div class="el-card-item">
                     <div class="el-card-avatar el-overlay-1">
-                        {#<img src="../../assets/images/big/img1.jpg" alt="user">#}
-                        {#<img src="/{{ indication.file }}">#}
+                        #}
+{#<img src="../../assets/images/big/img1.jpg" alt="user">#}{#
+
+                        #}
+{#<img src="/{{ indication.file }}">#}{#
+
                         {% if '.pdf' in indication.file %}
                             <img src="https://i.gadgets360cdn.com/large/pdf_pixabay_1493877090501.jpg">
                         {% elseif indication.file matches '/(.jpg|.jpeg|.png|.gif|.bmp|.svg)$/' %}
                             <img src="/{{ indication.file }}">
                         {% else %}
-                            {#<img src="https://openclipart.org/image/2400px/svg_to_png/212223/rodentia-icons_file-x-generic.png">#}
+                            #}
+{#<img src="https://openclipart.org/image/2400px/svg_to_png/212223/rodentia-icons_file-x-generic.png">#}{#
+
                             <img src="https://cdn3.iconfinder.com/data/icons/brands-applications/512/File-512.png">
                         {% endif %}
                         <div class="el-overlay">
@@ -68,6 +212,8 @@
 {% block javascripts %}
     <link href="/assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
     <script src="/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
-    {#<script src="../../assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>#}
+    #}
+{#<script src="../../assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>#}{#
+
     <script src="/assets/libs/magnific-popup/meg.init.js"></script>
-{% endblock javascripts %}
+{% endblock javascripts %}#}

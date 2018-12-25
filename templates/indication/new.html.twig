@@ -1,11 +1,100 @@
 {% extends 'base.html.twig' %}
 
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<style>
+    .form-control[readonly] {
+    background-color: #ffffff;
+    }
+
+    .form-control[readonly]:hover {
+    cursor: pointer;
+    }
+
+    .mh-1000 {
+    min-height: 1000px;
+    }
+
+    /*.form-group label {*/
+    /*padding-left: 10px;*/
+    /*}*/
+    label.custom-file-label {
+
+    font-weight: 400;
+    color: rgb(108,117,125);
+
+    }
+
+    label.custom-file-label:after {
+    font-family: "Material Design Icons";
+    content: "\f552";
+    }
+</style>
+
+{% endblock head %}
+
 {% block title %}New Indication{% endblock %}
 
 {% block content %}
-    <h1>Create new Indication</h1>
-
-    {{ include('indication/_form.html.twig') }}
-
-    <a href="{{ path('indication_index') }}">back to list</a>
+    <div class="page-breadcrumb">
+        <div class="row">
+            {#<div class="col-12 d-flex no-block align-items-left">#}
+            <h4 class="page-title text-center">
+                {#<div class="row">#}
+                {#<div class="nav-item d-none d-md-block">#}
+                <a class="waves-effect waves-light p-l-5" href="{{ path('meter_show', {'id' : meter.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
+                {#</div>#}
+                {#<i class="mdi mdi-arrow-left"></i>#}
+                {#</div>#}
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+            {#</div>#}
+        </div>
+    </div>
+    {%  include('indication/_form.html.twig') with {'title' : 'Додати показання'} %}
 {% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/assets/libs/select2/dist/js/i18n/uk.js"></script>
+    <script src="/assets/libs/bootstrap-datepicker/dist/locales/bootstrap-datepicker.uk.min.js"></script>
+    <script src="/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="/dist/js/pages/mask/mask.init.js"></script>
+    <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+    <script>
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+        // //***********************************//
+        // // For select 2
+        // //***********************************//
+        $(".select2").select2({
+            language: "uk"
+        });
+        jQuery('.datepicker-autoclose').datepicker({
+            autoclose: true,
+            // todayHighlight: true,
+            language: 'uk',
+            format : "dd/mm/yyyy",
+            orientation: 'bottom',
+
+        }).val('');
+
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $('.custom-file-label').text(fileName);
+        });
+
+    </script>
+{% endblock javascripts %}

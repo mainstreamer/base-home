@@ -158,3 +158,6 @@ indication_delete:
     path: /indications/{id}/delete
     controller: App\Controller\IndicationController::delete
 
+indication_delete_file:
+    path: /indications/{id}/file/delete
+    controller: App\Controller\IndicationController::deleteFile
