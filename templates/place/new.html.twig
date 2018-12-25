@@ -3,9 +3,30 @@
 {% block title %}New Place{% endblock %}
 
 {% block content %}
-    <h1>Create new Place</h1>
+    <div class="page-breadcrumb">
+        <div class="row">
+            {#<div class="col-12 d-flex no-block align-items-left">#}
+            <h4 class="page-title text-center">
+                {#<div class="row">#}
+                {#<div class="nav-item d-none d-md-block">#}
+                <a class="waves-effect waves-light p-l-5" href="{{ path('my_places')}}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
+                {#</div>#}
+                {#<i class="mdi mdi-arrow-left"></i>#}
+                {#</div>#}
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+            {#</div>#}
+        </div>
+    </div>
 
-    {{ include('place/_form.html.twig') }}
+    {% include('place/_form.html.twig') with {'title' : 'Додати місце'} %}
 
-    <a href="{{ path('place_index') }}">back to list</a>
+    {#<a href="{{ path('place_index') }}">back to list</a>#}
 {% endblock %}
