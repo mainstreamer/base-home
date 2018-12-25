@@ -70,6 +70,7 @@ class BillController extends AbstractController
 
         return $this->render('bill/new.html.twig', [
             'bill' => $bill,
+            'place' => $place,
             'form' => $form->createView(),
         ]);
     }
@@ -140,9 +141,14 @@ class BillController extends AbstractController
     public function togglePayment(Bill $bill)
     {
         $bill->setStatus($bill->getStatus() === Bill::PAID ? Bill::UNPAID : Bill::PAID);
-        if ($bill->getStatus() === Bill::PAID) { $bill->setPayDate(new \DateTime());
-        $response = $bill->getPayDateText();}
+        if ($bill->getStatus() === Bill::PAID) {
+            $bill->setActuallyPaid($bill->getAmount());
+            $bill->setPayDate(new \DateTime());
+            $response = $bill->getPayDateText();
+        }
         else {
+            $bill->setPayDate(null);
+            $bill->setActuallyPaid(null);
             $response = '–––'; //TODO think about moving this away
         }
         $this->getDoctrine()->getManager()->flush();

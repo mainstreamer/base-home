@@ -110,13 +110,12 @@
 {% endblock head %}
 
 {% block content %}
-
+    <a class="m-l-15 waves-effect waves-light " href="{{ path('bill_show', {'id' : bill.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
     <div class="container-fluid">
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
-
-        <div class="card col-12 mh-1000"  >
+        <div class="card col-12 mh-1000">
             {#<h1>Create new Bill</h1>#}
             <div class="card-body">
                 {% include 'bill/_form.html.twig' with { 'title' : 'РЕДАГУВАННЯ РАХУНКУ'} %}
@@ -210,21 +209,23 @@
 
             var url = '{{ path('bill_delete_file', {'id' : bill.id}) }}';
 
+            $('#tooltip-file').attr('data-original-title', 'Видалити файл');
             // var file = true;
             // $('input[type="file"]').on('click',function(e){
             //     alert();
             //     e.target.files[0] = null;
             // });
 
-        $('#file-icon').removeClass('mdi-upload').addClass(['m-0', 'p-0', 'mdi-close-box', 'text-danger']);
+        $('#file-icon').removeClass('mdi-upload').addClass(['mdi-close-box', 'text-danger']);
         $('#file-icon').on('click', function (e) {
 
             if ($(this).hasClass('mdi-close-box')) {
 
                 $.ajax(url)
                     .done ((data) => {
-                        $('#file-icon').removeClass(['mdi-close-box', 'text-danger', 'font-26']).addClass('mdi-upload');
+                        $('#file-icon').removeClass(['mdi-close-box', 'text-danger']).addClass('mdi-upload');
                         $('.custom-file-label').text('Оберіть файл');
+                        $('#tooltip-file').attr('data-original-title', 'Додайте електронну версію рахунку (не обов`язково)');
                         // $(this).find('input').prop("checked", !$(this).find('input').prop("checked"));
                         // $(this).parent().parent().find('.sorting_1').next().text(data)
                     })

@@ -1,18 +1,23 @@
 {{ form_start(form, {'attr' : {'class' : 'form-horizontal col-xl-4 col-lg-6 col-md-8 col-sm-8 col-xs-12'}}) }}
 
-<h5 class="form-group row">{{ title }}</h5>
+{#<h5 class="form-group row">#}
+    {#<a class="waves-effect waves-light m-r-15" href="{{ path('place_show', {'id' : bill.place.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-weight-bold"></i></a>#}
+    {#{{ title }}</h5>#}
+
+
+
+
 <div class="card-body">
-
-    {#<h4 class="form-group row">Personal Info</h4>#}
-
+    <h5 class="text-left">{{ title }}</h5>
+    {#<h4="form-group row">Personal Info</h4>#}
      {#<div class="form-group row col-lg-4 col-md-6 col-sm-3">#}
-     <div class="form-group row">
+     <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="Тип послуг">
          <div class="input-group col-12">
             {{ form_widget(form.type, {'attr' : {'placeholder' : 'Тип послуг', 'class' : 'w-100 p-3 select2 form-control select2 select2-container form-control' }}) }}
          </div>
      </div>
 
-     <div class="form-group row">
+     <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="До сплати">
          <div class="input-group col-12">
          {#<div class="form-group row">#}
 
@@ -40,7 +45,7 @@
       </div>
      {% endif %}
 
-     <div class="form-group row ">
+     <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="Дата виставлення рахунку">
          <div class="input-group col-12">
              {{ form_widget(form.date, {'attr' : { 'readonly' : 'readonly', 'autocomplete' : 'off', 'class' : 'form-control datepicker-autoclose', 'placeholder' : 'Дата виставлення рахунку'}}) }}
              <div class="input-group-append">
@@ -49,7 +54,7 @@
          </div>
      </div>
 
-     <div class="form-group row ">
+     <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="Розрахунковий період">
          <div class="input-group col-12">
              {{ form_widget(form.period, {'attr' : {'readonly' : 'readonly', 'autocomplete' : 'off', 'class' : 'form-control billing-period', 'placeholder' : 'Розрахунковий період'}}) }}
              <div class="input-group-append">
@@ -58,7 +63,7 @@
          </div>
      </div>
 
-     <div class="form-group row" data-toggle="tooltip" data-placement="right" title="" data-original-title="Додайте електронну версію рахунку (опціонально)">
+     <div id="tooltip-file" class="form-group row" data-toggle="tooltip" data-placement="right" title="" data-original-title="Додайте електронну версію рахунку (не обов`язково)">
          {#<label>Не обов'язкові поля</label>#}
          {#<div class="col-4 align-middle text-right">#}
              {#<label class="font-10 alert alert-info badge badge-pill badge-secondary">Електронна версія рахунку</label>#}

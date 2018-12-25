@@ -254,10 +254,10 @@ class Bill
     /**
      * @param mixed $payDate
      */
-    public function setPayDate($payDate): void
+    public function setPayDate(?\DateTime $payDate): void
     {
         $this->payDate = $payDate;
-        $this->payDateText = $payDate->format('d-m-Y') ? $payDate->format('d-m-Y') : 'немає';
+        $this->payDateText = is_object($payDate) ? $payDate->format('d-m-Y') : null;
     }
 
     /**

@@ -71,6 +71,7 @@ class MeterController extends Controller
         return $this->render('meter/new.html.twig', [
             'meter' => $item,
             'form' => $form->createView(),
+            'place' => $place
         ]);
     }
 
@@ -144,6 +145,7 @@ class MeterController extends Controller
     public function edit(Request $request, Meter $meter): Response
     {
         $form = $this->createForm(MeterType::class, $meter);
+        $form->remove('place');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

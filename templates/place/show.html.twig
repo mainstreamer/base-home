@@ -222,7 +222,18 @@
             var jqxhr = $.ajax( url+$(this).find('input').prop("id").replace('switch-', ''))
                 .done ((data) => {
                     $(this).find('input').prop("checked", !$(this).find('input').prop("checked"));
-                    $(this).parent().parent().find('.sorting_1').next().text(data)
+                    $(this).parent().parent().find('.sorting_1').next().text(data);
+
+                    var text = '';
+
+                    if ( $(this).find('input').prop("checked")) {
+                        text = $(this).parent().parent().find('.sorting_1').prev().prev().text();
+                    } else {
+                        text = '0.00';
+                    }
+
+                    $(this).parent().parent().find('.sorting_1').prev().text(text);
+
                 })
                 .fail( () => {
                     alert( "error" );

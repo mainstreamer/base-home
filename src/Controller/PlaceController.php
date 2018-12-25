@@ -99,13 +99,19 @@ class PlaceController extends Controller
                 'label' => $translator->trans('due'),
             ])
             ->add('actuallyPaid', TwigColumn::class, [
-                'className' => '',
-                'template' => 'tables/cell.html.twig',
+                'className' => 'text-center',
+                'template' => 'tables/cell-amount.html.twig',
                 'label' => $translator->trans('actuallyPaid'),
             ])
 
             ->add('date', DateTimeColumn::class, ['field' => 'bill.textDate', 'orderField' => 'bill.date', 'format' => 'd-m-Y', 'label' => $translator->trans('billDate')])
-            ->add('payDateText', DateTimeColumn::class, ['nullValue' => '–––', 'orderField' => 'bill.payDateText', 'format' => 'd-m-Y', 'label' => $translator->trans('payDate')])
+            ->add('payDateText', DateTimeColumn::class, [
+                'className' => 'text-center',
+                'nullValue' => '–––',
+                'orderField' => 'bill.payDateText',
+                'format' => 'd-m-Y',
+                'label' => $translator->trans('payDate')
+            ])
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Bill::class,
 
