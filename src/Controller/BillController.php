@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Bill;
+use App\Entity\Place;
 use App\Form\BillType;
 use App\Repository\BillRepository;
+use App\Services\FileUploaderService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,25 +45,69 @@ class BillController extends AbstractController
         ]);
     }
 
+    public function newBillForPlace(Request $request, Place $place, FileUploaderService $fileUploaderService): Response
+    {
+        $bill = new Bill();
+        $bill->setPlace($place);
+        $form = $this->createForm(BillType::class, $bill);
+        $form->remove('place');
+//        dump($bill);exit;
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($bill->getFile()) {
+                $bill->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())));
+            }
+
+            $em = $this->getDoctrine()->getManager();
+//            dump($bill);exit;
+            $em->persist($bill);
+            $em->flush();
+
+            return $this->redirectToRoute('bill_index');
+        }
+
+        return $this->render('bill/new.html.twig', [
+            'bill' => $bill,
+            'form' => $form->createView(),
+        ]);
+    }
+
     public function show(Bill $bill): Response
     {
         return $this->render('bill/show.html.twig', ['bill' => $bill]);
     }
 
-    public function edit(Request $request, Bill $bill): Response
+    public function edit(Request $request, Bill $bill, FileUploaderService $fileUploaderService): Response
     {
+
+        if ($before = $bill->getFile()) {
+            $bill->setFile( new File($bill->getFile()));
+        }
         $form = $this->createForm(BillType::class, $bill);
+        $form->remove('place');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+//dump($bill->getFile());exit;
+            if ($bill->getFile() && !strpos($bill->getFile()->getPathName(), 'uploads_directory')) {
+//            if ($bill->getFile()) {
+
+                $bill->setFile(new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())));
+            } else {
+                $bill->setFile(new File($before));
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('bill_edit', ['id' => $bill->getId()]);
         }
 
         return $this->render('bill/edit.html.twig', [
+//        return $this->render('bill/new.html.twig', [
             'bill' => $bill,
-            'form' => $form->createView(),
+            'form' => $form->createView()
         ]);
     }
 
@@ -73,6 +120,14 @@ class BillController extends AbstractController
         }
 
         return $this->redirectToRoute('bill_index');
+    }
+
+    public function deleteFile(Bill $bill)
+    {
+        $bill->setFile(null);
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse();
     }
 
     /**

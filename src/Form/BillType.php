@@ -8,8 +8,12 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BillType extends AbstractType
@@ -18,8 +22,11 @@ class BillType extends AbstractType
     {
         $builder
 //            ->add('name')
-            ->add('amount')
+            ->add('amount', MoneyType::class, ['divisor' => 100, 'currency' => false])
+//            ->add('cents', TextType::class, ['mapped' => false])
+            ->add('file', FileType::class, ['required' => false])
             ->add('type', ChoiceType::class, [
+                'placeholder' => 'Service type',
                 'choices' => Bill::TYPES,
                 'choice_translation_domain' => 'messages',
                 'choice_label' => function ($choiceValue, $key, $value) {
@@ -33,18 +40,18 @@ class BillType extends AbstractType
                 ->addModelTransformer(
                     new CallbackTransformer(
                         function ($dateToString) {
-                            // transform the string back to an array
+                            // transform the string back to date
 //                            dump($dateToString);exit;
                             return $dateToString->format('d/m/Y');
                         },
                         function ($stringToDate) {
-                            // transform the array to a string
+                            // transform the date to a string
 //                            dump($stringToDate);exit;
 //
 //                            dump($stringToDate);
 //                            dump(\DateTime::createFromFormat('d-m-Y', $stringToDate));
 //                            exit;
-
+//                            dump('sho');exit;
                             return \DateTime::createFromFormat('d/m/Y', $stringToDate);
 //                            return true;
                         }
@@ -65,7 +72,20 @@ class BillType extends AbstractType
                                 // transform the array to a string
 //                            dump($stringToDate);
 
-                                $stringToDate = str_replace(['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'], [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], $stringToDate);
+                                $stringToDate = str_replace(
+                                    [   'Січень ',
+                                        'Лютий ',
+                                        'Березень ',
+                                        'Квітень ',
+                                        'Травень ',
+                                        'Червень',
+                                        'Липень ',
+                                        'Серпень ',
+                                        'Вересень ',
+                                        'Жовтень ',
+                                        'Листопад ',
+                                        'Грудень '],
+                                    ['1/', '2/', '3/', '4/', '5/', '6/', '7/', '8/', '9/', '10/', '11/', '12/'], $stringToDate);
 
 //                                        dump($stringToDate);
 
@@ -76,7 +96,8 @@ class BillType extends AbstractType
 //                            dump(\DateTime::createFromFormat('d-m-Y', $stringToDate));
 //                            exit;
 
-                                return $stringToDate ? \DateTime::createFromFormat('m Y', $stringToDate) : null;
+//                                dump($stringToDate);exit;
+                                return $stringToDate ? \DateTime::createFromFormat('m/Y', $stringToDate) : null;
 //                            return true;
                             }
                         )
@@ -84,6 +105,16 @@ class BillType extends AbstractType
             )
             ->add('note')
         ;
+
+//        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) {
+//
+//            $bill = $event->getData();
+////            $n = $bill->getAmount()*100;
+////            dump($n);
+////            $bill->setAmount($n);
+////            dump($bill);
+////            dump($bill->getAmount());exit;
+//        });
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -47,6 +47,10 @@ App\Entity\Bill:
             type: string
             length: 255
             nullable: true
+        file:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         place:
             targetEntity: App\Entity\Place

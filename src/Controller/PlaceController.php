@@ -95,7 +95,7 @@ class PlaceController extends Controller
             ])
             ->add('amount', TwigColumn::class, [
                 'className' => '',
-                'template' => 'tables/cell.html.twig',
+                'template' => 'tables/cell-amount.html.twig',
                 'label' => $translator->trans('due'),
             ])
             ->add('actuallyPaid', TwigColumn::class, [

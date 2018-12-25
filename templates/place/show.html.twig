@@ -144,9 +144,10 @@
             <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ path('bill_new') }}">Додати рахунок</a>
-            <a class="dropdown-item" href="{{ path('meter_new') }}">Додати лічильник</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            {#<a class="dropdown-item" href="{{ path('bill_new') }}">Додати рахунок</a>#}
+            <a class="dropdown-item" href="{{ path('bill_new_for_place', {'place' : place.id}) }}">Додати рахунок</a>
+            {#<a class="dropdown-item" href="{{ path('meter_new') }}">Додати лічильник</a>#}
+            <a class="dropdown-item" href="{{ path('meter_new_for_place', {'place' : place.id}) }}">Додати лічильник</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ path('place_edit', {'id': place.id}) }}">Редагувати місце</a>
         </div>

@@ -11,8 +11,13 @@ $(function(e) {
     $(".currency-inputmask").inputmask("$9999"), 
     $(".percentage-inputmask").inputmask("99%"), 
     $(".decimal-inputmask").inputmask({
-        alias: "decimal"
-        , radixPoint: "."
+        alias: "decimal",
+        radixPoint: ".",
+        digits: 2,
+        integerDigits: 5,
+        allowMinus: false,
+        rightAlign: false
+
     }), 
     
     $(".email-inputmask").inputmask({

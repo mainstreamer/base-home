@@ -6,8 +6,10 @@ namespace App\Controller;
 
 use App\Entity\Indication;
 use App\Entity\Meter;
+use App\Entity\Place;
 use App\Form\MeterType;
 use App\Repository\MeterRepository;
+use App\Services\FileUploaderService;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\DateTimeColumn;
@@ -34,6 +36,28 @@ class MeterController extends Controller
     {
         $item = new Meter();
         $form = $this->createForm(MeterType::class, $item);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($item);
+            $em->flush();
+
+            return $this->redirectToRoute('meter_index');
+        }
+
+        return $this->render('meter/new.html.twig', [
+            'meter' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function newMeterForPlace(Request $request, Place $place): Response
+    {
+        $item = new Meter();
+        $item->setPlace($place);
+        $form = $this->createForm(MeterType::class, $item);
+        $form->remove('place');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

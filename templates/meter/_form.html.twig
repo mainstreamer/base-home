@@ -28,9 +28,11 @@
     <div class="input-group">
         {{ form_widget(form.unit, {'attr' :  { 'class' :  'select2 form-control select2 select2-container w-100 p-3' }}) }}
     </div>
-    <div class="input-group">
-        {{ form_widget(form.place, {'attr' :  { 'class' :  'select2 form-control select2 select2-container w-100 p-3' }}) }}
-    </div>
+    {% if form.place is defined %}
+        <div class="input-group">
+            {{ form_widget(form.place, {'attr' :  { 'class' :  'select2 form-control select2 select2-container w-100 p-3' }}) }}
+        </div>
+    {% endif %}
     {#<div class="input-group">#}
         {#{{ form_widget(form.date, {'attr' : { 'readonly' : 'readonly', 'autocomplete' : 'off', 'class' : 'form-control datepicker-autoclose', 'placeholder' : 'Дата виставлення рахунку'}}) }}#}
         {#<div class="input-group-append">#}

@@ -52,6 +52,8 @@ class Bill
 
     private $payDateText;
 
+    private $file;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -76,12 +78,12 @@ class Bill
         return $this;
     }
 
-    public function getAmount(): ?int
+    public function getAmount(): ?float
     {
         return $this->amount;
     }
 
-    public function setAmount(int $amount): self
+    public function setAmount($amount): self
     {
         $this->amount = $amount;
 
@@ -272,5 +274,21 @@ class Bill
     public function setPayDateText($payDateText): void
     {
         $this->payDateText = $payDateText;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
     }
 }

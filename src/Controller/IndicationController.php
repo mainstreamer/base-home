@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Indication;
+use App\Entity\Meter;
 use App\Form\IndicationType;
 use App\Repository\IndicationRepository;
 use App\Services\FileUploader;
@@ -26,6 +27,34 @@ class IndicationController extends AbstractController
         $item = new Indication();
         $form = $this->createForm(IndicationType::class, $item);
 
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+//            $fileUploaderService->upload($item->getFile());
+//            $item->setFile( new File($this->getParameter('uploads_directory').'/'.$item->getFile()));
+            $item->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($item->getFile())));
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($item);
+            $em->flush();
+
+            return $this->redirectToRoute('indication_index');
+        }
+
+        return $this->render('indication/new.html.twig', [
+            'indication' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function newIndicationForMeter(Request $request, Meter $meter, FileUploaderService $fileUploaderService): Response
+    {
+        $item = new Indication();
+        $item->setMeter($meter);
+        $form = $this->createForm(IndicationType::class, $item);
+        $form->remove('meter');
 
         $form->handleRequest($request);
 

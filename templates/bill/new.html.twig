@@ -11,12 +11,10 @@
             border-radius: 0px;
         }
 
-
         .select2-container--default .select2-selection--single .select2-selection__rendered {
             color: #59616A;
 
         }
-
 
         .select2-selection.select2-selection--single {
             height: 35px;
@@ -49,6 +47,23 @@
             min-height: 1000px;
         }
 
+        /*.form-group label {*/
+            /*padding-left: 10px;*/
+        /*}*/
+        label.custom-file-label {
+
+            font-weight: 400;
+            color: rgb(108,117,125);
+
+        }
+
+        label.custom-file-label:after {
+            font-family: "Material Design Icons";
+            content: "\f552";
+        }
+
+        /*h5.form-group.row {margin-bottom: 0px;}*/
+
     </style>
 {% endblock head %}
 
@@ -58,18 +73,18 @@
     <!-- ============================================================== -->
     <!-- Start Page Content -->
     <!-- ============================================================== -->
-    <div class="row ">
+
             <div class="card col-12 mh-1000"  >
                 {#<h1>Create new Bill</h1>#}
                 <div class="card-body">
-                    <h5 class="card-title">Новий рахунок</h5>
-                    {{ include('bill/_form.html.twig') }}
+                    {#{{ include('bill/_form.html.twig') with {'title' : 'НОВИЙ РАХУНОК'} }}#}
+                    {% include 'bill/_form.html.twig' with {'title' : 'НОВИЙ РАХУНОК'} %}
                 </div>
 
                 {#<a href="{{ path('bill_index') }}">back to list</a>#}
 
             </div>
-    </div>
+    {#</div>#}
 </div>
 {% endblock %}
 {% block javascripts %}
@@ -80,8 +95,17 @@
     {#<script src="/assets/libs/select2/dist/js/select2.full.min.js"></script>#}
     {#<script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>#}
     <script src="/assets/libs/bootstrap-datepicker/dist/locales/bootstrap-datepicker.uk.min.js"></script>
+
+    <script src="/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="/dist/js/pages/mask/mask.init.js"></script>
+    <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="/assets/libs/toastr/build/toastr.min.js"></script>
     <script>
 
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
         // //***********************************//
         // // For select 2
         // //***********************************//
@@ -123,7 +147,8 @@
             // todayHighlight: true,
             language: 'uk',
             format : "dd/mm/yyyy",
-            orientation: 'bottom'
+            orientation: 'bottom',
+
         }).val('');
         jQuery('.billing-period').datepicker({
             autoclose: true,
@@ -135,13 +160,19 @@
         });
 
 
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            // alert('The file "' + fileName +  '" has been selected.');
+
+            $('.custom-file-label').text(fileName);
+        });
 
 
 
         // var quill = new Quill('#editor', {
         //     theme: 'snow'
         // });
-        $(".formHorizontal").validate();
+        // $(".formHorizontal").validate();
 
     </script>
 {% endblock javascripts %}

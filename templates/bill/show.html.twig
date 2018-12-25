@@ -42,6 +42,8 @@
                                     <th class="text-center">#</th>
                                     <th>Service</th>
                                     <th class="text-right">Quantity</th>
+                                    <th class="text-right">PIC</th>
+
                                     <th class="text-right">Unit Cost</th>
                                     <th class="text-right">Total</th>
                                 </tr>
@@ -52,6 +54,37 @@
                                     <td class="text-center">1</td>
                                     <td>{{ bill.type | trans }}</td>
                                     <td class="text-right">{{ bill }} </td>
+                                    <td class="text-right"><div class="row el-element-overlay">
+                                            <div class="col-lg-3 col-md-6">
+                                                <div class="card">
+                                                    <div class="el-card-item">
+                                                        <div class="el-card-avatar el-overlay-1">
+                                                            {#<img src="../../assets/images/big/img1.jpg" alt="user">#}
+                                                            {#<img src="/{{ bill.file }}">#}
+                                                            {% if '.pdf' in bill.file %}
+                                                                <img src="https://i.gadgets360cdn.com/large/pdf_pixabay_1493877090501.jpg">
+                                                            {% elseif bill.file matches '/(.jpg|.jpeg|.png|.gif|.bmp|.svg)$/' %}
+                                                                <img src="/{{ bill.file }}">
+                                                            {% else %}
+                                                                {#<img src="https://openclipart.org/image/2400px/svg_to_png/212223/rodentia-icons_file-x-generic.png">#}
+                                                                <img src="https://cdn3.iconfinder.com/data/icons/brands-applications/512/File-512.png">
+                                                            {% endif %}
+                                                            <div class="el-overlay">
+                                                                <ul class="list-style-none el-info">
+                                                                    {% if bill.file matches '/(.jpg|.jpeg|.png|.gif|.bmp|.svg)$/'%}
+                                                                        <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="/{{ bill.file }}"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                                                    {% endif %}
+                                                                    <li class="el-item"><a class="btn default btn-outline el-link " download="{{ bill.file }}" href="/{{ bill.file }}"><i class="mdi mdi-download"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="el-card-content">
+                                                            <h4 class="m-b-0">Project title</h4> <span class="text-muted">subtitle of project</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div></td>
                                     <td class="text-right"> {{ bill.amount }}</td>
                                     <td class="text-right"> {{ bill.amount }}</td>
                                 </tr>
@@ -88,6 +121,8 @@
                             </table>
                         </div>
                     </div>
+
+
                     <div class="col-md-12">
                         <div class="pull-right m-t-30 text-right" style="height: 200px">
                             {#<p>Sub - Total amount: $13,848</p>#}
@@ -99,7 +134,8 @@
                         <hr>
                         <div class="text-right">
                             {{ include('bill/_delete_form.html.twig') }}
-                            <a href="{{ path('bill_index') }}">back to list</a>
+                            <a href="{{ path('bill_index') }}">back to list</a><br>
+                            <a href="{{ path('bill_edit', {'id' : bill.id}) }}">edit</a>
                             {#<button class="btn btn-danger" type="submit"> Proceed to payment </button>#}
                         </div>
                     </div>
@@ -109,8 +145,11 @@
     </div>
 
 
-
-
-
-
 {% endblock %}
+
+{% block javascripts %}
+    <link href="/assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <script src="/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    {#<script src="../../assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>#}
+    <script src="/assets/libs/magnific-popup/meg.init.js"></script>
+{% endblock javascripts %}
