@@ -5,9 +5,24 @@ Email: Імейл
 Password: Пароль
 Error!: Помилка
 sign up: Реєстрація
+
 indications: Показники
-indication: Показання
-meter: Лічильник
+
+indication:
+  title: Показання
+  file:
+    tooltip: Додайте фото показання лічильника (не обов`язково)
+    placeholder: Оберіть файл
+    date: Дата зняття показання
+    value: Значення показання
+  edit:
+    title: Редагувати показання
+  add:
+    title: Додати показання
+  delete:
+    title: Видалити показання
+  date: Дата показання
+
 date: Дата
 id: Номер
 due: До сплати
@@ -25,10 +40,70 @@ UNPAID: Не оплачено
 PAID: Сплачено
 yes: Так
 no: Ні
-service: Послуга
+#service: Послуга
 last indication date: Дата останнього показання
 no data: Немає даних
 name: Назва
 type: Тип
 made with: Розроблено з
 Service type: Тип послуги
+delete_file: Видалити файл
+save: Зберегти
+
+choose_file: Оберіть файл
+
+place:
+  title: Місце
+  titles: Місця
+  edit:
+    title: Редагувати місце
+  add:
+    title: Додати місце
+
+menu:
+  actions:
+    title: Дії
+
+meter:
+  title: Лічильник
+  new:
+    title: Новий лічильник
+  edit:
+    title: Редагувати лічильник
+  add:
+    title: Додати лічильник
+
+bill:
+  title: Рахунок
+  new:
+    title: Новий рахунок
+  edit:
+    title: Редагувати рахунок
+  add:
+    title: Додати рахунок
+  notes:
+    title: Нотатки
+  file:
+    title: Додайте електронну версію рахунку (не обов`язково)
+  bill_date:
+    title: Дата виставлення рахунку
+  bill_period:
+    title: Розрахунковий період
+  amount:
+    title: До сплати
+    placeholder: Введіть суму
+
+service:
+  title: Послуга
+  type: Тип послуг
+
+pages:
+  main: Головна
+  places: Місця
+
+site:
+  title: Цифровий дім
+
+options: Опції
+for: для
+uah: ГРН

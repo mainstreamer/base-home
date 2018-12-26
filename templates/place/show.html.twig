@@ -1,24 +1,11 @@
 {% extends 'base.html.twig' %}
-{##}
 {% block title %}Place{% endblock %}
-{##}
-
 {% block head %}
-    {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>#}
-
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/fh-3.1.4/sc-1.5.0/datatables.min.css"/>
 
-    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/fh-3.1.4/sc-1.5.0/datatables.min.js"></script>#}
-
-    {#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>#}
-    {#<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>#}
-    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/b-1.5.4/b-flash-1.5.4/b-html5-1.5.4/b-print-1.5.4/fh-3.1.4/sc-1.5.0/datatables.min.js"></script>#}
-
-
     <style>
         .outerDivFull { margin:50px; }
-
         .custom-switch input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
         .custom-switch label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 30px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
         .custom-switch label:after {content: ''; position: absolute; top: 2px; left: 2px; width: 26px; height: 26px; background: #fff; border-radius: 90px; transition: 0.3s; }
@@ -27,8 +14,6 @@
         .custom-switch input:checked + label:before, .switchToggle input:checked + input + label:before {content: "{{ 'yes'|trans }}"; position: absolute; top: 5px; left: 10px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
         .custom-switch input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
         .custom-switch label:active:after {width: 60px; }
-        /*.toggle-switchArea { margin: 10px 0 10px 0; }*/
-
         #dt_filter, #dt_length { display: inline-block;}
         #dt_filter {float: right;}
         #dt_filter label input {display: inline-block; width: 240px; float: right;}
@@ -37,42 +22,15 @@
 
     </style>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
 
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-            crossorigin="anonymous"></script>
-
-    {#<script src="/bundles/datatables/js/datatables.js"></script>#}
-
-    {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>#}
-    {#<script#}
-            {#src="https://code.jquery.com/jquery-3.3.1.js"#}
-            {#integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
-            {#crossorigin="anonymous"></script>#}
 {% endblock head %}
 
-    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>#}
-    {#<script src="/bundles/datatables/js/datatables.js"></script>#}
 {% block content %}
-
-{#<head>#}
-    {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>#}
-    {#<script#}
-            {#src="https://code.jquery.com/jquery-3.3.1.js"#}
-            {#integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
-            {#crossorigin="anonymous"></script>#}
-    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>#}
-    {#<script src="/bundles/datatables/js/datatables.js"></script>#}
-{#</head>#}
-{#<body>#}
-
-
 
     <div class="page-breadcrumb card">
         <div class="row">
             <div class="col-12 d-flex no-block align-items-center">
-                {#<h4 class="page-title">Dashboard</h4>#}
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -83,9 +41,6 @@
                 </div>
             </div>
         </div>
-
-    {#</div>#}
-
 
         <div class="col-md-9">
             <div class="row">
@@ -100,16 +55,8 @@
                         </a>
                     </div>
                 {% endfor %}
-
-
             </div>
         </div>
-
-    {#<div class="card">#}
-        {#<div class="card-body">
-            <h5 class="card-title">Квартира/Будиок/Житлове приміщення</h5>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        </div>#}
 
         <div class="card-body">
             <h5 class="card-title">Рахунки</h5>
@@ -117,22 +64,9 @@
                 <div id="presidents" class=" table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
             </div>
         </div>
-
-
-
-
     </div>
 
-
-    {#<a href="{{ path('place_index') }}">back to list</a>#}
-
-    {#<a href="{{ path('place_edit', {'id': place.id}) }}">edit</a>#}
-
-    {#{{ include('place/_delete_form.html.twig') }}#}
-
-
 {% endblock %}
-
 
 {% block actions %}
     <!-- ============================================================== -->
@@ -140,78 +74,35 @@
     <!-- ============================================================== -->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="d-none d-md-block">Дії <i class="fa fa-angle-down"></i></span>
+            <span class="d-none d-md-block">{{ 'menu.actions.title' | trans }} <i class="fa fa-angle-down"></i></span>
             <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {#<a class="dropdown-item" href="{{ path('bill_new') }}">Додати рахунок</a>#}
-            <a class="dropdown-item" href="{{ path('bill_new_for_place', {'place' : place.id}) }}">Додати рахунок</a>
-            {#<a class="dropdown-item" href="{{ path('meter_new') }}">Додати лічильник</a>#}
-            <a class="dropdown-item" href="{{ path('meter_new_for_place', {'place' : place.id}) }}">Додати лічильник</a>
+            <a class="dropdown-item" href="{{ path('bill_new_for_place', {'place' : place.id}) }}">{{ 'bill.add.title' |trans }}</a>
+            <a class="dropdown-item" href="{{ path('meter_new_for_place', {'place' : place.id}) }}">{{ 'meter.add.title' |trans }}</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ path('place_edit', {'id': place.id}) }}">Редагувати місце</a>
+            <a class="dropdown-item" href="{{ path('place_edit', {'id': place.id}) }}">{{ 'place.edit.title' |trans }}</a>
         </div>
     </li>
 {% endblock actions %}
 
 {% block javascripts %}
 
-
-    {#<script src="/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>#}
-    {#<script src="/assets/extra-libs/multicheck/jquery.multicheck.js"></script>#}
-
-    {#<script>#}
-
-        {#$(document).ready( function() {#}
-
-                {#// alert();#}
-                {#// console.log($('input'));#}
-                {#// $('input').click(function () {#}
-                {#//     alert();#}
-                {#// });#}
-                {#$('input .switch').on("click", function () {#}
-                    {#alert('a');#}
-                {#});#}
-
-                {#$('.switchToggle').on("click", function () {#}
-
-                    {#// alert('a');#}
-                    {#// var element = $(this).find('input:first');#}
-                    {#// $(this).find('input');#}
-                    {#// var ischecked = !!element.prop( "checked");#}
-                    {#// console.log(element);#}
-                    {#// element.prop( "checked", !ischecked  );#}
-                    {#// element.trigger('change');#}
-
-                    {#// console.log($(this).children));#}
-                    {#// this.('input').prop('checked');#}
-                {#});#}
-            {#}#}
-        {#);#}
-
-    {#</script>#}
-
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>#}
     <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
-
-    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/fh-3.1.4/sc-1.5.0/datatables.min.js"></script>#}
     <!-- Insert this at the end of your body element, but before the closing tag -->
     <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
     <script>
-
 
         $(function() {
             $('#presidents').initDataTables({{ datatable_settings(datatable) }},  {
                 searching: true
             });
-
         });
 
     </script>
 
     <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-
 
 <script>
 
@@ -238,19 +129,10 @@
                 .fail( () => {
                     alert( "error" );
                 })
-                // .always(function() {
-                //     alert( "complete" );
-                // })
             ;
 
         }));
 
 </script>
 
-    {#<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>#}
-    {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>#}
-    {#<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>#}
-    {#<script src="/bundles/datatables/js/datatables.js"></script>#}
 {% endblock javascripts %}
-
-{#</body>#}

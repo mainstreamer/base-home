@@ -12,6 +12,7 @@ use App\Services\FileUploader;
 use App\Services\FileUploaderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -73,6 +74,7 @@ class IndicationController extends AbstractController
 
         return $this->render('indication/new.html.twig', [
             'indication' => $item,
+            'meter' => $meter,
             'form' => $form->createView(),
         ]);
     }
@@ -82,16 +84,31 @@ class IndicationController extends AbstractController
         return $this->render('indication/show.html.twig', ['indication' => $indication]);
     }
 
-    public function edit(Request $request, Indication $indication): Response
+    public function edit(Request $request, Indication $indication, FileUploaderService $fileUploaderService): Response
     {
-        $indication->setFile(
-            new File($indication->getFile())
-        );
+
+        if ($before = $indication->getFile()) {
+            $indication->setFile( new File($indication->getFile()));
+        }
+
+
+//        $indication->setFile(
+//            new File($indication->getFile())
+//        );
         $form = $this->createForm(IndicationType::class, $indication);
+        $form->remove('meter');
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($indication->getFile() && !strpos($indication->getFile()->getPathName(), 'uploads_directory')) {
+//            if ($bill->getFile()) {
+
+                $indication->setFile(new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($indication->getFile())));
+            } else {
+                $indication->setFile(new File($before));
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('indication_edit', ['id' => $indication->getId()]);
@@ -112,5 +129,13 @@ class IndicationController extends AbstractController
         }
 
         return $this->redirectToRoute('indication_index');
+    }
+
+    public function deleteFile(Indication $indication)
+    {
+        $indication->setFile(null);
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse();
     }
 }

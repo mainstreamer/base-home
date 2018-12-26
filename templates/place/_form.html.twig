@@ -4,35 +4,14 @@
     <h5 class="form-group row">{{ title }}</h5>
     <div class="form-group row">
         <div class="input-group col-12">
-            {{ form_widget(form.name, {'attr' : {'class' : 'form-control', 'placeholder' : 'Назва'}}) }}
+            {{ form_widget(form.name, {'attr' : {'class' : 'form-control', 'placeholder' : 'name'|trans|capitalize}}) }}
         </div>
     </div>
 </div>
 <div class="border-top">
     <div class="card-body">
-        <button class="btn btn-outline-primary">{{ button_label|default('Зберегти') }}</button>
+        <button class="btn btn-outline-primary">{{ button_label|default('save'|trans|capitalize) }}</button>
     </div>
 </div>
 <div style="display: none">{{ form_rest(form) }}</div>
 {{ form_end(form) }}
-
-
-{#<div class="row">#}
-    {#<div class="card">#}
-    {#{{ form_start(form, {'attr' : {'class' : 'form-horizontal'}}) }}#}
-        {#<div class="card-body">#}
-            {#<div class="form-group row">#}
-                {#{{ form_label(form.name) }}#}
-                {#{'attr' : {'class' : 'col-sm-3 text-right control-label col-form-label'}}#}
-                {#{{ form_errors(form.name) }}#}
-                {#{{ form_widget(form) }}#}
-            {#</div>#}
-        {#</div>#}
-        {#<div class="border-top">#}
-            {#<div class="card-body">#}
-                {#<button type="submit" class="btn btn-info">{{ button_label|default('Save') }}</button>#}
-            {#</div>#}
-        {#</div>#}
-    {#{{ form_end(form) }}#}
-    {#</div>#}
-{#</div>#}
