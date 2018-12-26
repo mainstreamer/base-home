@@ -4,30 +4,27 @@
 <link rel="stylesheet" type="text/css" href="/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 <style>
     .form-control[readonly] {
-    background-color: #ffffff;
+        background-color: #ffffff;
     }
 
     .form-control[readonly]:hover {
-    cursor: pointer;
+        cursor: pointer;
     }
 
     .mh-1000 {
-    min-height: 1000px;
+        min-height: 1000px;
     }
 
-    /*.form-group label {*/
-    /*padding-left: 10px;*/
-    /*}*/
     label.custom-file-label {
 
-    font-weight: 400;
-    color: rgb(108,117,125);
+        font-weight: 400;
+        color: rgb(108,117,125);
 
     }
 
     label.custom-file-label:after {
-    font-family: "Material Design Icons";
-    content: "\f552";
+        font-family: "Material Design Icons";
+        content: "\f552";
     }
 </style>
 
@@ -38,14 +35,8 @@
 {% block content %}
     <div class="page-breadcrumb">
         <div class="row">
-            {#<div class="col-12 d-flex no-block align-items-left">#}
             <h4 class="page-title text-center">
-                {#<div class="row">#}
-                {#<div class="nav-item d-none d-md-block">#}
                 <a class="waves-effect waves-light p-l-5" href="{{ path('meter_show', {'id' : meter.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
-                {#</div>#}
-                {#<i class="mdi mdi-arrow-left"></i>#}
-                {#</div>#}
             </h4>
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
@@ -55,10 +46,9 @@
                     </ol>
                 </nav>
             </div>
-            {#</div>#}
         </div>
     </div>
-    {%  include('indication/_form.html.twig') with {'title' : 'Додати показання'} %}
+    {%  include('indication/_form.html.twig') with {'title' : 'indication.add.title' | trans} %}
 {% endblock %}
 
 {% block javascripts %}

@@ -97,17 +97,13 @@
     <!-- ============================================================== -->
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="d-none d-md-block">Дії <i class="fa fa-angle-down"></i></span>
+            <span class="d-none d-md-block">{{ 'menu.actions.title'|trans }}<i class="fa fa-angle-down"></i></span>
             <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {#<a class="dropdown-item" href="{{ path('bill_new') }}">Додати рахунок</a>#}
-            {#<a class="dropdown-item" href="{{ path('bill_new_for_place', {'place' : place.id}) }}">Додати рахунок</a>#}
-            {#<a class="dropdown-item" href="{{ path('meter_new') }}">Додати лічильник</a>#}
-            {#<a class="dropdown-item" href="{{ path('meter_new_for_place', {'place' : place.id}) }}">Додати лічильник</a>#}
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ path('bill_edit', {'id': bill.id}) }}">Редагувати рахунок</a>
-            <a class="dropdown-item text-danger" href="{{ path('bill_edit', {'id': bill.id}) }}">Видалити рахунок</a>
+            <a class="dropdown-item" href="{{ path('bill_edit', {'id': bill.id}) }}">{{ 'bill.edit.title'|trans }}</a>
+            <a class="dropdown-item text-danger" href="{{ path('bill_edit', {'id': bill.id}) }}">{{ 'bill.delete.title'|trans }}</a>
         </div>
     </li>
 {% endblock actions %}
