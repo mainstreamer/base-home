@@ -11,11 +11,12 @@ class ProfileController extends Controller
 
     public function index()
     {
-//        exit;
-        $vars = ['a'=>'EMOJII'];
+        return $this->redirectToRoute('my_places');
 
+    }
 
-
-        return $this->render('content.html.twig', $vars);
+    public function analytics()
+    {
+        return $this->render('content.html.twig');
     }
 }

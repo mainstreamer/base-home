@@ -50,7 +50,7 @@ class PlaceController extends Controller
             $em->persist($place);
             $em->flush();
 
-            return $this->redirectToRoute('place_index');
+            return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
         }
 
         return $this->render('place/new.html.twig', [
@@ -61,27 +61,7 @@ class PlaceController extends Controller
 
     public function show(Request $request, Place $place, TranslatorInterface $translator): Response
     {
-//        \setlocale(LC_ALL,'uk_UA');
-//        dump( ucfirst(strftime("%b %Y")));exit;
-//
-//            $formatter = new \IntlDateFormatter('uk', \IntlDateFormatter::MEDIUM, \IntlDateFormatter::MEDIUM);
-//            $formatter->setPattern('M Y');
-//         $str =    new \DateTime('');
-//
-//
-//        dump(
-//            \IntlDateFormatter::formatObject($str, "MMMM y", 'uk')
-//            );exit;
-//
-//
-//            dump(\IntlDateFormatter::formatObject(new \DateTime(), \IntlDateFormatter::MEDIUM, 'uk'));
-//            exit;
         $table = $this->createDataTable()
-//            ->add('id', TwigColumn::class, [
-//                'className' => 'd-flex flex-row comment-row',
-//                'template' => 'tables/cell.html.twig',
-//                'label' => $translator->trans('id'),
-//            ])
             ->add('status', TwigColumn::class, [
                 'className' => '',
                 'template' => 'tables/switch.html.twig',
@@ -91,7 +71,7 @@ class PlaceController extends Controller
             ->add('type', TwigColumn::class, [
                 'className' => '',
                 'template' => 'tables/cell.html.twig',
-                'label' => $translator->trans('service'),
+                'label' => $translator->trans('service.title'),
             ])
             ->add('amount', TwigColumn::class, [
                 'className' => '',
@@ -159,7 +139,7 @@ class PlaceController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('place_index');
+        return $this->redirectToRoute('my_places');
     }
 
     /**
@@ -183,7 +163,7 @@ class PlaceController extends Controller
             $em->persist($place);
             $em->flush();
 
-            return $this->redirectToRoute('place_index');
+            return $this->redirectToRoute('place_show',  ['id' => $place->getId()]);
         }
 
         return $this->render('place/new.html.twig', [

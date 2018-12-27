@@ -65,7 +65,7 @@ class BillController extends AbstractController
             $em->persist($bill);
             $em->flush();
 
-            return $this->redirectToRoute('bill_index');
+            return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
         }
 
         return $this->render('bill/new.html.twig', [
@@ -114,13 +114,14 @@ class BillController extends AbstractController
 
     public function delete(Request $request, Bill $bill): Response
     {
+        $place = $bill->getPlace()->getId();
         if ($this->isCsrfTokenValid('delete'.$bill->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($bill);
             $em->flush();
         }
 
-        return $this->redirectToRoute('bill_index');
+        return $this->redirectToRoute('place_show', ['id' => $place]);
     }
 
     public function deleteFile(Bill $bill)

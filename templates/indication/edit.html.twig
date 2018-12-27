@@ -48,7 +48,16 @@
             </div>
         </div>
     </div>
-    {%  include 'indication/_form.html.twig' with {'title': 'indication.edit.title' | trans} %}
+
+    <div class="row">
+        <div class="col-9">
+            {%  include 'indication/_form.html.twig' with {'title': 'indication.edit.title' | trans} %}
+        </div>
+        <div class="col-3 d-flex align-items-end justify-content-end">
+            {% include('common/_delete_button.html.twig') with {'url' : path('indication_delete', { 'id' : indication.id }), 'id' : indication.id} %}
+        </div>
+    </div>
+    {#{%  include 'indication/_form.html.twig' with {'title': 'indication.edit.title' | trans} %}#}
 
 {% endblock %}
 {% block javascripts %}

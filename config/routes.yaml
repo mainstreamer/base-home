@@ -2,6 +2,10 @@ index:
     path: /
     controller: App\Controller\ProfileController::index
 
+
+analytics:
+    path: /analytics
+    controller: App\Controller\ProfileController::analytics
 #registration:
 #    resource: App\Controller\RegistrationController
 #    type:     annotation

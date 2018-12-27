@@ -49,6 +49,7 @@ made with: Розроблено з
 Service type: Тип послуги
 delete_file: Видалити файл
 save: Зберегти
+delete: Видалити
 
 choose_file: Оберіть файл
 
@@ -99,10 +100,11 @@ service:
 
 pages:
   main: Головна
+  analytics: Аналітика
   places: Місця
 
 site:
-  title: Цифровий дім
+  title: Рахунки
 
 options: Опції
 for: для
