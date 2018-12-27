@@ -44,6 +44,7 @@ made with: Made with
 Service type: Service type
 delete_file: Delete file
 save: Save
+delete: Delete
 
 place:
   title: Place
@@ -94,6 +95,7 @@ service:
 pages:
   main: Main
   places: Places
+  analytics: Analytics
 
 site:
   title: Digital home

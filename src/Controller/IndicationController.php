@@ -28,13 +28,10 @@ class IndicationController extends AbstractController
         $item = new Indication();
         $form = $this->createForm(IndicationType::class, $item);
 
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            $fileUploaderService->upload($item->getFile());
-//            $item->setFile( new File($this->getParameter('uploads_directory').'/'.$item->getFile()));
             $item->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($item->getFile())));
 
             $em = $this->getDoctrine()->getManager();
@@ -61,15 +58,16 @@ class IndicationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-//            $fileUploaderService->upload($item->getFile());
-//            $item->setFile( new File($this->getParameter('uploads_directory').'/'.$item->getFile()));
-            $item->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($item->getFile())));
+            if ($item->getFile()) {
+
+                $item->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($item->getFile())));
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
 
-            return $this->redirectToRoute('indication_index');
+            return $this->redirectToRoute('meter_show', ['id' => $meter->getId()]);
         }
 
         return $this->render('indication/new.html.twig', [
@@ -91,10 +89,6 @@ class IndicationController extends AbstractController
             $indication->setFile( new File($indication->getFile()));
         }
 
-
-//        $indication->setFile(
-//            new File($indication->getFile())
-//        );
         $form = $this->createForm(IndicationType::class, $indication);
         $form->remove('meter');
 
@@ -102,8 +96,6 @@ class IndicationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($indication->getFile() && !strpos($indication->getFile()->getPathName(), 'uploads_directory')) {
-//            if ($bill->getFile()) {
-
                 $indication->setFile(new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($indication->getFile())));
             } else {
                 $indication->setFile(new File($before));
@@ -128,7 +120,7 @@ class IndicationController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('indication_index');
+        return $this->redirectToRoute('meter_show', ['id' => $indication->getMeter()->getId()]);
     }
 
     public function deleteFile(Indication $indication)

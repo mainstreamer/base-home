@@ -65,7 +65,7 @@ class MeterController extends Controller
             $em->persist($item);
             $em->flush();
 
-            return $this->redirectToRoute('meter_index');
+            return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
         }
 
         return $this->render('meter/new.html.twig', [
@@ -168,6 +168,6 @@ class MeterController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('meter_index');
+        return $this->redirectToRoute('place_show', ['id' => $meter->getPlace()->getId()]);
     }
 }

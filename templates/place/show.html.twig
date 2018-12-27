@@ -41,30 +41,68 @@
                 </div>
             </div>
         </div>
-
-        <div class="col-md-9">
+    </div>
+    <div class="container-fluid">
+    <div class="row card-body">
+        <div class="col-11">
             <div class="row">
                 {% for meter in place.meters %}
                     <div class="col-2 card card-hover">
                         <a href="{{ path('meter_show', {'id': meter.id}) }}">
                             <div class="bg-dark p-10 text-white text-center">
-                                 <span class="font-24">️{{ meter.type.icon}}</span>
+                                <span class="font-24">️{{ meter.type.icon}}</span>
                                 <h5 class="m-b-0 m-t-5">{{ meter.indications.first |default('0') }} {{ meter.unit.name }}</h5>
                                 <small class="font-light">{{ meter.type.name |capitalize}}</small><br>
                             </div>
                         </a>
                     </div>
                 {% endfor %}
+                <div class="col-2 card card-hover" >
+                    <a href="{{ path('meter_new_for_place', {'place' : place.id }) }}"  >
+                        {#<div class="card card-hover">#}
+                        <div class="box text-center ">
+                            {#<h1 class="font-light text-white"><i class="mdi mdi-plus-box-outline"></i></h1>#}
+                            <h1 class="font-light text-black" style="color: black;"><i class="mdi mdi-tooltip-outline-plus"></i></h1>
+                            <h5 class="font-light text-black" style="color: black;">Додати</h5>
+                            <small class="text-white"></small>
+                        </div>
+                        {#</div>#}
+                        {#<div>#}
+
+                        {#<span class="font-24 text-black"></span>#}
+                        {#<h5 class="m-b-0 m-t-5">#}
+                        {##}
+                        {#</h5>#}
+                    </a>
+                    {#</div>#}
+                </div>
             </div>
         </div>
-
-        <div class="card-body">
-            <h5 class="card-title">Рахунки</h5>
-            <div class="table-responsive">
-                <div id="presidents" class=" table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
-            </div>
+        <div class="col-1">
+            <a style="" href="{{ path('place_edit', {'id' : place.id }) }}">
+                <div class="box bg-white text-center card-hover" style="min-width: 50px; height: 83%;">
+                    <h3 class="font-light text-white"><i class="text-dark fas fa-cog"></i></h3>
+                    <small class="text-dark">{{ 'options'|trans|capitalize }}</small>
+                </div>
+            </a>
         </div>
     </div>
+    </div>
+<div class="container-fluid">
+    <div class="card-body">
+        {#<h5>Рахунки</h5>#}
+        <a href="{{ path('bill_new_for_place', {'place' : place.id }) }}" class="btn btn-outline-success ">
+            {#<i class="fa fa-plus font-10"></i>&nbsp;#}
+            {{ 'bill.add.title'|trans }}
+        </a>
+    </div>
+    <div class="table-responsive">
+
+        <div id="presidents" class=" table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
+    </div>
+
+</div>
+
 
 {% endblock %}
 
