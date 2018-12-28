@@ -4,8 +4,8 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav" class="p-t-30 in">
-                <li class="sidebar-item {% if app.request.pathinfo == "/" %} selected {% endif %}"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Головна</span></a></li>
-                <li class="sidebar-item {% if "place" in app.request.pathinfo %} selected {% endif %}"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/myplaces" aria-expanded="false"><i class="mdi mdi-home-variant"></i><span class="hide-menu">Місця</span></a></li>
+                <li class="sidebar-item {% if app.request.pathinfo == "/" %} selected {% endif %}"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('analytics') }}" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">{{ 'pages.analytics'|trans|capitalize }}</span></a></li>
+                <li class="sidebar-item {% if "place" in app.request.pathinfo %} selected {% endif %}"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('my_places') }}" aria-expanded="false"><i class="mdi mdi-home-variant"></i><span class="hide-menu">{{ 'pages.places'|trans|capitalize }}</span></a></li>
 
                 {#<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="charts.html" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Charts</span></a></li>#}
                 {#<li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="widgets.html" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Widgets</span></a></li>#}

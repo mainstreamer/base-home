@@ -4,19 +4,29 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Bill;
 use App\Entity\Place;
 use App\Event\StartPlaceEditionEvent;
 use App\Form\PlaceType;
 use App\Repository\PlaceRepository;
+use Doctrine\ORM\QueryBuilder;
+use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
+use Omines\DataTablesBundle\Column\DateTimeColumn;
+use Omines\DataTablesBundle\Column\TextColumn;
+use Omines\DataTablesBundle\Column\TwigColumn;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Event\StartPlaceCreationEvent;
+use Omines\DataTablesBundle\Controller\DataTablesTrait;
+use Symfony\Component\Translation\TranslatorInterface;
 
-class PlaceController extends AbstractController
+class PlaceController extends Controller
 {
+    use DataTablesTrait;
+
     private $dispatcher;
 
     public function __construct(EventDispatcherInterface $dispatcher)
@@ -40,7 +50,7 @@ class PlaceController extends AbstractController
             $em->persist($place);
             $em->flush();
 
-            return $this->redirectToRoute('place_index');
+            return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
         }
 
         return $this->render('place/new.html.twig', [
@@ -49,9 +59,58 @@ class PlaceController extends AbstractController
         ]);
     }
 
-    public function show(Place $place): Response
+    public function show(Request $request, Place $place, TranslatorInterface $translator): Response
     {
-        return $this->render('place/show.html.twig', ['place' => $place]);
+        $table = $this->createDataTable()
+            ->add('status', TwigColumn::class, [
+                'className' => '',
+                'template' => 'tables/switch.html.twig',
+                'label' => $translator->trans('PAID'),
+            ])
+            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])
+            ->add('type', TwigColumn::class, [
+                'className' => '',
+                'template' => 'tables/cell.html.twig',
+                'label' => $translator->trans('service.title'),
+            ])
+            ->add('amount', TwigColumn::class, [
+                'className' => '',
+                'template' => 'tables/cell-amount.html.twig',
+                'label' => $translator->trans('due'),
+            ])
+            ->add('actuallyPaid', TwigColumn::class, [
+                'className' => 'text-center',
+                'template' => 'tables/cell-amount.html.twig',
+                'label' => $translator->trans('actuallyPaid'),
+            ])
+
+            ->add('date', DateTimeColumn::class, ['field' => 'bill.textDate', 'orderField' => 'bill.date', 'format' => 'd-m-Y', 'label' => $translator->trans('billDate')])
+            ->add('payDateText', DateTimeColumn::class, [
+                'className' => 'text-center',
+                'nullValue' => '–––',
+                'orderField' => 'bill.payDateText',
+                'format' => 'd-m-Y',
+                'label' => $translator->trans('payDate')
+            ])
+            ->createAdapter(ORMAdapter::class, [
+                'entity' => Bill::class,
+
+                'query' => function (QueryBuilder $builder) use ($place) {
+                    $builder
+                        ->select('bill')
+                        ->from(Bill::class, 'bill')
+                        ->where('bill.place = :id')
+                        ->setParameter('id', $place->getId())
+                    ;
+                },
+            ])->addOrderBy('date', 'DESC')
+            ->handleRequest($request);
+
+        if ($table->isCallback()) {
+            return $table->getResponse();
+        }
+
+        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table]);
     }
 
     public function edit(Request $request, Place $place): Response
@@ -80,7 +139,7 @@ class PlaceController extends AbstractController
             $em->flush();
         }
 
-        return $this->redirectToRoute('place_index');
+        return $this->redirectToRoute('my_places');
     }
 
     /**
@@ -104,7 +163,7 @@ class PlaceController extends AbstractController
             $em->persist($place);
             $em->flush();
 
-            return $this->redirectToRoute('place_index');
+            return $this->redirectToRoute('place_show',  ['id' => $place->getId()]);
         }
 
         return $this->render('place/new.html.twig', [

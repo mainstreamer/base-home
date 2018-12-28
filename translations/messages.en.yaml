@@ -5,3 +5,101 @@ Email: Email
 Password: Password
 Error!: Error!
 sign up: Sign up
+id: ID
+due: Due
+gas: Gas
+hot water: Hot water
+cold water: Cold water
+heating: Heating
+electricity: Electricity
+payDate: Payment Date
+actuallyPaid: Actually Paid
+billDate: Bill Date
+billPeriod: Billing period
+UNPAID: Unpaid
+PAID: Paid
+yes: Yes
+no: No
+choose_file: Choose file
+#service: Service
+indication:
+  title: Indication
+  file:
+    tooltip: Add indication photo (optional)
+    placeholder: Choose file
+    date: Indication date
+    value: Indication value
+  edit:
+    title: Edit indication
+  add:
+    title: Add indication
+  delete:
+    title: Delete indication
+  date: Indication date
+no data: No data
+name: name
+type: type
+date: Date
+made with: Made with
+Service type: Service type
+delete_file: Delete file
+save: Save
+delete: Delete
+
+place:
+  title: Place
+  titles: Places
+  edit:
+    title: Edit place
+  add:
+    title: Add place
+menu:
+  actions:
+    title: Actions
+
+meter:
+  title: Meter
+  new:
+    title: New meter
+  edit:
+    title: Edit meter
+  add:
+    title: Add meter
+
+bill:
+  title: Bill
+  new:
+    title: New bill
+  edit:
+    title: Edit bill
+  delete:
+    title: Delete bill
+  add:
+    title: Add bill
+  notes:
+    title: Notes
+  file:
+    title: Add bill file (optional)
+  bill_date:
+    title: Billing date
+  bill_period:
+    title: Billing period
+  amount:
+    title: Due
+    placeholder: Please input amount
+
+service:
+  title: Service
+  type: Type of service
+
+pages:
+  main: Main
+  places: Places
+  analytics: Analytics
+
+site:
+  title: Digital home
+
+for: for
+uah: UAH
+options: Options

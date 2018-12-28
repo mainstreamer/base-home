@@ -3,11 +3,32 @@
 {% block title %}Edit Place{% endblock %}
 
 {% block content %}
-    <h1>Edit Place</h1>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <h4 class="page-title text-center">
+                <a class="waves-effect waves-light p-l-5" href="{{ path('my_places')}}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 
-    {{ include('place/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="row">
+        <div class="col-9">
+            {% include('place/_form.html.twig') with {'title' : 'place.edit.title' |trans, 'place' : place, 'url' : path('place_delete', { 'id' : place.id })} %}
+        </div>
+        <div class="col-3 d-flex align-items-end justify-content-end">
+                {% include('common/_delete_button.html.twig') with {'url' : path('place_delete', { 'id' : place.id }), 'id' : place.id} %}
+        </div>
+    </div>
 
-    <a href="{{ path('place_index') }}">back to list</a>
 
-    {{ include('place/_delete_form.html.twig') }}
+
+
 {% endblock %}

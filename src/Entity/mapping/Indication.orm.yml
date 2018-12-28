@@ -12,12 +12,15 @@ App\Entity\Indication:
         name:
             type: string
             length: 255
-            nullable: false
+            nullable: true
         value:
             type: integer
         date:
             type: datetime
         unit:
+            type: string
+            nullable: true
+        file:
             type: string
             nullable: true
 #        unit:

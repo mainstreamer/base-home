@@ -16,6 +16,8 @@ class Indication
 
     private $unit;
 
+    private $file;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -104,5 +106,26 @@ class Indication
     public function setUnit($unit): void
     {
         $this->unit = $unit;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
     }
 }

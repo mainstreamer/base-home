@@ -1,0 +1,9 @@
+App\Entity\Bill:
+    bill_{1..100}:
+        name: 'рахунок <current()>'
+        place: '@place_4'
+        status: 'PAID'
+        amount: '<randomNumber(3)>'
+        date: '<dateTime()>'
+        period: '<dateTime()>'
+        payDate: '<dateTime()>'

@@ -12,9 +12,44 @@ App\Entity\Bill:
         name:
             type: string
             length: 255
-            nullable: false
+            nullable: true
         amount:
             type: integer
+            nullable: true
+        period:
+            type: datetime
+            nullable: true
+        textPeriod:
+            type: string
+            length: 255
+        status:
+            type: string
+            length: 255
+        date:
+            type: datetime
+        textDate:
+            type: string
+            length: 255
+        type:
+            type: string
+            length: 255
+            nullable: true
+        note:
+            type: text
+            nullable: true
+        actuallyPaid:
+            type: integer
+            nullable: true
+        payDate:
+            type: datetime
+            nullable: true
+        payDateText:
+            type: string
+            length: 255
+            nullable: true
+        file:
+            type: string
+            length: 255
             nullable: true
     manyToOne:
         place:

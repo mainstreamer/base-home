@@ -1,0 +1,26 @@
+App\Entity\Meter:
+    meter_1:
+        name: 'Electricity'
+        type: '@meterType_1'
+        place: '@place_4'
+        unit: '@unit_4'
+    meter_2:
+        name: 'Gas'
+        type: '@meterType_2'
+        place: '@place_4'
+        unit: '@unit_4'
+    meter_3:
+        name: 'Cold Water'
+        type: '@meterType_3'
+        place: '@place_4'
+        unit: '@unit_4'
+    meter_4:
+        name: 'Heating'
+        type: '@meterType_4'
+        place: '@place_4'
+        unit: '@unit_4'
+    meter_5:
+        name: 'Hot Water'
+        type: '@meterType_5'
+        place: '@place_4'
+        unit: '@unit_4'

@@ -8,6 +8,8 @@ class MeterType
 
     private $name;
 
+    private $icon;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -33,5 +35,21 @@ class MeterType
     {
         return $this->name;
         // TODO: Implement __toString() method.
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIcon()
+    {
+        return $this->icon;
+    }
+
+    /**
+     * @param mixed $icon
+     */
+    public function setIcon($icon): void
+    {
+        $this->icon = $icon;
     }
 }

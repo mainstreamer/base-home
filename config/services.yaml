@@ -2,7 +2,8 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: 'en'
-
+#    uploads_directory: '%kernel.project_dir%/public/uploads'
+    uploads_directory: 'uploads'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -18,6 +19,9 @@ services:
         resource: '../src/*'
         exclude: '../src/{Migrations,Tests,Kernel.php}'
 
+    App\Services\FileUploaderService:
+        arguments:
+            $targetDirectory: '%uploads_directory%'
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
