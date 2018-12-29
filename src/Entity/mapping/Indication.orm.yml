@@ -17,6 +17,8 @@ App\Entity\Indication:
             type: integer
         date:
             type: datetime
+        textDate:
+            type: string
         unit:
             type: string
             nullable: true

@@ -78,25 +78,31 @@ class MeterController extends Controller
     public function show(Request $request, Meter $meter, TranslatorInterface $translator): Response
     {
         $table = $this->createDataTable()
-            ->add('id', TwigColumn::class, [
-                'className' => 'd-flex flex-row comment-row',
+//            ->add('id', TwigColumn::class, [
+//                'className' => 'd-flex flex-row comment-row',
+//                'template' => 'indication/cell.html.twig',
+//                'label' => $translator->trans('id'),
+//            ])
+//            ->add('name', TwigColumn::class, [
+//                'className' => '',
+//                'template' => 'indication/cell.html.twig',
+//                'label' => $translator->trans('name'),
+//            ])
+            ->add('textDate', TwigColumn::class, [
+//                'format' => 'd-m-Y',
+                'label' => $translator->trans('indication.date'),
+                'orderField' => 'indication.date',
                 'template' => 'indication/cell.html.twig',
-                'label' => $translator->trans('id'),
-            ])
-            ->add('name', TwigColumn::class, [
-                'className' => '',
-                'template' => 'indication/cell.html.twig',
-                'label' => $translator->trans('name'),
-            ])
-            ->add('unit', TwigColumn::class, [
-                'className' => '',
-                'template' => 'indication/cell.html.twig',
-                'label' => $translator->trans('unit'),
             ])
             ->add('value', TwigColumn::class, [
                 'className' => '',
                 'template' => 'indication/cell.html.twig',
-                'label' => $translator->trans('value'),
+                'label' => $translator->trans('indication.value'),
+            ])
+            ->add('unit', TwigColumn::class, [
+                'className' => '',
+                'template' => 'indication/cell.html.twig',
+                'label' => $translator->trans('indication.unit.title'),
             ])
 //            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])
 //            ->add('type', TwigColumn::class, [
@@ -115,7 +121,7 @@ class MeterController extends Controller
 //                'label' => $translator->trans('actuallyPaid'),
 //            ])
 //
-            ->add('date', DateTimeColumn::class)
+
 //            ->add('date', DateTimeColumn::class, ['field' => 'indictaion.textDate', 'orderField' => 'bill.date', 'format' => 'd-m-Y', 'label' => $translator->trans('billDate')])
 //            ->add('payDateText', DateTimeColumn::class, ['nullValue' => '–––', 'orderField' => 'bill.payDateText', 'format' => 'd-m-Y', 'label' => $translator->trans('payDate')])
             ->createAdapter(ORMAdapter::class, [
@@ -129,7 +135,7 @@ class MeterController extends Controller
                         ->setParameter('id', $meter->getId())
                     ;
                 },
-            ])->addOrderBy('id', 'DESC')
+            ])->addOrderBy('textDate', 'DESC')
             ->handleRequest($request);
 
         if ($table->isCallback()) {

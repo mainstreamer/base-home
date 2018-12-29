@@ -18,6 +18,8 @@ class Indication
 
     private $file;
 
+    private $textDate;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -85,11 +87,12 @@ class Indication
     }
 
     /**
-     * @param mixed $date
+     * @param \DateTime $date
      */
-    public function setDate($date): void
+    public function setDate(\DateTime $date): void
     {
         $this->date = $date;
+        $this->textDate = $date->format('d-m-Y');
     }
 
     /**
@@ -128,4 +131,21 @@ class Indication
     {
         $this->file = $file;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTextDate()
+    {
+        return $this->textDate;
+    }
+
+    /**
+     * @param mixed $textDate
+     */
+    public function setTextDate($textDate): void
+    {
+        $this->textDate = $textDate;
+    }
+
 }

@@ -96,7 +96,7 @@ class BillController extends AbstractController
 //            if ($bill->getFile()) {
 
                 $bill->setFile(new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())));
-            } else {
+            }  elseif ($bill->getFile()) {
                 $bill->setFile(new File($before));
             }
 

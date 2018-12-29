@@ -21,6 +21,7 @@ PAID: Paid
 yes: Yes
 no: No
 choose_file: Choose file
+
 #service: Service
 indication:
   title: Indication
@@ -36,6 +37,10 @@ indication:
   delete:
     title: Delete indication
   date: Indication date
+  unit:
+    title: Measure unit
+  value: Value
+
 no data: No data
 name: name
 type: type

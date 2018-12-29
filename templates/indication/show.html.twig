@@ -15,13 +15,22 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-11">
                         <div class="pull-right text-left">
                             <address>
                                 <h5>{{ 'place.title' | trans }}: <span class="font-weight-light">{{ indication.meter.place.name }} </span></h5>
                                 <p class="m-t-30"><i class="fa fa-calendar"></i> <b>{{ indication.date | date('d-m-Y') }}</b> -  {{ 'indication.date' |trans|capitalize }} </p>
                             </address>
                         </div>
+                    </div>
+                    <div class="col-1 card-hover card">
+                        <a href="{{ path('indication_edit', {'id' : indication.id }) }}">
+                            <div class="box bg-white text-center">
+                                <h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>
+                                <h5 class="font-light text-dark" style="color: black;">{{ 'options'|trans|capitalize }}</h5>
+                                {#<small class="text-dark">{{ 'options'|trans|capitalize }}</small>#}
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <hr>
@@ -93,17 +102,17 @@
     <!-- ============================================================== -->
     <!-- create new -->
     <!-- ============================================================== -->
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="d-none d-md-block">{{ 'menu.actions.title' | trans }} <i class="fa fa-angle-down"></i></span>
-            <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ path('indication_edit', {'id': indication.id}) }}">{{ 'indication.edit.title' | trans }}</a>
-            <a class="dropdown-item text-danger" href="{{ path('indication_edit', {'id': indication.id}) }}">{{ 'indication.delete.title' | trans }}</a>
-        </div>
-    </li>
+    {#<li class="nav-item dropdown">#}
+        {#<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+            {#<span class="d-none d-md-block">{{ 'menu.actions.title' | trans }} <i class="fa fa-angle-down"></i></span>#}
+            {#<span class="d-block d-md-none"><i class="fa fa-plus"></i></span>#}
+        {#</a>#}
+        {#<div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+            {#<div class="dropdown-divider"></div>#}
+            {#<a class="dropdown-item" href="{{ path('indication_edit', {'id': indication.id}) }}">{{ 'indication.edit.title' | trans }}</a>#}
+            {#<a class="dropdown-item text-danger" href="{{ path('indication_edit', {'id': indication.id}) }}">{{ 'indication.delete.title' | trans }}</a>#}
+        {#</div>#}
+    {#</li>#}
 {% endblock actions %}
 
 {% block javascripts %}

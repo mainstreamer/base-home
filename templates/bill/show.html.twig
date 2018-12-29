@@ -16,7 +16,7 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-11">
                         <div class="pull-right text-left">
                             <address>
                                 <h5 >Address: <span class="font-weight-light">{{ bill.place.name }} </span></h5>
@@ -24,6 +24,15 @@
                                 <p><i class="fa fa-calendar"></i> <b>{{ bill.payDateText | default('не оплачено') }}</b> - Pay Date </p>
                             </address>
                         </div>
+                    </div>
+                    <div class="col-1 card-hover card">
+                        <a href="{{ path('bill_edit', {'id' : bill.id }) }}">
+                            <div class="box bg-white text-center">
+                                <h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>
+                                <h5 class="font-light text-dark" style="color: black;">{{ 'options'|trans|capitalize }}</h5>
+                                {#<small class="text-dark">{{ 'options'|trans|capitalize }}</small>#}
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <hr>
@@ -95,17 +104,17 @@
     <!-- ============================================================== -->
     <!-- create new -->
     <!-- ============================================================== -->
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="d-none d-md-block">{{ 'menu.actions.title'|trans }}<i class="fa fa-angle-down"></i></span>
-            <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ path('bill_edit', {'id': bill.id}) }}">{{ 'bill.edit.title'|trans }}</a>
-            <a class="dropdown-item text-danger" href="{{ path('bill_edit', {'id': bill.id}) }}">{{ 'bill.delete.title'|trans }}</a>
-        </div>
-    </li>
+    {#<li class="nav-item dropdown">#}
+        {#<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+            {#<span class="d-none d-md-block">{{ 'menu.actions.title'|trans }}<i class="fa fa-angle-down"></i></span>#}
+            {#<span class="d-block d-md-none"><i class="fa fa-plus"></i></span>#}
+        {#</a>#}
+        {#<div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+            {#<div class="dropdown-divider"></div>#}
+            {#<a class="dropdown-item" href="{{ path('bill_edit', {'id': bill.id}) }}">{{ 'bill.edit.title'|trans }}</a>#}
+            {#<a class="dropdown-item text-danger" href="{{ path('bill_edit', {'id': bill.id}) }}">{{ 'bill.delete.title'|trans }}</a>#}
+        {#</div>#}
+    {#</li>#}
 {% endblock actions %}
 
 

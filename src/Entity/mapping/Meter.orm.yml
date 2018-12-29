@@ -13,7 +13,6 @@ App\Entity\Meter:
             type: string
             length: 255
             nullable: false
-
 #        type:
 #        amount:
 #            type: integer
