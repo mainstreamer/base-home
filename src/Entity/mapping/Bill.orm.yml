@@ -51,6 +51,8 @@ App\Entity\Bill:
             type: string
             length: 255
             nullable: true
+        isPaid:
+            type: boolean
     manyToOne:
         place:
             targetEntity: App\Entity\Place

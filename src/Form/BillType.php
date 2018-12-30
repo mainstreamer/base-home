@@ -23,8 +23,10 @@ class BillType extends AbstractType
         $builder
 //            ->add('name')
             ->add('amount', MoneyType::class, ['divisor' => 100, 'currency' => false])
+            ->add('actuallyPaid', MoneyType::class, ['divisor' => 100, 'currency' => false, 'required' => false])
 //            ->add('cents', TextType::class, ['mapped' => false])
             ->add('file', FileType::class, ['required' => false])
+            ->add('isPaid')
             ->add('type', ChoiceType::class, [
                 'placeholder' => 'Service type',
                 'choices' => Bill::TYPES,

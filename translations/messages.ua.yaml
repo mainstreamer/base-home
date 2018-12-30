@@ -6,6 +6,21 @@ Password: Пароль
 Error!: Помилка
 sign up: Реєстрація
 
+address: Адреса
+
+kW/h: кВт/год
+m3: м3
+Gk: Гк
+I: Л
+
+back: Назад
+
+Electricity: Електрика
+Gas: Газ
+Cold Water: Холодна вода
+Heating: Опалення
+Hot Water: Гаряча вода
+
 indications: Показники
 
 indication:
@@ -79,6 +94,7 @@ meter:
 
 bill:
   title: Рахунок
+  titles: Рахунки
   new:
     title: Новий рахунок
   edit:
@@ -98,6 +114,9 @@ bill:
     placeholder: Введіть суму
   delete:
     title: Видалити рахунок
+  actually_paid: Фактично сплачено
+  pay_date:
+    title: Дата оплати
 
 
 service:

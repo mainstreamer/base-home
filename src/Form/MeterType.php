@@ -17,7 +17,7 @@ class MeterType extends AbstractType
             ->add('name')
             ->add('type', EntityType::class, ['class' => \App\Entity\MeterType::class, 'placeholder' => 'Тип лічильника', 'choice_translation_domain' => 'messages'] )
             ->add('place')
-            ->add('unit', EntityType::class, ['class' => Unit::class, 'placeholder' => 'Одиниця виміру'])
+            ->add('unit', EntityType::class, ['class' => Unit::class, 'placeholder' => 'Одиниця виміру', 'choice_translation_domain' => 'messages'])
         ;
     }
 

@@ -54,11 +54,15 @@ class Bill
 
     private $file;
 
+    private $isPaid;
+
     public function __construct()
     {
         $this->date = new \DateTime();
         $this->status = self::UNPAID;
         $this->textDate = $this->date->format('d-m-Y');
+        $this->setIsPaid(false);
+
     }
 
     public function getId()
@@ -291,4 +295,21 @@ class Bill
     {
         $this->file = $file;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getisPaid(): bool
+    {
+        return $this->isPaid;
+    }
+
+    /**
+     * @param mixed $isPaid
+     */
+    public function setIsPaid(bool $isPaid): void
+    {
+        $this->isPaid = $isPaid;
+    }
+
 }

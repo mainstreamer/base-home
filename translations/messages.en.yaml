@@ -21,6 +21,20 @@ PAID: Paid
 yes: Yes
 no: No
 choose_file: Choose file
+address: Address
+
+kW/h: kW/h
+m3: m3
+Gk: Gk
+I: L
+
+back: Back
+
+Electricity: Electricity
+Gas: Gas
+Cold Water: Cold Water
+Heating: Heating
+Hot Water: Hot Water
 
 #service: Service
 indication:
@@ -73,6 +87,7 @@ meter:
 
 bill:
   title: Bill
+  titles: Bills
   new:
     title: New bill
   edit:
@@ -92,6 +107,9 @@ bill:
   amount:
     title: Due
     placeholder: Please input amount
+  actually_paid: Actually paid
+  pay_date:
+    title: Payment date
 
 service:
   title: Service

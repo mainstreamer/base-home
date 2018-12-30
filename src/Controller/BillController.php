@@ -91,10 +91,7 @@ class BillController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//dump($bill->getFile());exit;
             if ($bill->getFile() && !strpos($bill->getFile()->getPathName(), 'uploads_directory')) {
-//            if ($bill->getFile()) {
-
                 $bill->setFile(new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())));
             }  elseif ($bill->getFile()) {
                 $bill->setFile(new File($before));
@@ -106,7 +103,6 @@ class BillController extends AbstractController
         }
 
         return $this->render('bill/edit.html.twig', [
-//        return $this->render('bill/new.html.twig', [
             'bill' => $bill,
             'form' => $form->createView()
         ]);
@@ -141,8 +137,9 @@ class BillController extends AbstractController
 
     public function togglePayment(Bill $bill)
     {
-        $bill->setStatus($bill->getStatus() === Bill::PAID ? Bill::UNPAID : Bill::PAID);
-        if ($bill->getStatus() === Bill::PAID) {
+//        $bill->setStatus($bill->getStatus() === Bill::PAID ? Bill::UNPAID : Bill::PAID);
+        $bill->setIsPaid(!$bill->getisPaid());
+        if ($bill->getIsPaid()) {
             $bill->setActuallyPaid($bill->getAmount());
             $bill->setPayDate(new \DateTime());
             $response = $bill->getPayDateText();

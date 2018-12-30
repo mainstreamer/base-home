@@ -2,26 +2,62 @@
 
 {% block title %}Bill{% endblock %}
 
+
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card card-body printableArea">
-                <div class="row">
-                    <div class="col-1">
-                        <a class="waves-effect waves-light p-l-5" href="{{ path('place_show', {'id' : bill.place.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
-                    </div>
-                    <div class="col-11">
-                        <h3 class="text-right {% if bill.status == 'UNPAID' %}text-danger{% else %}text-success{% endif %}"><b>{{ bill.status | trans }}</b> </h3>
-                    </div>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div  class="col-1">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <a href="{{ path('place_show', {'id':bill.place.id}) }}">
+                                <li class="breadcrumb-item">
+                                    <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
+                                </li>
+                            </a>
+                        </ol>
+                    </nav>
                 </div>
+            </div>
+            <div class="col-11 d-flex no-block align-items-center">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>
+                            <li class="breadcrumb-item active">{{ bill.name }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card card-body printableArea m-t-0 p-t-0">
+                {#<div class="row">#}
+                    {#<div class="col-1">#}
+                        {#<a class="waves-effect waves-light p-l-5" href="{{ path('place_show', {'id' : bill.place.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>#}
+                    {#</div>#}
+                    {#<div class="col-11">#}
+                        {#<h3 class="text-right {% if bill.status == 'UNPAID' %}text-danger{% else %}text-success{% endif %}"><b>{{ bill.status | trans }}</b> </h3>#}
+                    {#</div>#}
+                {#</div>#}
                 <hr>
                 <div class="row">
                     <div class="col-md-11">
                         <div class="pull-right text-left">
                             <address>
-                                <h5 >Address: <span class="font-weight-light">{{ bill.place.name }} </span></h5>
-                                <p class="m-t-30"><i class="fa fa-calendar"></i> <b>{{ bill.date | date('d-m-Y') }}</b> -  Invoice Date </p>
-                                <p><i class="fa fa-calendar"></i> <b>{{ bill.payDateText | default('не оплачено') }}</b> - Pay Date </p>
+                                <p>
+                                {#<h3 class="text-left {% if bill.status == 'UNPAID' %}text-danger{% else %}text-success{% endif %}"><b>{{ bill.status | trans }}</b> </h3>#}
+                                <h3 class="text-left {% if bill.isPaid == false %}text-danger {% set status = constant('UNPAID', bill) %}{% else %}text-success {% set status = constant('PAID', bill) %}{% endif %}"><b>{{ status | trans }}</b> </h3>
+                                </p>
+                                <h5>{{ 'place.title' |trans}}: <span class="font-weight-light">{{ bill.place.name }} </span></h5>
+                                <p class="m-t-30">
+                                    <i class="fa fa-calendar"></i> <b>{{ bill.date | date('d-m-Y') }}</b> -  {{ 'bill.bill_date.title'|trans }}
+                                </p>
+                                <p>
+                                    <i class="fa fa-calendar"></i> <b>{{ bill.payDateText | default('не оплачено') }}</b> - {{ 'bill.pay_date.title'|trans }}
+                                </p>
                             </address>
                         </div>
                     </div>
@@ -43,23 +79,27 @@
         <div class="col-md-6">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title m-b-0">Рахунок</h5>
+            <h5 class="card-title m-b-0">{{ 'bill.title'|trans|capitalize }}</h5>
         </div>
         <table class="table">
             <thead>
             </thead>
             <tbody>
             <tr>
-                <td>Послуга</td>
+                <td>{{ 'service.title'|trans|capitalize }}</td>
                 <td>{{ bill.type | trans }}</td>
             </tr>
             <tr>
-                <td>До сплати</td>
+                <td>{{ 'bill.amount.title'|trans }}</td>
                 <td>{{ (bill.amount / 100) |number_format(2,'.','') }}</td>
             </tr>
             <tr>
-                <td>Фактично сплачено</td>
+                <td>{{ 'bill.actually_paid'|trans }}</td>
                 <td>{{ (bill.actuallyPaid / 100) |number_format(2,'.','') }}</td>
+            </tr>
+            <tr>
+                <td>{{ 'bill.notes.title'|trans|capitalize }}</td>
+                <td>{{ bill.note }}</td>
             </tr>
             </tbody>
         </table>

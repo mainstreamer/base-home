@@ -57,7 +57,20 @@
             font-family: "Material Design Icons";
             content: "\f552";
         }
-
+        .outerDivFull { margin:50px; }
+        .custom-switch input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
+        .custom-switch label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 30px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
+        .custom-switch label:after {content: ''; position: absolute; top: 2px; left: 2px; width: 26px; height: 26px; background: #fff; border-radius: 90px; transition: 0.3s; }
+        .custom-switch input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
+        .custom-switch input + label:before, .switchToggle input + input + label:before {content: "{{ 'no'|trans }}"; position: absolute; top: 5px; left: 35px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .custom-switch input:checked + label:before, .switchToggle input:checked + input + label:before {content: "{{ 'yes'|trans }}"; position: absolute; top: 5px; left: 10px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .custom-switch input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
+        .custom-switch label:active:after {width: 60px; }
+        #dt_filter, #dt_length { display: inline-block;}
+        #dt_filter {float: right;}
+        #dt_filter label input {display: inline-block; width: 240px; float: right;}
+        #dt_length label, #dt_filter label {width: 300px;}
+        #dt_length  select.form-control.form-control-sm { display: inline-block; width: 40px;}
     </style>
 {% endblock head %}
 
@@ -119,5 +132,10 @@
             $('.custom-file-label').text(fileName);
         });
 
+        $('.custom-switch').on("click", (function () {
+
+            $(this).find('input').prop("checked", !$(this).find('input').prop("checked"));
+
+        }));
     </script>
 {% endblock javascripts %}

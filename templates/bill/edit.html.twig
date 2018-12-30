@@ -2,6 +2,7 @@
 
 {% block title %}Edit Bill{% endblock %}
 {% block head %}
+
     <link rel="stylesheet" type="text/css" href="/assets/libs/select2/dist/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <style>
@@ -66,17 +67,58 @@
             z-index: 999;
         }
 
+        .outerDivFull { margin:50px; }
+        .custom-switch input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
+        .custom-switch label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 30px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
+        .custom-switch label:after {content: ''; position: absolute; top: 2px; left: 2px; width: 26px; height: 26px; background: #fff; border-radius: 90px; transition: 0.3s; }
+        .custom-switch input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
+        .custom-switch input + label:before, .switchToggle input + input + label:before {content: "{{ 'no'|trans }}"; position: absolute; top: 5px; left: 35px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .custom-switch input:checked + label:before, .switchToggle input:checked + input + label:before {content: "{{ 'yes'|trans }}"; position: absolute; top: 5px; left: 10px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .custom-switch input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
+        .custom-switch label:active:after {width: 60px; }
+        #dt_filter, #dt_length { display: inline-block;}
+        #dt_filter {float: right;}
+        #dt_filter label input {display: inline-block; width: 240px; float: right;}
+        #dt_length label, #dt_filter label {width: 300px;}
+        #dt_length  select.form-control.form-control-sm { display: inline-block; width: 40px;}
+
     </style>
 {% endblock head %}
 
 {% block content %}
-    <a class="m-l-15 waves-effect waves-light " href="{{ path('bill_show', {'id' : bill.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
+    {#<a class="m-l-15 waves-effect waves-light " href="{{ path('bill_show', {'id' : bill.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>#}
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div  class="col-1">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <a href="{{ path('bill_show', {'id':bill.id}) }}">
+                                <li class="breadcrumb-item">
+                                    <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
+                                </li>
+                            </a>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-11 d-flex no-block align-items-center">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>
+                            <li class="breadcrumb-item active">{{ bill.name }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container-fluid">
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
-
-
 
         <div class="card col-12 mh-1000">
             <div class="card-body">
@@ -173,5 +215,11 @@
 
         });
 
+
+        $('.custom-switch').on("click", (function () {
+
+            $(this).find('input').prop("checked", !$(this).find('input').prop("checked"));
+
+        }));
     </script>
 {% endblock javascripts %}
