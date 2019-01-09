@@ -1,0 +1,9 @@
+App\Entity\Tariff:
+    tariff_1:
+        price: '191'
+        type: '@type_1'
+        description: 'day time tariff for electricity'
+    tariff_2:
+        price: '121'
+        type: '@type_2'
+        description: 'night time tariff for electricity'

@@ -34,3 +34,6 @@ App\Entity\Indication:
         meter:
             targetEntity: App\Entity\Meter
             inversedBy: indications
+        tariff:
+            targetEntity: App\Entity\Tariff
+#            inversedBy: indications

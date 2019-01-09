@@ -1,0 +1,5 @@
+App\Entity\TariffType:
+    type_1:
+        name: 'day'
+    type_2:
+        name: 'night'

@@ -1,0 +1,23 @@
+App\Entity\Tariff:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\TariffRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        price:
+            type: integer
+            nullable: true
+        description:
+            type: text
+            nullable: true
+    manyToOne:
+        type:
+            targetEntity: App\Entity\TariffType
+        meter:
+            targetEntity: App\Entity\Meter
+            inversedBy: tariffs
