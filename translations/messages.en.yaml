@@ -41,7 +41,7 @@ indication:
   title: Indication
   file:
     tooltip: Add indication photo (optional)
-    placeholder: Choose file
+    placeholder: Upload files
     date: Indication date
     value: Indication value
   edit:
@@ -64,6 +64,8 @@ Service type: Service type
 delete_file: Delete file
 save: Save
 delete: Delete
+cancel: Cancel
+are_you_sure: Are you sure?
 
 place:
   title: Place
@@ -99,7 +101,7 @@ bill:
   notes:
     title: Notes
   file:
-    title: Add bill file (optional)
+    title: Add bill and payment files (optional)
   bill_date:
     title: Billing date
   bill_period:
@@ -126,3 +128,10 @@ site:
 for: for
 uah: UAH
 options: Options
+
+modals:
+  delete_file_question: Delete this file?
+
+file: File
+files: File
+creation_datetime: Created

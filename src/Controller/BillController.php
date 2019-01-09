@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Bill;
+use App\Entity\FileUpload;
 use App\Entity\Place;
 use App\Form\BillType;
 use App\Repository\BillRepository;
@@ -56,9 +57,24 @@ class BillController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($bill->getFile()) {
-                $bill->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())));
+            $bill->setFile(null);
+//            dump($bill);exit;
+//            dump($form->all()['date']);exit;
+            $files = array_values($request->files->all()[$form->getName()])[0];
+
+            foreach ($files as $file)
+            {
+                $path = $this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($file);
+                $bill->addFile( new FileUpload($path));
+
+//                ( $this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())))
             }
+//            dump($form->getName());exit;
+//            dump();exit;
+//            dump($request->files->all()[$form->getName()]['file']);exit;
+//            if ($bill->getFile()) {
+//                $bill->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())));
+//            }
 
             $em = $this->getDoctrine()->getManager();
 //            dump($bill);exit;
@@ -83,19 +99,51 @@ class BillController extends AbstractController
     public function edit(Request $request, Bill $bill, FileUploaderService $fileUploaderService): Response
     {
 
-        if ($before = $bill->getFile()) {
-            $bill->setFile( new File($bill->getFile()));
+//        dump(
+//            $request->files->all()['bill']['file']
+//        );exit;
+
+        /*if ($before = $bill->getFile()) {
+            foreach ($before as $file) {
+              $tmp[] = new File($file);
+            }
+            $bill->setFile($tmp);
+//                new File($bill->getFile())
         }
+        */
+
         $form = $this->createForm(BillType::class, $bill);
         $form->remove('place');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($bill->getFile() && !strpos($bill->getFile()->getPathName(), 'uploads_directory')) {
+
+
+            $bill->setFile(null);
+//            dump($bill);exit;
+//            dump($form->all()['date']);exit;
+            $files = array_values($request->files->all()[$form->getName()])[0];
+
+            foreach ($files as $file)
+            {
+                $path = $this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($file);
+
+                $newFile = new FileUpload($path);
+                $newFile->setOriginalName($file->getClientOriginalName());
+
+                $bill->addFile($newFile);
+
+//                ( $this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())))
+            }
+
+
+//            $bill->setFile($request->files->all()['bill']['file']);
+
+           /* if ($bill->getFile() && !strpos($bill->getFile()->getPathName(), 'uploads_directory')) {
                 $bill->setFile(new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())));
             }  elseif ($bill->getFile()) {
                 $bill->setFile(new File($before));
-            }
+            }*/
 
             $this->getDoctrine()->getManager()->flush();
 
@@ -120,9 +168,11 @@ class BillController extends AbstractController
         return $this->redirectToRoute('place_show', ['id' => $place]);
     }
 
-    public function deleteFile(Bill $bill)
+//    public function deleteFile(Bill $bill)
+    public function deleteFile(FileUpload $file)
     {
-        $bill->setFile(null);
+        $bill = $file->getBill();
+        $bill->removeFile($file);
         $this->getDoctrine()->getManager()->flush();
 
         return new JsonResponse();

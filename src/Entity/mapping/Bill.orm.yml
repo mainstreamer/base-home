@@ -57,3 +57,8 @@ App\Entity\Bill:
         place:
             targetEntity: App\Entity\Place
             inversedBy: bills
+    oneToMany:
+        files:
+            targetEntity: App\Entity\FileUpload
+            mappedBy: bill
+            cascade: ['persist', 'remove']
