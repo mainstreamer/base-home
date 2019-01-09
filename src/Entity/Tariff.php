@@ -5,6 +5,10 @@ namespace App\Entity;
 
 class Tariff
 {
+    const DAY_TARIFF = 'day';
+
+    const NIGHT_TARIFF = 'night';
+
     private $id;
 
     private $price;
