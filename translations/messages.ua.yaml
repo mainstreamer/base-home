@@ -27,7 +27,7 @@ indication:
   title: Показання
   file:
     tooltip: Додайте фото показання лічильника (не обов`язково)
-    placeholder: Оберіть файл
+    placeholder: Додати файли
     date: Дата зняття показання
     value: Значення показання
   edit:
@@ -68,8 +68,12 @@ Service type: Тип послуги
 delete_file: Видалити файл
 save: Зберегти
 delete: Видалити
+cancel: Скасувати
+are_you_sure: Ви впевнені?
+
 
 choose_file: Оберіть файл
+choose_files: Додати файли
 
 place:
   title: Місце
@@ -104,7 +108,7 @@ bill:
   notes:
     title: Нотатки
   file:
-    title: Додайте електронну версію рахунку (не обов`язково)
+    title: Додайте електронну версію рахунку та (або) квитанції про оплату (не обов`язково)
   bill_date:
     title: Дата виставлення рахунку
   bill_period:
@@ -134,3 +138,10 @@ site:
 options: Опції
 for: для
 uah: ГРН
+
+modals:
+  delete_file_question: Видалити цей файл
+
+file: Файл
+files: Файли
+creation_datetime: Створено

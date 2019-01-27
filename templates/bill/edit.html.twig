@@ -195,7 +195,7 @@
                 $.ajax(url)
                     .done ((data) => {
                         $('#file-icon').removeClass(['mdi-close-box', 'text-danger']).addClass('mdi-upload');
-                        $('.custom-file-label').text('Оберіть файл');
+                        $('.custom-file-label').text("{{ 'indication.file.placeholder'|trans }}");
                         $('#tooltip-file').attr('data-original-title', "{{ 'bill.file.title'|trans }}");
                     })
                     .fail( () => {
@@ -209,12 +209,11 @@
 
         $('input[type="file"]').change(function(e){
 
-            var fileName = e.target.files[0].name;
+            var text = e.target.files.length > 1 ? e.target.files.length+" {{ 'files'|trans }}" : e.target.files[0].name;
 
-            $('.custom-file-label').text(fileName);
+            $('.custom-file-label').text(text);
 
         });
-
 
         $('.custom-switch').on("click", (function () {
 
