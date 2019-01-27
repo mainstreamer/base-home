@@ -3,7 +3,10 @@ Lost password?: Lost password?
 Keep me logged in: Keep me logged in
 Email: Email
 Password: Password
+Profile: Profile
 Error!: Error!
+Attention: Attention
+Message: Message
 sign up: Sign up
 id: ID
 due: Due
@@ -54,6 +57,7 @@ indication:
   unit:
     title: Measure unit
   value: Value
+  tariff: Tariff for indication
 
 no data: No data
 name: name
@@ -86,6 +90,7 @@ meter:
     title: Edit meter
   add:
     title: Add meter
+  tariffs: Tariffs of the meter
 
 bill:
   title: Bill
@@ -121,6 +126,7 @@ pages:
   main: Main
   places: Places
   analytics: Analytics
+  tariffs: Tariffs
 
 site:
   title: Digital home
@@ -135,3 +141,17 @@ modals:
 file: File
 files: File
 creation_datetime: Created
+
+measure:
+  unit: Measure unit
+
+security:
+  message:
+    reset:
+      title: Enter your e-mail address below and we will send you instructions how to recover a password
+    password_changed: Password has been changed!
+    reset_letter_sent: Please check your email for password reset instructions!
+    account_enabled: Your account is now enabled!
+  button:
+    reset:
+      title: Reset

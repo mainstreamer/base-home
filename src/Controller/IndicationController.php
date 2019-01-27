@@ -84,7 +84,6 @@ class IndicationController extends AbstractController
 
     public function edit(Request $request, Indication $indication, FileUploaderService $fileUploaderService): Response
     {
-
         if ($before = $indication->getFile()) {
             $indication->setFile( new File($indication->getFile()));
         }

@@ -12,19 +12,46 @@ App\Entity\User:
         email:
             type: string
             length: 255
+            unique: true
         password:
             type: string
             length: 255
         firstName:
             type: string
             length: 255
+        lastName:
+            type: string
+            length: 255
         roles:
             type: string
             length: 255
             nullable: true
-
+        profilePic:
+            type: string
+            length: 255
+            nullable: true
+        token:
+            type: string
+            length: 255
+            nullable: true
+        enabled:
+            type: boolean
+            options:
+                default: false
     oneToMany:
         places:
             targetEntity: App\Entity\Place
             mappedBy: user
+            cascade: ['persist', 'remove']
+        tariffs:
+            targetEntity: App\Entity\Tariff
+            mappedBy: user
+            cascade: ['persist', 'remove']
+        tariffTypes:
+            targetEntity: App\Entity\TariffType
+            mappedBy: user
+            cascade: ['persist', 'remove']
+    oneToOne:
+        picture:
+            targetEntity: App\Entity\Picture
             cascade: ['persist', 'remove']

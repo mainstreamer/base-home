@@ -20,6 +20,8 @@ class Indication
 
     private $textDate;
 
+    private $tariff;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -148,4 +150,19 @@ class Indication
         $this->textDate = $textDate;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTariff()
+    {
+        return $this->tariff;
+    }
+
+    /**
+     * @param mixed $tariff
+     */
+    public function setTariff($tariff): void
+    {
+        $this->tariff = $tariff;
+    }
 }

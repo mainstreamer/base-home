@@ -14,15 +14,34 @@ class User implements UserInterface
 
     private $email;
 
-    public $plainPassword;
-
     private $password;
 
     private $firstName;
 
+    private $lastName;
+
     private $roles;
 
     private $places;
+
+    private $tariffs;
+
+    private $tariffTypes;
+
+    private $picture;
+
+    private $profilePic;
+
+    private $token;
+
+    public $plainPassword;
+
+    public $oldPassword;
+
+    /**
+     * @var boolean
+     */
+    private $enabled;
 
     /**
      * User constructor.
@@ -30,6 +49,9 @@ class User implements UserInterface
     public function __construct()
     {
         $this->places = new ArrayCollection();
+        $this->tariffs = new ArrayCollection();
+        $this->tariffTypes = new ArrayCollection();
+        $this->enabled = false;
     }
 
     /**
@@ -75,7 +97,7 @@ class User implements UserInterface
     /**
      * @param string $password
      */
-    public function setPassword(string $password): void
+    public function setPassword(?string $password): void
     {
         $this->password = $password;
     }
@@ -171,4 +193,136 @@ class User implements UserInterface
     {
         return $this->firstName.' '.$this->email;
     }
+
+    /**
+     * @param $tariff
+     */
+    public function addTariff($tariff)
+    {
+        $this->tariffs->add($tariff);
+        // uncomment if you want to update other side
+        $tariff->setUser($this);
+    }
+
+    /**
+     * @param $tariff
+     */
+    public function removeTariff($tariff)
+    {
+        $this->tariffs->removeElement($tariff);
+        // uncomment if you want to update other side
+        $tariff->setUser(null);
+    }
+
+    public function getTariffs()
+    {
+        return $this->tariffs;
+    }
+
+
+    /**
+     * @param $tariff
+     */
+    public function addTariffType($tariff)
+    {
+        $this->tariffTypes->add($tariff);
+        // uncomment if you want to update other side
+        $tariff->setUser($this);
+    }
+
+    /**
+     * @param $tariff
+     */
+    public function removeTariffType($tariff)
+    {
+        $this->tariffTypes->removeElement($tariff);
+        // uncomment if you want to update other side
+        $tariff->setUser(null);
+    }
+
+    public function getTariffTypes()
+    {
+        return $this->tariffTypes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param mixed $lastName
+     */
+    public function setLastName($lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param mixed $picture
+     */
+    public function setPicture($picture): void
+    {
+        $this->picture = $picture;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProfilePic()
+    {
+        return $this->profilePic;
+    }
+
+    /**
+     * @param mixed $profilePic
+     */
+    public function setProfilePic($profilePic): void
+    {
+        $this->profilePic = $profilePic;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token): void
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled): void
+    {
+        $this->enabled = $enabled;
+    }
+
 }

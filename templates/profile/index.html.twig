@@ -1,0 +1,156 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme password _self %}
+
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+                {% for error in errors %}
+                    <div class="m-l-10">{{ error.message }}</div>
+                {% endfor %}
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+{% block title %}User index{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        .w3-card, .w3-card-2 {
+            box-shadow: 0 1px 1px 0 rgba(0,0,0,0.16), 0 1px 1px 0 rgba(0,0,0,0.12);
+        }
+
+        h3 {
+            opacity: 50%;
+        }
+        .gradient {
+            background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid p-0">
+    <div class="w3 col-lg-6 col-xl-4 p-0">
+        <div class="w3-white w3-text-grey {#w3-card#}">
+            <div id="dzone" class="w3-display-container ">
+               <div class="">
+                   <img id="avatar" src="{% if user.profilePic != "" %}{{ 'uploads/'~user.profilePic }}{% else %}assets/images/users/1.jpg{% endif %}" style="width:100%; max-width:300px;" alt="Avatar">
+               </div>
+
+                <div class="w3-display-bottomleft w3-container w3-text-black row col-12 p-0 m-0 gradient">
+                    <h3 class="m-l-20">{{ user.firstName }} {{ user.lastName }}</h3>
+                </div>
+            </div>
+            <div class="card">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">{{ 'Profile' | trans }}</span></a> </li>
+                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">{{ 'Password'|trans }}</span></a> </li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content tabcontent-border">
+                    <div class="tab-pane p-20 active" id="home" role="tabpanel">
+                        <div class="">
+
+                                {{ include('profile/_form.html.twig') }}
+
+                        </div>
+                    </div>
+                    <div class="tab-pane  " id="profile" role="tabpanel">
+                        <div class="p-20">
+
+                            {{ form_start(password, {'attr' : {'class' : 'form-horizontal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12'}}) }}
+
+                            <div class="card-body">
+                                <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'indication.file.value' | trans }}">
+                                    {%  if form_errors(password.oldPassword) matches '{\w+}' %}
+                                        {% set errorClass = 'is-invalid'%}
+                                    {% else %}
+                                        {% set errorClass = ''%}
+                                    {% endif %}
+                                    <div class="input-group col-12">
+                                        {{ form_widget(password.oldPassword, {'attr' : {'class' : 'form-control '~errorClass|default(''), 'placeholder' : 'indication.title' | trans}}) }}
+                                    </div>
+
+                                    {%  if form_errors(password.oldPassword)  %}
+
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ form_errors(password.oldPassword) }}
+                                    </div>
+                                    {% endif %}
+                                    {{ form_help(password.oldPassword) }}
+
+                                </div>
+                                <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'indication.file.value' | trans }}">
+                                    {%  if 'div' in form_errors(password.plainPassword.first)  %}
+                                        {% set errorClass = 'is-invalid'%}
+                                    {% else %}
+
+                                        {% set errorClass = ''%}
+                                    {% endif %}
+                                    <div class="input-group col-12">
+                                        {{ form_widget(password.plainPassword.first, {'attr' : {'class' : 'form-control '~errorClass|default(''), 'placeholder' : 'indication.title' | trans}}) }}
+                                    </div>
+                                    {%  if form_errors(password.plainPassword.first)  %}
+                                        <div class="invalid-feedback" style="display: block">
+                                            {{ form_errors(password.plainPassword.first) }}
+                                        </div>
+                                    {% endif %}
+                                    {{ form_help(password.plainPassword.first) }}
+
+                                </div>
+                                <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'indication.file.value' | trans }}">
+                                    {%  if 'div' in form_errors(password.plainPassword.second) %}
+                                        {% set errorClass = 'is-invalid'%}
+                                    {% else %}
+                                        {% set errorClass = ''%}
+                                    {% endif %}
+                                    <div class="input-group col-12">
+                                        {{ form_widget(password.plainPassword.second, {'attr' : {'class' : 'form-control '~errorClass|default(''), 'placeholder' : 'indication.title' | trans}}) }}
+                                    </div>
+                                    {%  if form_errors(password.plainPassword.second)  %}
+                                        <div class="invalid-feedback" style="display: block">
+                                            {{ form_errors(password.plainPassword.second) }}
+                                        </div>
+                                    {% endif %}
+                                    {{ form_help(password.plainPassword.second) }}
+                                </div>
+                            </div>
+                            <div class="border-top">
+                                <div class="card-body">
+                                    <button class="btn btn-outline-primary">{{ button_label|default('save'|trans) }}</button>
+                                </div>
+                            </div>
+
+                            {{ form_end(password) }}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><br>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/extra-libs/dropzone/dropzone.js"></script>
+    <script>
+        $("div#dzone").dropzone(
+            {
+                url: "/user/{{ user.id }}/profile/picture",
+                maxFilesize: 10,
+                success: function (file, response) {
+                    this.removeFile(file);
+                    $('#avatar').attr('src', 'uploads/'+response);
+                }
+            }
+        );
+    </script>
+{% endblock javascripts %}
