@@ -13,6 +13,10 @@ App\Entity\Place:
             type: string
             length: 255
             nullable: false
+        address:
+            type: string
+            length: 255
+            nullable: true
     oneToMany:
         bills:
             targetEntity: App\Entity\Bill

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
 
 class Meter
 {
@@ -19,9 +20,12 @@ class Meter
 
     private $indications;
 
+    private $tariffs;
+
     public function __construct()
     {
         $this->indications = new ArrayCollection();
+        $this->tariffs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,7 +86,9 @@ class Meter
      */
     public function getIndications(): Collection
     {
-        return $this->indications;
+        $criteria = Criteria::create()->orderBy(['date' => Criteria::DESC]);
+
+        return $this->indications->matching($criteria);
     }
 
     public function addIndication(Indication $item): void
@@ -116,5 +122,25 @@ class Meter
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTariffs()
+    {
+        return $this->tariffs;
+    }
+
+    public function addTariff(Tariff $item): void
+    {
+        $this->tariffs[] = $item;
+//        $item->setMeter($this);
+    }
+
+    public function removeTariff(Tariff $item): void
+    {
+        $this->tariffs->remove($item);
+//        $item->setMeter(null);
     }
 }

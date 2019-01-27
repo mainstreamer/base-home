@@ -1,30 +1,141 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Indication{% endblock %}
+{% block title %}Bill{% endblock %}
 
 {% block content %}
-    <h1>Bill</h1>
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div  class="col-1">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <a href="{{ path('meter_show', {'id':indication.meter.id}) }}">
+                                <li class="breadcrumb-item">
+                                    <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
+                                </li>
+                            </a>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-11 d-flex no-block align-items-center">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>
+                            <li class="breadcrumb-item active">{{ indication.meter.id }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-body printableArea">
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="pull-right text-left">
+                            <address>
+                                <h5>{{ 'place.title' | trans }}: <span class="font-weight-light">{{ indication.meter.place.name }} </span></h5>
+                                <p class="m-t-30"><i class="fa fa-calendar"></i> <b>{{ indication.date | date('d-m-Y') }}</b> -  {{ 'indication.date' |trans|capitalize }} </p>
+                            </address>
+                        </div>
+                    </div>
+                    <div class="col-1 card-hover card">
+                        <a href="{{ path('indication_edit', {'id' : indication.id }) }}">
+                            <div class="box bg-white text-center">
+                                <h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>
+                                <h5 class="font-light text-dark" style="color: black;">{{ 'options'|trans|capitalize }}</h5>
+                                {#<small class="text-dark">{{ 'options'|trans|capitalize }}</small>#}
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title m-b-0">Показання</h5>
+                </div>
+                <table class="table">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Назва</td>
+                        <td>{{ indication.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Показання лічильника</td>
+                        <td>{{ indication.value }}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата показання</td>
+                        <td>{{ indication.date |date('d-m-Y') }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            {% if indication.file %}
+                <div class="text-right"><div class="row el-element-overlay">
+                        <div class="card w-25 m-t-40 p-t-20">
+                            <div class="el-card-item">
+                                <div class="el-card-avatar el-overlay-1">
+                                    {% if '.pdf' in indication.file %}
+                                        <img src="https://i.gadgets360cdn.com/large/pdf_pixabay_1493877090501.jpg">
+                                    {% elseif indication.file matches '/(.jpg|.jpeg|.png|.gif|.bmp|.svg)$/' %}
+                                        <img src="/{{ indication.file }}">
+                                    {% else %}
+                                        <img src="https://cdn3.iconfinder.com/data/icons/brands-applications/512/File-512.png">
+                                    {% endif %}
+                                    <div class="el-overlay">
+                                        <ul class="list-style-none el-info">
+                                            {% if indication.file matches '/(.jpg|.jpeg|.png|.gif|.bmp|.svg)$/'%}
+                                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="/{{ indication.file }}"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                            {% endif %}
+                                            <li class="el-item"><a class="btn default btn-outline el-link " download="{{ indication.file }}" href="/{{ indication.file }}"><i class="mdi mdi-download"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="el-card-content">
+                                    <h4 class="m-b-0">Project title</h4> <span class="text-muted">subtitle of project</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ indication.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ indication.name }}</td>
-            </tr>
-            {#<tr>#}
-                {#<th>Amount</th>#}
-                {#<td>{{ indication.amount }}</td>#}
-            {#</tr>#}
-        </tbody>
-    </table>
-
-    <a href="{{ path('indication_index') }}">back to list</a>
-
-    <a href="{{ path('indication_edit', {'id': indication.id}) }}">edit</a>
-
-    {{ include('indication/_delete_form.html.twig') }}
 {% endblock %}
+
+{% block actions %}
+    <!-- ============================================================== -->
+    <!-- create new -->
+    <!-- ============================================================== -->
+    {#<li class="nav-item dropdown">#}
+        {#<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+            {#<span class="d-none d-md-block">{{ 'menu.actions.title' | trans }} <i class="fa fa-angle-down"></i></span>#}
+            {#<span class="d-block d-md-none"><i class="fa fa-plus"></i></span>#}
+        {#</a>#}
+        {#<div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+            {#<div class="dropdown-divider"></div>#}
+            {#<a class="dropdown-item" href="{{ path('indication_edit', {'id': indication.id}) }}">{{ 'indication.edit.title' | trans }}</a>#}
+            {#<a class="dropdown-item text-danger" href="{{ path('indication_edit', {'id': indication.id}) }}">{{ 'indication.delete.title' | trans }}</a>#}
+        {#</div>#}
+    {#</li>#}
+{% endblock actions %}
+
+{% block javascripts %}
+    <link href="/assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
+    <script src="/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/libs/magnific-popup/meg.init.js"></script>
+{% endblock javascripts %}

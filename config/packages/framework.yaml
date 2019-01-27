@@ -28,3 +28,10 @@ framework:
 
         # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
         #app: cache.adapter.apcu
+#    translator: { fallbacks: [uk] }
+    translator: { fallbacks: [en] }
+
+        # ...
+
+#    default_locale: uk
+    default_locale: en

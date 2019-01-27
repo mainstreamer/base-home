@@ -41,6 +41,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
 #         - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: /password/request, allow_if: "!is_authenticated()" }
+         - { path: ^/password/reset, allow_if: "!is_authenticated()" }
+         - { path: /account, allow_if: "!is_authenticated()" }
          - { path: /login, allow_if: "!is_authenticated()" }
          - { path: /register, allow_if: "!is_authenticated()" }
 #         - { path: /register, allow_if: "has_role('IS_AUTHENTICATED_ANONYMOUSLY') and not has_role('IS_AUTHENTICATED_FULLY')" }

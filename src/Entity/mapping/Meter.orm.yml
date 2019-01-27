@@ -13,11 +13,6 @@ App\Entity\Meter:
             type: string
             length: 255
             nullable: false
-
-#        type:
-#        amount:
-#            type: integer
-#            nullable: true
     manyToOne:
         type:
             targetEntity: App\Entity\MeterType
@@ -31,3 +26,6 @@ App\Entity\Meter:
             targetEntity: App\Entity\Indication
             mappedBy: meter
             cascade: ['persist', 'remove']
+    manyToMany:
+        tariffs:
+            targetEntity: App\Entity\Tariff

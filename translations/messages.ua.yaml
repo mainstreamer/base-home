@@ -3,5 +3,164 @@ Lost password?: Забули пароль?
 Keep me logged in: Запам'ятати мене
 Email: Імейл
 Password: Пароль
+Profile: Профіль
 Error!: Помилка
+Attention: Увага
+Message: Повідомлення
 sign up: Реєстрація
+
+address: Адреса
+
+kW/h: кВт/год
+m3: м3
+Gk: Гк
+I: Л
+
+back: Назад
+
+Electricity: Електрика
+Gas: Газ
+Cold Water: Холодна вода
+Heating: Опалення
+Hot Water: Гаряча вода
+
+indications: Показники
+
+indication:
+  title: Показання
+  file:
+    tooltip: Додайте фото показання лічильника (не обов`язково)
+    placeholder: Додати файли
+    date: Дата зняття показання
+    value: Значення показання
+  edit:
+    title: Редагувати показання
+  add:
+    title: Додати показання
+  delete:
+    title: Видалити показання
+  date: Дата показання
+  unit:
+    title: Одиниця виміру
+  value: Значення
+  tariff: Тариф для показання
+
+date: Дата
+id: Номер
+due: До сплати
+status: Статус
+gas: Газ
+hot water: Гаряча вода
+cold water: Холодна вода
+heating: Опалення
+electricity: Електроенергія
+payDate: Дата оплати
+actuallyPaid: Фактично сплачено
+billDate: Дата рахунку
+billPeriod: Розрахунковий період
+UNPAID: Не оплачено
+PAID: Сплачено
+yes: Так
+no: Ні
+#service: Послуга
+last indication date: Дата останнього показання
+no data: Немає даних
+name: Назва
+type: Тип
+made with: Розроблено з
+Service type: Тип послуги
+delete_file: Видалити файл
+save: Зберегти
+delete: Видалити
+cancel: Скасувати
+are_you_sure: Ви впевнені?
+
+
+choose_file: Оберіть файл
+choose_files: Додати файли
+
+place:
+  title: Місце
+  titles: Місця
+  edit:
+    title: Редагувати місце
+  add:
+    title: Додати місце
+
+menu:
+  actions:
+    title: Дії
+
+meter:
+  title: Лічильник
+  new:
+    title: Новий лічильник
+  edit:
+    title: Редагувати лічильник
+  add:
+    title: Додати лічильник
+  tariffs: Тарифи лічильника
+
+bill:
+  title: Рахунок
+  titles: Рахунки
+  new:
+    title: Новий рахунок
+  edit:
+    title: Редагувати рахунок
+  add:
+    title: Додати рахунок
+  notes:
+    title: Нотатки
+  file:
+    title: Додайте електронну версію рахунку та (або) квитанції про оплату (не обов`язково)
+  bill_date:
+    title: Дата виставлення рахунку
+  bill_period:
+    title: Розрахунковий період
+  amount:
+    title: До сплати
+    placeholder: Введіть суму
+  delete:
+    title: Видалити рахунок
+  actually_paid: Фактично сплачено
+  pay_date:
+    title: Дата оплати
+
+
+service:
+  title: Послуга
+  type: Тип послуг
+
+pages:
+  main: Головна
+  analytics: Аналітика
+  places: Місця
+  tariffs: Тарифи
+site:
+  title: Рахунки
+
+options: Опції
+for: для
+uah: ГРН
+
+modals:
+  delete_file_question: Видалити цей файл
+
+file: Файл
+files: Файли
+creation_datetime: Створено
+
+measure:
+  unit: Одиниця виміру
+
+security:
+  message:
+    reset:
+      title: Вкажіть ваш e-mail та ми надішлемо вам листа з інструкціями зміни пароля
+    password_changed: Пароль було змінено!
+    reset_letter_sent: Будь-ласка перевірте вашу пошту для подальших інструкцій!
+    account_enabled: Ваш обліковий запис активовано!
+  button:
+    reset:
+      title: Надіслати

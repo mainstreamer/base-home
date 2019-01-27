@@ -1,11 +1,16 @@
 App\Entity\MeterType:
     meterType_1:
         name: 'Electricity'
+        icon: '💡'
     meterType_2:
         name: 'Gas'
+        icon: '🔥'
     meterType_3:
         name: 'Cold Water'
+        icon: '💦'
     meterType_4:
         name: 'Heating'
+        icon: '🔆'
     meterType_5:
         name: 'Hot Water'
+        icon: '🛁'

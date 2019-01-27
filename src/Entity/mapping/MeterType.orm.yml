@@ -13,12 +13,7 @@ App\Entity\MeterType:
             type: string
             length: 255
             nullable: false
-
-#        type:
-#        amount:
-#            type: integer
-#            nullable: true
-#    manyToOne:
-#        place:
-#            targetEntity: App\Entity\Place
-#            inversedBy: bills
+        icon:
+            type: string
+            length: 32
+            nullable: true

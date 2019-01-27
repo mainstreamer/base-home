@@ -12,12 +12,17 @@ App\Entity\Indication:
         name:
             type: string
             length: 255
-            nullable: false
+            nullable: true
         value:
             type: integer
         date:
             type: datetime
+        textDate:
+            type: string
         unit:
+            type: string
+            nullable: true
+        file:
             type: string
             nullable: true
 #        unit:
@@ -29,3 +34,6 @@ App\Entity\Indication:
         meter:
             targetEntity: App\Entity\Meter
             inversedBy: indications
+        tariff:
+            targetEntity: App\Entity\Tariff
+#            inversedBy: indications

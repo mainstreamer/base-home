@@ -2,12 +2,95 @@
 
 {% block title %}Edit Bill{% endblock %}
 
-{% block content %}
-    <h1>Edit meter</h1>
-
-    {{ include('meter/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('meter_index') }}">back to list</a>
-
-    {{ include('meter/_delete_form.html.twig') }}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/assets/libs/select2/dist/css/select2.min.css">
+    <link href="/dist/css/style.min.css" rel="stylesheet">
 {% endblock %}
+
+{% block content %}
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div  class="col-1">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <a href="{{ path('meter_show', {'id':meter.id}) }}">
+                                <li class="breadcrumb-item">
+                                    <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
+                                </li>
+                            </a>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-11 d-flex no-block align-items-center">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>
+                            <li class="breadcrumb-item active">{{ meter.name }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#<div class="page-breadcrumb">#}
+        {#<div class="row">#}
+            {#<h4 class="page-title text-center">#}
+                {#<a class="waves-effect waves-light p-l-5" href="{{ path('meter_show', {'id' : meter.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>#}
+            {#</h4>#}
+            {#<div class="ml-auto text-right">#}
+                {#<nav aria-label="breadcrumb">#}
+                    {#<ol class="breadcrumb">#}
+                        {#<li class="breadcrumb-item"><a href="#">Home</a></li>#}
+                        {#<li class="breadcrumb-item active" aria-current="page">Library</li>#}
+                    {#</ol>#}
+                {#</nav>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+    <div class="row">
+        <div class="col-9">
+            {% include('meter/_form.html.twig') with {'title' : 'meter.edit.title' |trans, 'meter' : meter, 'url' : path('meter_delete', { 'id' : meter.id })} %}
+        </div>
+        <div class="col-3 d-flex align-items-end justify-content-end">
+            {% include('common/_delete_button.html.twig') with {'url' : path('meter_delete', { 'id' : meter.id }), 'id' : meter.id} %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+        //***********************************//
+        // For select 2
+        //***********************************//
+        $(".select2").select2({
+            tags: true,
+        });
+
+        $('.select2').on('select2:select', function (e) {
+            if ($(".select2 option[value='"+e.params.data.text+"']").length != 0) {
+
+                var text = e.params.data.text;
+
+                $.ajax({
+                   method: 'post',
+                   url : '/tariff-type-and-tariff/{{ meter.id }}/new',
+                   data: { content : e.params.data.text }
+                })
+                .done ((data) =>
+                {
+                    $(".select2 option[value='"+text+"']").attr('value', data);
+                })
+                .fail( () => {
+                    alert( "error" );
+                });
+            }
+        });
+    </script>
+{% endblock javascripts %}

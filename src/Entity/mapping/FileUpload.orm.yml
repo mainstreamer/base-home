@@ -1,0 +1,33 @@
+App\Entity\FileUpload:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\FileUploadRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        originalName:
+            type: string
+            length: 255
+            nullable: true
+        name:
+            type: string
+            length: 255
+            nullable: true
+        path:
+            type: string
+            length: 255
+            nullable: false
+        created:
+            type: datetime
+#        type:
+#        amount:
+#            type: integer
+#            nullable: true
+    manyToOne:
+        bill:
+            targetEntity: App\Entity\Bill
+            inversedBy: files

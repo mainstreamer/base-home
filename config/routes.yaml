@@ -2,6 +2,10 @@ index:
     path: /
     controller: App\Controller\ProfileController::index
 
+
+analytics:
+    path: /analytics
+    controller: App\Controller\ProfileController::analytics
 #registration:
 #    resource: App\Controller\RegistrationController
 #    type:     annotation
@@ -17,6 +21,22 @@ register:
 login:
     path: /login
     controller: App\Controller\SecurityController::login
+
+change_password:
+    path: /password/change
+    controller: App\Controller\SecurityController::changePassword
+
+change_password_request:
+    path: /password/request
+    controller: App\Controller\SecurityController::changePasswordRequest
+
+change_password_confirm:
+    path: /password/reset/{token}
+    controller: App\Controller\SecurityController::changePasswordConfirm
+
+enable_account:
+    path: /account/enable/{token}
+    controller: App\Controller\SecurityController::confirmAccount
 
 logout:
     path: /logout
@@ -37,6 +57,10 @@ bill_new:
     path: /bills/new
     controller: App\Controller\BillController::new
 
+bill_new_for_place:
+    path: /bills/{place}/new
+    controller: App\Controller\BillController::newBillForPlace
+
 bill_show:
     path: /bills/{id}
     controller: App\Controller\BillController::show
@@ -48,6 +72,15 @@ bill_edit:
 bill_delete:
     path: /bills/{id}/delete
     controller: App\Controller\BillController::delete
+
+bill_delete_file:
+#    path: /bills/{id}/file/delete
+    path: /bills/file/{file}
+    controller: App\Controller\BillController::deleteFile
+
+bill_toggle_payment:
+    path: /bills/payment/{id}
+    controller: App\Controller\BillController::togglePayment
 
 place_index:
     path: /places
@@ -105,6 +138,10 @@ meter_new:
     path: /meters/new
     controller: App\Controller\MeterController::new
 
+meter_new_for_place:
+    path: /meters/{place}/new
+    controller: App\Controller\MeterController::newMeterForPlace
+
 meter_show:
     path: /meters/{id}
     controller: App\Controller\MeterController::show
@@ -126,6 +163,10 @@ indication_new:
     path: /indications/new
     controller: App\Controller\IndicationController::new
 
+indication_new_for_meter:
+    path: /indications/{meter}/new
+    controller: App\Controller\IndicationController::newIndicationForMeter
+
 indication_show:
     path: /indications/{id}
     controller: App\Controller\IndicationController::show
@@ -137,3 +178,72 @@ indication_edit:
 indication_delete:
     path: /indications/{id}/delete
     controller: App\Controller\IndicationController::delete
+
+indication_delete_file:
+    path: /indications/{id}/file/delete
+    controller: App\Controller\IndicationController::deleteFile
+###
+tariff_index:
+    path: /tariffs
+    controller: App\Controller\TariffController::index
+
+tariff_new:
+    path: /tariffs/new
+    controller: App\Controller\TariffController::new
+
+#tariff_new_for_place:
+#    path: /tariff/{place}/new
+#    controller: App\Controller\TariffController::newBillForPlace
+
+tariff_show:
+    path: /tariffs/{id}
+    controller: App\Controller\TariffController::show
+
+tariff_edit:
+    path: /tariffs/{id}/edit
+    controller: App\Controller\TariffController::edit
+
+tariff_delete:
+    path: /tariffs/{id}/delete
+    controller: App\Controller\TariffController::delete
+
+###
+tariff_type_index:
+    path: /tarifftypes
+    controller: App\Controller\TariffTypeController::index
+
+tariff_type_new:
+    path: /tarifftypes/new
+    controller: App\Controller\TariffTypeController::new
+
+#tariff_new_for_place:
+#    path: /tariff/{place}/new
+#    controller: App\Controller\TariffController::newBillForPlace
+
+tariff_type_show:
+    path: /tarifftypes/{id}
+    controller: App\Controller\TariffTypeController::show
+
+tariff_type_edit:
+    path: /tarifftypes/{id}/edit
+    controller: App\Controller\TariffTypeController::edit
+
+tariff_type_delete:
+    path: /tariff-type/{id}/delete
+    controller: App\Controller\TariffTypeController::delete
+
+tariff_type_and_tariff_new:
+    path: /tariff-type-and-tariff/{id}/new
+    controller: App\Controller\TariffTypeController::newTariffTypeAndTariffForMeter
+
+
+####
+
+profile:
+    path: /profile
+    controller: App\Controller\ProfileController::profile
+picture:
+    path: /user/{user}/profile/picture
+    controller: App\Controller\ProfileController::changePicture
+
+

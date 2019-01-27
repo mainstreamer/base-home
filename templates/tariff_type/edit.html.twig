@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Bill{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/assets/libs/select2/dist/css/select2.min.css">
+    <link href="/dist/css/style.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="page-breadcrumb">
+        <div class="row">
+            <h4 class="page-title text-center">
+                <a class="waves-effect waves-light p-l-5" href="{{ path('tariff_type_show', {'id' : tariff.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
+            </h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Library</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-9">
+            {% include('tariff_type/_form.html.twig') with {'title' : 'tariff.edit.title' |trans, 'tariff' : tariff, 'url' : path('tariff_type_delete', { 'id' : tariff.id })} %}
+        </div>
+        <div class="col-3 d-flex align-items-end justify-content-end">
+            {% include('common/_delete_button.html.twig') with {'url' : path('tariff_type_delete', { 'id' : tariff.id }), 'id' : tariff.id} %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script>
+        //***********************************//
+        // For select 2
+        //***********************************//
+        $(".select2").select2();
+    </script>
+{% endblock javascripts %}

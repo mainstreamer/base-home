@@ -2,10 +2,75 @@
 
 {% block title %}New Meter{% endblock %}
 
-{% block content %}
-    <h1>Create new Meter</h1>
-
-    {{ include('meter/_form.html.twig') }}
-
-    <a href="{{ path('meter_index') }}">back to list</a>
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/assets/libs/select2/dist/css/select2.min.css">
+    <link href="/dist/css/style.min.css" rel="stylesheet">
 {% endblock %}
+
+{% block content %}
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div  class="col-1">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <a href="{{ path('place_show', {'id':place.id}) }}">
+                                <li class="breadcrumb-item">
+                                    <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
+                                </li>
+                            </a>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-11 d-flex no-block align-items-center">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>
+                            <li class="breadcrumb-item active">{{ place.name }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {%  include('meter/_form.html.twig') with {'title' : 'meter.new.title'|trans ~' '~'for'|trans ~' '~place.name} %}
+
+{% endblock %}
+{% block javascripts %}
+    <script src="/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+        //***********************************//
+        // For select 2
+        //***********************************//
+        $(".select2").select2({
+            // tags: true,
+        });
+
+        $('.select2').on('select2:select', function (e) {
+            if ($(".select2 option[value='"+e.params.data.text+"']").length != 0) {
+
+                var text = e.params.data.text;
+
+                $.ajax({
+                    method: 'post',
+                    url : '/tariff-type-and-tariff/{{ meter.id }}/new',
+                    data: { content : e.params.data.text }
+                })
+                    .done ((data) =>
+                    {
+                        $(".select2 option[value='"+text+"']").attr('value', data);
+                    })
+                    .fail( () => {
+                        alert( "error" );
+                    });
+            }
+        });
+    </script>
+{% endblock javascripts %}

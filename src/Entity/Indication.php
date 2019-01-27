@@ -16,6 +16,12 @@ class Indication
 
     private $unit;
 
+    private $file;
+
+    private $textDate;
+
+    private $tariff;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -83,11 +89,12 @@ class Indication
     }
 
     /**
-     * @param mixed $date
+     * @param \DateTime $date
      */
-    public function setDate($date): void
+    public function setDate(\DateTime $date): void
     {
         $this->date = $date;
+        $this->textDate = $date->format('d-m-Y');
     }
 
     /**
@@ -104,5 +111,58 @@ class Indication
     public function setUnit($unit): void
     {
         $this->unit = $unit;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTextDate()
+    {
+        return $this->textDate;
+    }
+
+    /**
+     * @param mixed $textDate
+     */
+    public function setTextDate($textDate): void
+    {
+        $this->textDate = $textDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTariff()
+    {
+        return $this->tariff;
+    }
+
+    /**
+     * @param mixed $tariff
+     */
+    public function setTariff($tariff): void
+    {
+        $this->tariff = $tariff;
     }
 }
