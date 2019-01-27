@@ -3,7 +3,10 @@ Lost password?: Забули пароль?
 Keep me logged in: Запам'ятати мене
 Email: Імейл
 Password: Пароль
+Profile: Профіль
 Error!: Помилка
+Attention: Увага
+Message: Повідомлення
 sign up: Реєстрація
 
 address: Адреса
@@ -40,6 +43,7 @@ indication:
   unit:
     title: Одиниця виміру
   value: Значення
+  tariff: Тариф для показання
 
 date: Дата
 id: Номер
@@ -95,6 +99,7 @@ meter:
     title: Редагувати лічильник
   add:
     title: Додати лічильник
+  tariffs: Тарифи лічильника
 
 bill:
   title: Рахунок
@@ -131,7 +136,7 @@ pages:
   main: Головна
   analytics: Аналітика
   places: Місця
-
+  tariffs: Тарифи
 site:
   title: Рахунки
 
@@ -145,3 +150,17 @@ modals:
 file: Файл
 files: Файли
 creation_datetime: Створено
+
+measure:
+  unit: Одиниця виміру
+
+security:
+  message:
+    reset:
+      title: Вкажіть ваш e-mail та ми надішлемо вам листа з інструкціями зміни пароля
+    password_changed: Пароль було змінено!
+    reset_letter_sent: Будь-ласка перевірте вашу пошту для подальших інструкцій!
+    account_enabled: Ваш обліковий запис активовано!
+  button:
+    reset:
+      title: Надіслати

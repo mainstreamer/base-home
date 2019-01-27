@@ -127,7 +127,7 @@ class Meter
     /**
      * @return Collection
      */
-    public function getTariffs(): Collection
+    public function getTariffs()
     {
         return $this->tariffs;
     }

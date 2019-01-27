@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bill index{% endblock %}
+
+{% block content %}
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div  class="col-1">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            {#<a href="{{ path('meter_show', {'id':tariff.meter.id}) }}">#}
+                            <li class="breadcrumb-item">
+                                <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
+                            </li>
+                            {#</a>#}
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-5 d-flex no-block align-items-end">
+                <div class="ml-auto text-right">
+                            <h4>TARIFFS</h4>
+                </div>
+            </div>
+            <div class="col-6 d-flex no-block align-items-center">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>
+                            {#<li class="breadcrumb-item active">{{ tariff.meter.id }}</li>#}
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#<div class="page-breadcrumb">#}
+        {#<div class="row">#}
+            {#<div  class="col-12">#}
+                {#<div class="ml-auto text-left">#}
+                    {#<nav aria-label="breadcrumb"> <h4>TARIFFS</h4></nav>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+
+{% for place in places %}
+    <div class="row m-l-5 m-t-40">
+        <div class="col-12"><h3>{{ place.name }}</h3></div>
+        <div class="card">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+            {% for meter in place.meters %}
+                <li class="nav-item"> <a class="nav-link {% if loop.index == 1 %}active {% endif %}" data-toggle="tab" href="#meter-{{ meter.id }}" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">{{ meter.type }}</span></a> </li>
+
+
+            {% endfor %}
+
+
+                {#<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Tab1</span></a> </li>#}
+                {#<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Tab2</span></a> </li>#}
+                {#<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Tab3</span></a> </li>#}
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content tabcontent-border">
+            {% for meter in place.meters %}
+                <div class="tab-pane p-20 {% if loop.index == 1 %}active {% endif %}" id="meter-{{ meter.id }}" role="tabpanel">
+                    <div class="p-20">
+                        <p> {{ meter.type.icon }} {{ meter.name }} </p>
+
+                        {% if meter.tariffs.count > 0 %}
+                            {% for tariff in meter.tariffs %}
+                                <p>Tariff type: {{ tariff.type |capitalize}}  price: ({{ tariff.price }}) / {{ meter.unit }} </p>
+                            {% endfor %}
+                        {% else %}
+                            <p>No tariffs added for this meter</p>
+                        {% endif %}
+                        {#<p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>#}
+                        {#<img src="../../assets/images/background/img4.jpg" class="img-fluid">#}
+                    </div>
+                </div>
+            {% endfor %}
+                {#<div class="tab-pane  p-20" id="profile" role="tabpanel">#}
+                    {#<div class="p-20">#}
+                        {#<img src="../../assets/images/background/img4.jpg" class="img-fluid">#}
+                        {#<p class="m-t-10">And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<div class="tab-pane p-20" id="messages" role="tabpanel">#}
+                    {#<div class="p-20">#}
+                        {#<p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>#}
+                        {#<img src="../../assets/images/background/img4.jpg" class="img-fluid">#}
+                    {#</div>#}
+                {#</div>#}
+            </div>
+        </div>
+    </div>
+
+{% endfor %}
+
+    {#<div class="row m-l-5 m-t-40">#}
+    {#<div class="card">#}
+        {#<!-- Nav tabs -->#}
+        {#<ul class="nav nav-tabs" role="tablist">#}
+            {#<li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Tab1</span></a> </li>#}
+            {#<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Tab2</span></a> </li>#}
+            {#<li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Tab3</span></a> </li>#}
+        {#</ul>#}
+        {#<!-- Tab panes -->#}
+        {#<div class="tab-content tabcontent-border">#}
+            {#<div class="tab-pane p-20 active" id="home" role="tabpanel">#}
+                {#<div class="p-20">#}
+                    {#<p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>#}
+                    {#<img src="../../assets/images/background/img4.jpg" class="img-fluid">#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="tab-pane  p-20" id="profile" role="tabpanel">#}
+                {#<div class="p-20">#}
+                    {#<img src="../../assets/images/background/img4.jpg" class="img-fluid">#}
+                    {#<p class="m-t-10">And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="tab-pane p-20" id="messages" role="tabpanel">#}
+                {#<div class="p-20">#}
+                    {#<p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>#}
+                    {#<img src="../../assets/images/background/img4.jpg" class="img-fluid">#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+    {#</div>#}
+
+
+
+
+
+    {##}
+    {#<h1>Meter index</h1>#}
+
+    {#<table class="table">#}
+        {#<thead>#}
+            {#<tr>#}
+                {#<th>Id</th>#}
+                {#<th>Name</th>#}
+                {#<th>Amount</th>#}
+                {#<th>actions</th>#}
+            {#</tr>#}
+        {#</thead>#}
+        {#<tbody>#}
+        {#{% for tariff in tariffs %}#}
+            {#<tr>#}
+                {#<td>{{ tariff.id }}</td>#}
+                {#<td>{{ tariff.description }}</td>#}
+                {#<td>{{ tariff.amount }}</td>#}
+                {#<td>#}
+                    {#<a href="{{ path('tariff_show', {'id': tariff.id}) }}">show</a>#}
+                    {#<a href="{{ path('tariff_edit', {'id': tariff.id}) }}">edit</a>#}
+                {#</td>#}
+            {#</tr>#}
+        {#{% else %}#}
+            {#<tr>#}
+                {#<td colspan="4">no records found</td>#}
+            {#</tr>#}
+        {#{% endfor %}#}
+        {#</tbody>#}
+    {#</table>#}
+
+    {#<a href="{{ path('tariff_new') }}">Create new</a>#}
+{% endblock %}

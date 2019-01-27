@@ -19,6 +19,10 @@ class Tariff
 
     private $meter;
 
+    private $user;
+
+    private $name;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,4 +91,42 @@ class Tariff
     {
         $this->meter = $meter;
     }
+
+    public function __toString(): string
+    {
+        return $this->type->getName();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+
 }

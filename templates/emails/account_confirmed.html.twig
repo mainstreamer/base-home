@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+Dear {{ user.firstName }} {{ user.lastName }}<br>
+Your account was successfully confirmed 💼<br>
+Thanks for your cooperation! <br>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

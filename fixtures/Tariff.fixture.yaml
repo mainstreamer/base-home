@@ -1,9 +1,13 @@
 App\Entity\Tariff:
-    tariff_1:
+    tariff_day_{1..10}:
         price: '191'
+        name: 'daytime'
         type: '@type_1'
         description: 'day time tariff for electricity'
-    tariff_2:
+        user: '@user_<current()>'
+    tariff_night_{1..10}:
         price: '121'
+        name: 'nightly'
         type: '@type_2'
         description: 'night time tariff for electricity'
+        user: '@user_<current()>'

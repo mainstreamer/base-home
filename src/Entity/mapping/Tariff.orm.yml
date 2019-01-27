@@ -15,9 +15,13 @@ App\Entity\Tariff:
         description:
             type: text
             nullable: true
+        name:
+            type: string
+            length: 255
     manyToOne:
         type:
             targetEntity: App\Entity\TariffType
-        meter:
-            targetEntity: App\Entity\Meter
+            cascade: ["persist", "remove"]
+        user:
+            targetEntity: App\Entity\User
             inversedBy: tariffs

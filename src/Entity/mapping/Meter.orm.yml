@@ -26,6 +26,6 @@ App\Entity\Meter:
             targetEntity: App\Entity\Indication
             mappedBy: meter
             cascade: ['persist', 'remove']
+    manyToMany:
         tariffs:
             targetEntity: App\Entity\Tariff
-            mappedBy: meter
