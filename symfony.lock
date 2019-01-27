@@ -146,6 +146,15 @@
     "ocramius/proxy-manager": {
         "version": "2.2.2"
     },
+    "omines/datatables-bundle": {
+        "version": "0.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.1",
+            "ref": "467488ddc00aa190c37a4357f226457d4dd6b339"
+        }
+    },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
     },
@@ -275,6 +284,9 @@
             "ref": "dc3fc2e0334a4137c47cfd5a3ececc601fa61a0b"
         }
     },
+    "symfony/form": {
+        "version": "v4.2.2"
+    },
     "symfony/framework-bundle": {
         "version": "4.2",
         "recipe": {
@@ -291,6 +303,9 @@
         "version": "v4.2.2"
     },
     "symfony/inflector": {
+        "version": "v4.2.2"
+    },
+    "symfony/intl": {
         "version": "v4.2.2"
     },
     "symfony/maker-bundle": {
@@ -333,6 +348,9 @@
         }
     },
     "symfony/polyfill-ctype": {
+        "version": "v1.10.0"
+    },
+    "symfony/polyfill-intl-icu": {
         "version": "v1.10.0"
     },
     "symfony/polyfill-mbstring": {
