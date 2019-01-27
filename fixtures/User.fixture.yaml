@@ -1,11 +1,13 @@
 App\Entity\User:
     user_{1..10}:
-        firstName: <name()>
+        firstName: <firstName()>
+        lastName: <lastName()>
         email: "user<current()>\\@gmail.com"
         addRole: 'ROLE_USER'
         password: '\$2y\$13\$EItLQ.h8CSZRZyQ5UTbd..gNUrNyxDTsT7BzQf.o28WRk7V7Pn6b2'
     admin:
         firstName: Admin
+        lastName: <lastName()>
         email: "admin\\@gmail.com"
         addRole: 'ROLE_ADMIN'
         password: '\$2y\$13\$EItLQ.h8CSZRZyQ5UTbd..gNUrNyxDTsT7BzQf.o28WRk7V7Pn6b2'

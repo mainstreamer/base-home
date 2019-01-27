@@ -20,9 +20,12 @@ class Meter
 
     private $indications;
 
+    private $tariffs;
+
     public function __construct()
     {
         $this->indications = new ArrayCollection();
+        $this->tariffs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -119,5 +122,25 @@ class Meter
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTariffs()
+    {
+        return $this->tariffs;
+    }
+
+    public function addTariff(Tariff $item): void
+    {
+        $this->tariffs[] = $item;
+//        $item->setMeter($this);
+    }
+
+    public function removeTariff(Tariff $item): void
+    {
+        $this->tariffs->remove($item);
+//        $item->setMeter(null);
     }
 }

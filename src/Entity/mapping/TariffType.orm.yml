@@ -1,0 +1,23 @@
+App\Entity\TariffType:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\TariffTypeRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
+    manyToOne:
+        user:
+            targetEntity: App\Entity\User
+            inversedBy: tariffTypes
+#            type: string
+#            length: 255
+#            nullable: true
+

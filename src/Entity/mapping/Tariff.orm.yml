@@ -1,0 +1,27 @@
+App\Entity\Tariff:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\TariffRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        price:
+            type: integer
+            nullable: true
+        description:
+            type: text
+            nullable: true
+        name:
+            type: string
+            length: 255
+    manyToOne:
+        type:
+            targetEntity: App\Entity\TariffType
+            cascade: ["persist", "remove"]
+        user:
+            targetEntity: App\Entity\User
+            inversedBy: tariffs
