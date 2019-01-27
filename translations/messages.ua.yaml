@@ -6,13 +6,28 @@ Password: Пароль
 Error!: Помилка
 sign up: Реєстрація
 
+address: Адреса
+
+kW/h: кВт/год
+m3: м3
+Gk: Гк
+I: Л
+
+back: Назад
+
+Electricity: Електрика
+Gas: Газ
+Cold Water: Холодна вода
+Heating: Опалення
+Hot Water: Гаряча вода
+
 indications: Показники
 
 indication:
   title: Показання
   file:
     tooltip: Додайте фото показання лічильника (не обов`язково)
-    placeholder: Оберіть файл
+    placeholder: Додати файли
     date: Дата зняття показання
     value: Значення показання
   edit:
@@ -22,6 +37,9 @@ indication:
   delete:
     title: Видалити показання
   date: Дата показання
+  unit:
+    title: Одиниця виміру
+  value: Значення
 
 date: Дата
 id: Номер
@@ -50,8 +68,12 @@ Service type: Тип послуги
 delete_file: Видалити файл
 save: Зберегти
 delete: Видалити
+cancel: Скасувати
+are_you_sure: Ви впевнені?
+
 
 choose_file: Оберіть файл
+choose_files: Додати файли
 
 place:
   title: Місце
@@ -76,6 +98,7 @@ meter:
 
 bill:
   title: Рахунок
+  titles: Рахунки
   new:
     title: Новий рахунок
   edit:
@@ -85,7 +108,7 @@ bill:
   notes:
     title: Нотатки
   file:
-    title: Додайте електронну версію рахунку (не обов`язково)
+    title: Додайте електронну версію рахунку та (або) квитанції про оплату (не обов`язково)
   bill_date:
     title: Дата виставлення рахунку
   bill_period:
@@ -93,6 +116,12 @@ bill:
   amount:
     title: До сплати
     placeholder: Введіть суму
+  delete:
+    title: Видалити рахунок
+  actually_paid: Фактично сплачено
+  pay_date:
+    title: Дата оплати
+
 
 service:
   title: Послуга
@@ -109,3 +138,10 @@ site:
 options: Опції
 for: для
 uah: ГРН
+
+modals:
+  delete_file_question: Видалити цей файл
+
+file: Файл
+files: Файли
+creation_datetime: Створено

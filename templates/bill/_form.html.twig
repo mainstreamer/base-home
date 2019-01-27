@@ -18,6 +18,17 @@
          </div>
      </div>
 
+    <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'bill.actually_paid'|trans }}">
+        <div class="input-group col-12">
+
+            {{ form_widget(form.actuallyPaid, {'attr' : {'placeholder' : 'bill.actually_paid' |trans, 'class' : 'form-control decimal-inputmask' }}) }}
+            <div class="input-group-append " >
+                <span class="input-group-text font-10" style="padding-left: 8px; padding-right: 9px;" id="basic-addon2">{{ 'uah'|trans }}</span>
+            </div>
+        </div>
+    </div>
+
+
      {% if form.place is defined %}
       <div class="form-group row ">
          <div class="input-group col-12">
@@ -52,7 +63,7 @@
                      <div class="invalid-feedback">Example invalid custom file feedback</div>
 
                      <label class="custom-file-label" for="validatedCustomFile">
-                         {{ 'choose_file'|trans }}
+                         {{ 'choose_files'|trans }}
                      </label>
                      <div class="input-group-append" style="z-index: 2; height: 100%">
                          <span  class="input-group-text file-icon"><i id="file-icon" class=" mdi mdi-upload"></i></span>
@@ -65,6 +76,17 @@
              {{ form_widget(form.note, {'attr' : {'class' : 'form-control', 'placeholder' : 'bill.notes.title'|trans}}) }}
          </div>
      </div>
+    <div class="form-group row">
+        <div class="input-group col-12 d-flex justify-content-between">
+            <div class="m-l-15">{{ 'PAID'|trans|capitalize }}</div>
+            <div class="custom-switch">
+                {{ form_widget(form.isPaid) }}
+
+                {#<input type="checkbox" id="switch-" class="switch" checked>#}
+                <label for="switch"></label>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="border-top">
         <div class="card-body">

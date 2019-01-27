@@ -1,7 +1,7 @@
-App\Entity\Indication:
+App\Entity\FileUpload:
     type: entity
     table: null
-    repositoryClass: App\Repository\IndicationRepository
+    repositoryClass: App\Repository\FileUploadRepository
     id:
         id:
             type: integer
@@ -9,28 +9,25 @@ App\Entity\Indication:
             generator:
                 strategy: AUTO
     fields:
+        originalName:
+            type: string
+            length: 255
+            nullable: true
         name:
             type: string
             length: 255
             nullable: true
-        value:
-            type: integer
-        date:
+        path:
+            type: string
+            length: 255
+            nullable: false
+        created:
             type: datetime
-        textDate:
-            type: string
-        unit:
-            type: string
-            nullable: true
-        file:
-            type: string
-            nullable: true
-#        unit:
 #        type:
 #        amount:
 #            type: integer
 #            nullable: true
     manyToOne:
-        meter:
-            targetEntity: App\Entity\Meter
-            inversedBy: indications
+        bill:
+            targetEntity: App\Entity\Bill
+            inversedBy: files

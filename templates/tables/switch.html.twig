@@ -1,29 +1,4 @@
-{#{% extends 'tables/base_switch.html.twig' %}#}
-
-{#{% block content %}#}
-    {#<div class="outerDivFull" >#}
         <div class="custom-switch">
-            <input type="checkbox" id="switch-{{ row.id }}" class="switch" {% if row.status == 'PAID' %}checked{% endif %}>
-            <label for="switch">Toggle</label>
+            <input type="checkbox" id="switch-{{ row.id }}" class="switch" {% if row.isPaid == true %}checked{% endif %}>
+            <label for="switch"></label>
         </div>
-
-
-        {#<div class="switchToggle">#}
-            {#<input type="checkbox" id="switch1">#}
-            {#<label for="switch1">Toggle</label>#}
-        {#</div>#}
-
-    {#</div>#}
-
-                    {#<div class="row">#}
-                        {#<div class="col-1">#}
-                            {#<div class="md-form">#}
-                                {#<div class="material-switch">#}
-                                    {#<input id="switch-default" name="switch-default" type="checkbox">#}
-                                    {#<label for="switch-default" class="default-color"></label>#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#</div>#}
-                    {#</div>#}
-
-{#{% endblock content %}#}

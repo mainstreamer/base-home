@@ -51,7 +51,14 @@ App\Entity\Bill:
             type: string
             length: 255
             nullable: true
+        isPaid:
+            type: boolean
     manyToOne:
         place:
             targetEntity: App\Entity\Place
             inversedBy: bills
+    oneToMany:
+        files:
+            targetEntity: App\Entity\FileUpload
+            mappedBy: bill
+            cascade: ['persist', 'remove']

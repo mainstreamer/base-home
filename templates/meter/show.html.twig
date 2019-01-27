@@ -57,31 +57,51 @@
             cursor: default;
         }
 
+
+        /*data-table start */
+        .outerDivFull { margin:50px; }
+        #dt_filter, #dt_length { display: inline-block;}
+        #dt_filter {float: right;}
+        #dt_filter label input {display: inline-block; width: 240px; float: right;}
+        #dt_length label, #dt_filter label {width: 300px;}
+        #dt_length  select.form-control.form-control-sm { display: inline-block; width: 40px;}
+        /*data-table end*/
+
     </style>
 {% endblock head %}
 
 {% block content %}
-
-    <div class="page-breadcrumb">
-        <div class="row">
-                <h4 class="page-title text-center">
-                        <a class="waves-effect waves-light p-l-5" href="{{ path('place_show', {'id' : meter.place.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
-                </h4>
-                <div class="ml-auto text-right">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Library</li>
-                        </ol>
-                    </nav>
-                </div>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div  class="col-1">
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <a href="{{ path('place_show', {'id':meter.place.id}) }}">
+                            <li class="breadcrumb-item">
+                                <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
+                            </li>
+                        </a>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="col-11 d-flex no-block align-items-center">
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>
+                        <li class="breadcrumb-item active">{{ meter.name }}</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
+</div>
+
 <div class="card-body">
-
-    <div class="container-fluid">
-
-        <div class="flip-card">
+    <div class="container-fluid row">
+        <div class="flip-card col-3">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
                     <div class="box bg-info text-white text-left">
@@ -94,7 +114,7 @@
                                 {{ 'type' | trans }}: {{ meter.type.name | trans }}
                             </h6>
                             <h6>
-                                {{ 'indication' | trans }}: {% if meter.indications.last %}{{ meter.indications.last.value }}{% else %}0{% endif %}
+                                {{ 'indication.title' | trans }}: {% if meter.indications.last %}{{ meter.indications.last.value }}{% else %}0{% endif %}
                             </h6>
                             <h6>
                                 {{ 'date' | trans }}: {% if meter.indications.last %}{{ meter.indications.last.date|date }}{% else %}{{ 'no data' | trans }}{% endif %}
@@ -124,13 +144,29 @@
                 </div>
             </div>
         </div>
-    </div>
-<div class="card-body">
-
-</div>
-        <div class="table-responsive">
-            <div id="presidents" class=" table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
+        <div class="col-8"></div>
+        <div class="col-1 card-hover card">
+            <a href="{{ path('meter_edit', {'id' : meter.id }) }}">
+                <div class="box bg-white text-center">
+                    <h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>
+                    <h5 class="font-light text-dark" style="color: black;">{{ 'options'|trans|capitalize }}</h5>
+                    {#<small class="text-dark">{{ 'options'|trans|capitalize }}</small>#}
+                </div>
+            </a>
         </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="card-body d-flex justify-content-between border-top">
+        <div><h5>{{ 'indication.title' |trans}}</h5></div>
+        <a href="{{ path('indication_new_for_meter', { 'meter' : meter.id }) }}" class="btn btn-outline-success ">
+            {#<i class="fa fa-plus font-10"></i>&nbsp;#}
+            {{ 'indication.add.title'|trans }}
+        </a>
+    </div>
+    <div class="table-responsive">
+        <div id="presidents" class="table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
+    </div>
 </div>
 
 {% endblock %}
@@ -139,17 +175,17 @@
     <!-- ============================================================== -->
     <!-- create new -->
     <!-- ============================================================== -->
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="d-none d-md-block">{{ 'menu.actions.title'|trans }} <i class="fa fa-angle-down"></i></span>
-            <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ path('indication_new_for_meter', {'meter' : meter.id}) }}">{{ 'indication.add.title' |trans }}</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ path('meter_edit', {'id' : meter.id}) }}">{{ 'meter.edit.title' |trans }}</a>
-        </div>
-    </li>
+    {#<li class="nav-item dropdown">#}
+        {#<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+            {#<span class="d-none d-md-block">{{ 'menu.actions.title'|trans }} <i class="fa fa-angle-down"></i></span>#}
+            {#<span class="d-block d-md-none"><i class="fa fa-plus"></i></span>#}
+        {#</a>#}
+        {#<div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+            {#<a class="dropdown-item" href="{{ path('indication_new_for_meter', {'meter' : meter.id}) }}">{{ 'indication.add.title' |trans }}</a>#}
+            {#<div class="dropdown-divider"></div>#}
+            {#<a class="dropdown-item" href="{{ path('meter_edit', {'id' : meter.id}) }}">{{ 'meter.edit.title' |trans }}</a>#}
+        {#</div>#}
+    {#</li>#}
 {% endblock actions %}
 
 {% block javascripts %}

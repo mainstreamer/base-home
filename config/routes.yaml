@@ -58,7 +58,8 @@ bill_delete:
     controller: App\Controller\BillController::delete
 
 bill_delete_file:
-    path: /bills/{id}/file/delete
+#    path: /bills/{id}/file/delete
+    path: /bills/file/{file}
     controller: App\Controller\BillController::deleteFile
 
 bill_toggle_payment:

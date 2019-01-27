@@ -97,7 +97,7 @@ class IndicationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($indication->getFile() && !strpos($indication->getFile()->getPathName(), 'uploads_directory')) {
                 $indication->setFile(new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($indication->getFile())));
-            } else {
+            } elseif ($indication->getFile()) {
                 $indication->setFile(new File($before));
             }
 

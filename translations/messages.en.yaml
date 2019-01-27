@@ -21,12 +21,27 @@ PAID: Paid
 yes: Yes
 no: No
 choose_file: Choose file
+address: Address
+
+kW/h: kW/h
+m3: m3
+Gk: Gk
+I: L
+
+back: Back
+
+Electricity: Electricity
+Gas: Gas
+Cold Water: Cold Water
+Heating: Heating
+Hot Water: Hot Water
+
 #service: Service
 indication:
   title: Indication
   file:
     tooltip: Add indication photo (optional)
-    placeholder: Choose file
+    placeholder: Upload files
     date: Indication date
     value: Indication value
   edit:
@@ -36,6 +51,10 @@ indication:
   delete:
     title: Delete indication
   date: Indication date
+  unit:
+    title: Measure unit
+  value: Value
+
 no data: No data
 name: name
 type: type
@@ -45,6 +64,8 @@ Service type: Service type
 delete_file: Delete file
 save: Save
 delete: Delete
+cancel: Cancel
+are_you_sure: Are you sure?
 
 place:
   title: Place
@@ -68,6 +89,7 @@ meter:
 
 bill:
   title: Bill
+  titles: Bills
   new:
     title: New bill
   edit:
@@ -79,7 +101,7 @@ bill:
   notes:
     title: Notes
   file:
-    title: Add bill file (optional)
+    title: Add bill and payment files (optional)
   bill_date:
     title: Billing date
   bill_period:
@@ -87,6 +109,9 @@ bill:
   amount:
     title: Due
     placeholder: Please input amount
+  actually_paid: Actually paid
+  pay_date:
+    title: Payment date
 
 service:
   title: Service
@@ -103,3 +128,10 @@ site:
 for: for
 uah: UAH
 options: Options
+
+modals:
+  delete_file_question: Delete this file?
+
+file: File
+files: File
+creation_datetime: Created

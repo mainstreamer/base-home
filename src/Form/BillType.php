@@ -23,8 +23,10 @@ class BillType extends AbstractType
         $builder
 //            ->add('name')
             ->add('amount', MoneyType::class, ['divisor' => 100, 'currency' => false])
+            ->add('actuallyPaid', MoneyType::class, ['divisor' => 100, 'currency' => false, 'required' => false])
 //            ->add('cents', TextType::class, ['mapped' => false])
-            ->add('file', FileType::class, ['required' => false])
+            ->add('file', FileType::class, ['required' => false, 'multiple' => true])
+            ->add('isPaid')
             ->add('type', ChoiceType::class, [
                 'placeholder' => 'Service type',
                 'choices' => Bill::TYPES,
@@ -70,8 +72,9 @@ class BillType extends AbstractType
                             },
                             function ($stringToDate) {
                                 // transform the array to a string
-//                            dump($stringToDate);
 
+//                                dump($stringToDate = 'Січень ');
+//                                dump($stringToDate.' Січень ');
                                 $stringToDate = str_replace(
                                     [   'Січень ',
                                         'Лютий ',
@@ -85,11 +88,8 @@ class BillType extends AbstractType
                                         'Жовтень ',
                                         'Листопад ',
                                         'Грудень '],
-                                    ['1/', '2/', '3/', '4/', '5/', '6/', '7/', '8/', '9/', '10/', '11/', '12/'], $stringToDate);
+                                    ['01/', '02/', '03/', '04/', '05/', '06/', '07/', '08/', '09/', '10/', '11/', '12/'], $stringToDate);
 
-//                                        dump($stringToDate);
-
-//                                exit;
 
 //                                dump(\DateTime::createFromFormat('m Y', $stringToDate));exit;
 //                            dump($stringToDate);

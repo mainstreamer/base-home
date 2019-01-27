@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
 class Bill
 {
     const STATUSES = [self::PAID, self::UNPAID];
@@ -54,11 +57,18 @@ class Bill
 
     private $file;
 
+    private $isPaid;
+
+    private $files;
+
     public function __construct()
     {
         $this->date = new \DateTime();
         $this->status = self::UNPAID;
         $this->textDate = $this->date->format('d-m-Y');
+        $this->setIsPaid(false);
+        $this->files = new ArrayCollection();
+
     }
 
     public function getId()
@@ -291,4 +301,41 @@ class Bill
     {
         $this->file = $file;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getisPaid(): bool
+    {
+        return $this->isPaid;
+    }
+
+    /**
+     * @param mixed $isPaid
+     */
+    public function setIsPaid(bool $isPaid): void
+    {
+        $this->isPaid = $isPaid;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFiles(): Collection
+    {
+        return $this->files;
+    }
+
+    public function addFile(FileUpload $item): void
+    {
+        $this->files[] = $item;
+        $item->setBill($this);
+    }
+
+    public function removeFile(FileUpload $item): void
+    {
+        $this->files->removeElement($item);
+        $item->setBill(null);
+    }
+
 }

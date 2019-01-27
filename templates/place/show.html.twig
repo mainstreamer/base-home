@@ -30,7 +30,20 @@
 
     <div class="page-breadcrumb card">
         <div class="row">
-            <div class="col-12 d-flex no-block align-items-center">
+            <div  class="col-1">
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <a href="{{ path('my_places') }}">
+                                <li class="breadcrumb-item">
+                                    <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
+                                </li>
+                            </a>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-11 d-flex no-block align-items-center">
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -51,8 +64,8 @@
                         <a href="{{ path('meter_show', {'id': meter.id}) }}">
                             <div class="bg-dark p-10 text-white text-center">
                                 <span class="font-24">️{{ meter.type.icon}}</span>
-                                <h5 class="m-b-0 m-t-5">{{ meter.indications.first |default('0') }} {{ meter.unit.name }}</h5>
-                                <small class="font-light">{{ meter.type.name |capitalize}}</small><br>
+                                <h5 class="m-b-0 m-t-5">{{ meter.indications.first |default('0') }} {{ (meter.unit.name)|trans }}</h5>
+                                <small class="font-light">{{ (meter.type.name) |trans|capitalize }}</small><br>
                             </div>
                         </a>
                     </div>
@@ -63,7 +76,7 @@
                         <div class="box text-center ">
                             {#<h1 class="font-light text-white"><i class="mdi mdi-plus-box-outline"></i></h1>#}
                             <h1 class="font-light text-black" style="color: black;"><i class="mdi mdi-tooltip-outline-plus"></i></h1>
-                            <h5 class="font-light text-black" style="color: black;">Додати</h5>
+                            <h5 class="font-light text-black" style="color: black;">{{ 'meter.title'|trans|capitalize }}</h5>
                             <small class="text-white"></small>
                         </div>
                         {#</div>#}
@@ -78,30 +91,28 @@
                 </div>
             </div>
         </div>
-        <div class="col-1">
-            <a style="" href="{{ path('place_edit', {'id' : place.id }) }}">
-                <div class="box bg-white text-center card-hover" style="min-width: 50px; height: 83%;">
-                    <h3 class="font-light text-white"><i class="text-dark fas fa-cog"></i></h3>
-                    <small class="text-dark">{{ 'options'|trans|capitalize }}</small>
+        <div class="col-1 card-hover card">
+            <a href="{{ path('place_edit', {'id' : place.id }) }}">
+                <div class="box bg-white text-center">
+                    <h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>
+                    <h5 class="font-light text-dark" style="color: black;">{{ 'options'|trans|capitalize }}</h5>
+                    {#<small class="text-dark">{{ 'options'|trans|capitalize }}</small>#}
                 </div>
             </a>
         </div>
     </div>
     </div>
-<div class="container-fluid">
-    <div class="card-body">
-        {#<h5>Рахунки</h5>#}
-        <a href="{{ path('bill_new_for_place', {'place' : place.id }) }}" class="btn btn-outline-success ">
-            {#<i class="fa fa-plus font-10"></i>&nbsp;#}
-            {{ 'bill.add.title'|trans }}
-        </a>
+    <div class="container-fluid">
+        <div class="card-body d-flex justify-content-between border-top">
+            <div><h5>{{ 'bill.titles'|trans|capitalize }}</h5></div>
+            <a href="{{ path('bill_new_for_place', {'place' : place.id }) }}" class="btn btn-outline-success ">
+                {{ 'bill.add.title'|trans }}
+            </a>
+        </div>
+        <div class="table-responsive">
+            <div id="presidents" class="table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
+        </div>
     </div>
-    <div class="table-responsive">
-
-        <div id="presidents" class=" table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
-    </div>
-
-</div>
 
 
 {% endblock %}
@@ -110,18 +121,18 @@
     <!-- ============================================================== -->
     <!-- create new -->
     <!-- ============================================================== -->
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="d-none d-md-block">{{ 'menu.actions.title' | trans }} <i class="fa fa-angle-down"></i></span>
-            <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ path('bill_new_for_place', {'place' : place.id}) }}">{{ 'bill.add.title' |trans }}</a>
-            <a class="dropdown-item" href="{{ path('meter_new_for_place', {'place' : place.id}) }}">{{ 'meter.add.title' |trans }}</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ path('place_edit', {'id': place.id}) }}">{{ 'place.edit.title' |trans }}</a>
-        </div>
-    </li>
+    {#<li class="nav-item dropdown">#}
+        {#<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+            {#<span class="d-none d-md-block">{{ 'menu.actions.title' | trans }} <i class="fa fa-angle-down"></i></span>#}
+            {#<span class="d-block d-md-none"><i class="fa fa-plus"></i></span>#}
+        {#</a>#}
+        {#<div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+            {#<a class="dropdown-item" href="{{ path('bill_new_for_place', {'place' : place.id}) }}">{{ 'bill.add.title' |trans }}</a>#}
+            {#<a class="dropdown-item" href="{{ path('meter_new_for_place', {'place' : place.id}) }}">{{ 'meter.add.title' |trans }}</a>#}
+            {#<div class="dropdown-divider"></div>#}
+            {#<a class="dropdown-item" href="{{ path('place_edit', {'id': place.id}) }}">{{ 'place.edit.title' |trans }}</a>#}
+        {#</div>#}
+    {#</li>#}
 {% endblock actions %}
 
 {% block javascripts %}

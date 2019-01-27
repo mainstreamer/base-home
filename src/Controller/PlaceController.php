@@ -84,7 +84,12 @@ class PlaceController extends Controller
                 'label' => $translator->trans('actuallyPaid'),
             ])
 
-            ->add('date', DateTimeColumn::class, ['field' => 'bill.textDate', 'orderField' => 'bill.date', 'format' => 'd-m-Y', 'label' => $translator->trans('billDate')])
+            ->add('date', DateTimeColumn::class, [
+                'field' => 'bill.textDate',
+                'orderField' => 'bill.date',
+                'format' => 'd-m-Y',
+                'label' => $translator->trans('billDate')
+            ])
             ->add('payDateText', DateTimeColumn::class, [
                 'className' => 'text-center',
                 'nullValue' => '–––',
