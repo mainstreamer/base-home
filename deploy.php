@@ -9,7 +9,7 @@ set('repository', 'git@base.github.com:mainstreamer/base-home.git');
 set('git_tty', false); // [Optional] Allocate tty for git on first deployment
 add('shared_files', []);
 add('shared_dirs', []);
-add('writable_dirs', []);
+add('writable_dirs', ['public/uploads']);
 set('allow_anonymous_stats', false);
 set('http_user', 'www-data');
 set('env', [

@@ -36,4 +36,5 @@ package-lock.json
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
 
+public/uploads/!.gitkeep
 public/uploads/*
