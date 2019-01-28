@@ -1,5 +1,7 @@
 App\Entity\TariffType:
-    type_1:
+    type_{1..10}:
+#    type_1:
         name: 'day'
-    type_2:
-        name: 'night'
+        user: '@user_<current()>'
+#    type_2:
+#        name: 'night'

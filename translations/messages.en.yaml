@@ -29,7 +29,7 @@ address: Address
 kW/h: kW/h
 m3: m3
 Gk: Gk
-I: L
+L: L
 
 back: Back
 
@@ -155,3 +155,5 @@ security:
   button:
     reset:
       title: Reset
+
+day: day

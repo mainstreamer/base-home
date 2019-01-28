@@ -14,7 +14,7 @@ address: Адреса
 kW/h: кВт/год
 m3: м3
 Gk: Гк
-I: Л
+L: Л
 
 back: Назад
 
@@ -164,3 +164,5 @@ security:
   button:
     reset:
       title: Надіслати
+
+day: денний
