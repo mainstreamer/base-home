@@ -3,6 +3,11 @@ Lost password?: Lost password?
 Keep me logged in: Keep me logged in
 Email: Email
 Password: Password
+error: Error
+repeat_password: Repeat password
+current_password: Current password
+new_password: New password
+new_password_repeat: Repeat new password
 Profile: Profile
 Error!: Error!
 Attention: Attention
@@ -129,7 +134,7 @@ pages:
   tariffs: Tariffs
 
 site:
-  title: Digital home
+  title: Bills
 
 for: for
 uah: UAH
@@ -146,14 +151,27 @@ measure:
   unit: Measure unit
 
 security:
+  title:
+    change_password: Change password
+    profile: User profile
   message:
     reset:
       title: Enter your e-mail address below and we will send you instructions how to recover a password
     password_changed: Password has been changed!
     reset_letter_sent: Please check your email for password reset instructions!
+    not_found: Not found
+    not_valid: Please check your input
     account_enabled: Your account is now enabled!
   button:
     reset:
       title: Reset
 
 day: day
+
+profile:
+  first_name: First name
+  last_name: Last name
+  title:
+    my_profile: My profile
+    settings: Settings
+    logout: Logout

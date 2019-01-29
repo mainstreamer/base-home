@@ -63,10 +63,9 @@
                     </div>
                     <div class="tab-pane  " id="profile" role="tabpanel">
                         <div class="p-20">
-
                             {{ form_start(password, {'attr' : {'class' : 'form-horizontal col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12'}}) }}
-
                             <div class="card-body">
+                                <h4 class="m-b-20">{{ 'security.title.change_password' | trans }}</h4>
                                 <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'indication.file.value' | trans }}">
                                     {%  if form_errors(password.oldPassword) matches '{\w+}' %}
                                         {% set errorClass = 'is-invalid'%}
@@ -74,7 +73,7 @@
                                         {% set errorClass = ''%}
                                     {% endif %}
                                     <div class="input-group col-12">
-                                        {{ form_widget(password.oldPassword, {'attr' : {'class' : 'form-control '~errorClass|default(''), 'placeholder' : 'indication.title' | trans}}) }}
+                                        {{ form_widget(password.oldPassword, {'attr' : {'class' : 'form-control '~errorClass|default(''), 'placeholder' : 'current_password' | trans}}) }}
                                     </div>
 
                                     {%  if form_errors(password.oldPassword)  %}
@@ -94,7 +93,7 @@
                                         {% set errorClass = ''%}
                                     {% endif %}
                                     <div class="input-group col-12">
-                                        {{ form_widget(password.plainPassword.first, {'attr' : {'class' : 'form-control '~errorClass|default(''), 'placeholder' : 'indication.title' | trans}}) }}
+                                        {{ form_widget(password.plainPassword.first, {'attr' : {'class' : 'form-control '~errorClass|default(''), 'placeholder' : 'new_password' | trans}}) }}
                                     </div>
                                     {%  if form_errors(password.plainPassword.first)  %}
                                         <div class="invalid-feedback" style="display: block">
@@ -111,7 +110,7 @@
                                         {% set errorClass = ''%}
                                     {% endif %}
                                     <div class="input-group col-12">
-                                        {{ form_widget(password.plainPassword.second, {'attr' : {'class' : 'form-control '~errorClass|default(''), 'placeholder' : 'indication.title' | trans}}) }}
+                                        {{ form_widget(password.plainPassword.second, {'attr' : {'class' : 'form-control '~errorClass|default(''), 'placeholder' : 'new_password_repeat' | trans}}) }}
                                     </div>
                                     {%  if form_errors(password.plainPassword.second)  %}
                                         <div class="invalid-feedback" style="display: block">

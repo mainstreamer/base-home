@@ -338,4 +338,8 @@ class Bill
         $item->setBill(null);
     }
 
+    public function setFiles($files)
+    {
+        $this->files = $files;
+    }
 }

@@ -63,16 +63,17 @@ class SecurityController extends Controller
                 /** @var $user User*/
                 $user->setToken($generator->generateToken());
                 $mailerService->sendResetLink($user);
-//                $user->setPassword(null);
                 $this->getDoctrine()->getManager()->flush();
                 $statusCode = Response::HTTP_OK;
                 $this->addFlash('message', 'security.message.reset_letter_sent');
-
-                return $this->redirectToRoute('login');
+            } else {
+                $this->addFlash('error', 'security.message.not_found');
             }
+        } else {
+            $this->addFlash('error', 'security.form.not_valid');
         }
 
-        return new JsonResponse();
+        return $this->redirectToRoute('login');
     }
 
     /**

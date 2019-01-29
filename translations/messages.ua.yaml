@@ -3,6 +3,11 @@ Lost password?: Забули пароль?
 Keep me logged in: Запам'ятати мене
 Email: Імейл
 Password: Пароль
+error: Помилка
+repeat_password: Повторіть пароль
+current_password: Поточний пароль
+new_password: Новий пароль
+new_password_repeat: Повторіть новий пароль
 Profile: Профіль
 Error!: Помилка
 Attention: Увага
@@ -155,14 +160,28 @@ measure:
   unit: Одиниця виміру
 
 security:
+  title:
+    change_password: Змінити пароль
+    profile: Профіль користувача
   message:
     reset:
       title: Вкажіть ваш e-mail та ми надішлемо вам листа з інструкціями зміни пароля
     password_changed: Пароль було змінено!
     reset_letter_sent: Будь-ласка перевірте вашу пошту для подальших інструкцій!
+    not_found: Не знайдено
+    not_valid: Перевірте дані
     account_enabled: Ваш обліковий запис активовано!
+
   button:
     reset:
       title: Надіслати
 
 day: денний
+
+profile:
+  first_name: Ім'я
+  last_name: Прізвище
+  title:
+    my_profile: Мій профіль
+    settings: Налаштування
+    logout: Вийти

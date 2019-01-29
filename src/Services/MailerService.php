@@ -81,8 +81,7 @@ class MailerService
     {
         $message = $this->mailer->createMessage();
         $message->setFrom('bills@home.com')
-//            ->setTo($user->getEmail())
-            ->setTo('artem.kyiv@me.com')
+            ->setTo($user->getEmail())
             ->setSubject('Password change for Utility BIlls')
             ->setBody($this->twig->render('emails/reset_password.html.twig', ['user' => $user]), 'text/html');
         $this->mailer->send($message);

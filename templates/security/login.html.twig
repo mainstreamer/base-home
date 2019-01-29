@@ -158,7 +158,12 @@
             });
 
             {% endfor %}
-        {#</script>#}
+
+            {% for label, message in app.flashes('error')%}
+            $(function(){
+                toastr.error(" {{ message|trans }} ", "{{ 'error'|trans }} ");
+            });
+            {% endfor %}
 
     {% if error %}
         {#<script>#}

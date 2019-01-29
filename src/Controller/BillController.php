@@ -52,32 +52,20 @@ class BillController extends AbstractController
         $bill->setPlace($place);
         $form = $this->createForm(BillType::class, $bill);
         $form->remove('place');
-//        dump($bill);exit;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $bill->setFile(null);
-//            dump($bill);exit;
-//            dump($form->all()['date']);exit;
             $files = array_values($request->files->all()[$form->getName()])[0];
 
             foreach ($files as $file)
             {
                 $path = $this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($file);
                 $bill->addFile( new FileUpload($path));
-
-//                ( $this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())))
             }
-//            dump($form->getName());exit;
-//            dump();exit;
-//            dump($request->files->all()[$form->getName()]['file']);exit;
-//            if ($bill->getFile()) {
-//                $bill->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($bill->getFile())));
-//            }
 
             $em = $this->getDoctrine()->getManager();
-//            dump($bill);exit;
             $em->persist($bill);
             $em->flush();
 

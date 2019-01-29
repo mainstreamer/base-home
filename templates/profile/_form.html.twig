@@ -10,10 +10,10 @@
             {#</div>#}
         {#</div>#}
     {#</div>#}
-
+    <h4 class="m-b-20">{{ 'security.title.profile' | trans }}</h4>
     <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'indication.file.value' | trans }}">
         <div class="input-group col-12">
-            {{ form_widget(form.firstName, {'attr' : {'class' : 'form-control', 'placeholder' : 'indication.title' | trans}}) }}
+            {{ form_widget(form.firstName, {'attr' : {'class' : 'form-control', 'placeholder' : 'profile.first_name' | trans}}) }}
         </div>
     </div>
     {#<div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'indication.file.value' | trans }}">#}
@@ -23,12 +23,12 @@
     {#</div>#}
     <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'indication.file.value' | trans }}">
         <div class="input-group col-12">
-            {{ form_widget(form.lastName, {'attr' : {'class' : 'form-control', 'placeholder' : 'indication.title' | trans}}) }}
+            {{ form_widget(form.lastName, {'attr' : {'class' : 'form-control', 'placeholder' : 'profile.last_name' | trans}}) }}
         </div>
     </div>
     <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'indication.file.value' | trans }}">
         <div class="input-group col-12">
-            {{ form_widget(form.email, {'attr' : {'class' : 'form-control', 'placeholder' : 'indication.title' | trans}}) }}
+            {{ form_widget(form.email, {'attr' : {'class' : 'form-control', 'placeholder' : 'Email' | trans}}) }}
         </div>
     </div>
 
