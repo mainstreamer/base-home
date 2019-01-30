@@ -53,33 +53,33 @@
     </div>
     {#END MODALS#}
 
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div  class="col-1">
-                <div class="ml-auto text-right">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <a href="{{ path('place_show', {'id':bill.place.id}) }}">
-                                <li class="breadcrumb-item">
-                                    <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
-                                </li>
-                            </a>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-            <div class="col-11 d-flex no-block align-items-center">
-                <div class="ml-auto text-right">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>
-                            <li class="breadcrumb-item active">{{ bill.name }}</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+    {#<div class="page-breadcrumb">#}
+        {#<div class="row">#}
+            {#<div  class="col-1">#}
+                {#<div class="ml-auto text-right">#}
+                    {#<nav aria-label="breadcrumb">#}
+                        {#<ol class="breadcrumb">#}
+                            {#<a href="{{ path('place_show', {'id':bill.place.id}) }}">#}
+                                {#<li class="breadcrumb-item">#}
+                                    {#<i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}#}
+                                {#</li>#}
+                            {#</a>#}
+                        {#</ol>#}
+                    {#</nav>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-11 d-flex no-block align-items-center">#}
+                {#<div class="ml-auto text-right">#}
+                    {#<nav aria-label="breadcrumb">#}
+                        {#<ol class="breadcrumb">#}
+                            {#<li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>#}
+                            {#<li class="breadcrumb-item active">{{ bill.name }}</li>#}
+                        {#</ol>#}
+                    {#</nav>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
     <div class="row ">
         <div class="col-md-12">
             <div class="card card-body printableArea m-t-0 p-t-0">
@@ -226,14 +226,16 @@
 
 
 {% block javascripts %}
-    <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+    {#<script src="/assets/libs/jquery/dist/jquery.min.js"></script>#}
     <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="/assets/extra-libs/sparkline/sparkline.js"></script>
-    <script src="/dist/js/waves.js"></script>
+    {#<script src="/dist/js/waves.js"></script>#}
     <script src="/dist/js/custom.min.js"></script>
     <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+
+
 
     <link href="/assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
     <script src="/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>

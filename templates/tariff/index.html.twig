@@ -3,38 +3,38 @@
 {% block title %}Bill index{% endblock %}
 
 {% block content %}
-    <div class="page-breadcrumb">
-        <div class="row">
-            <div  class="col-1">
-                <div class="ml-auto text-right">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
+    {#<div class="page-breadcrumb">#}
+        {#<div class="row">#}
+            {#<div  class="col-1">#}
+                {#<div class="ml-auto text-right">#}
+                    {#<nav aria-label="breadcrumb">#}
+                        {#<ol class="breadcrumb">#}
                             {#<a href="{{ path('meter_show', {'id':tariff.meter.id}) }}">#}
-                            <li class="breadcrumb-item">
-                                <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
-                            </li>
+                            {#<li class="breadcrumb-item">#}
+                                {#<i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}#}
+                            {#</li>#}
                             {#</a>#}
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-            <div class="col-5 d-flex no-block align-items-end">
-                <div class="ml-auto text-right">
-                            <h4>TARIFFS</h4>
-                </div>
-            </div>
-            <div class="col-6 d-flex no-block align-items-center">
-                <div class="ml-auto text-right">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>
+                        {#</ol>#}
+                    {#</nav>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-5 d-flex no-block align-items-end">#}
+                {#<div class="ml-auto text-right">#}
+                            {#<h4>TARIFFS</h4>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-6 d-flex no-block align-items-center">#}
+                {#<div class="ml-auto text-right">#}
+                    {#<nav aria-label="breadcrumb">#}
+                        {#<ol class="breadcrumb">#}
+                            {#<li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>#}
                             {#<li class="breadcrumb-item active">{{ tariff.meter.id }}</li>#}
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+                        {#</ol>#}
+                    {#</nav>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
     {#<div class="page-breadcrumb">#}
         {#<div class="row">#}
             {#<div  class="col-12">#}

@@ -8,21 +8,21 @@
 {% endblock %}
 
 {% block content %}
-    <div class="page-breadcrumb">
-        <div class="row">
-            <h4 class="page-title text-center">
-                <a class="waves-effect waves-light p-l-5" href="{{ path('tariff_show', {'id' : tariff.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>
-            </h4>
-            <div class="ml-auto text-right">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Library</li>
-                    </ol>
-                </nav>
-            </div>
-        </div>
-    </div>
+    {#<div class="page-breadcrumb">#}
+        {#<div class="row">#}
+            {#<h4 class="page-title text-center">#}
+                {#<a class="waves-effect waves-light p-l-5" href="{{ path('tariff_show', {'id' : tariff.id }) }}" data-sidebartype="mini-sidebar"><i class="mdi mdi-arrow-left font-24"></i></a>#}
+            {#</h4>#}
+            {#<div class="ml-auto text-right">#}
+                {#<nav aria-label="breadcrumb">#}
+                    {#<ol class="breadcrumb">#}
+                        {#<li class="breadcrumb-item"><a href="#">Home</a></li>#}
+                        {#<li class="breadcrumb-item active" aria-current="page">Library</li>#}
+                    {#</ol>#}
+                {#</nav>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
     <div class="row">
         <div class="col-9">
             {% include('tariff/_form.html.twig') with {'title' : 'tariff.edit.title' |trans, 'tariff' : tariff, 'url' : path('tariff_delete', { 'id' : tariff.id })} %}
