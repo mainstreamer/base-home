@@ -7,9 +7,11 @@
 </head>
 <body>
 {% block body %}{% endblock %}
-Dear {{ user.firstName }} {{ user.lastName }}<br>
-Your account was successfully confirmed 💼<br>
-Thanks for your cooperation! <br>
+{% trans with {
+    '%firstName%': user.firstName,
+    '%lastName%': user.lastName,
+    } from 'letters' %}account_confirmed
+{% endtrans %}
 {% block javascripts %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+🗯Boom
+{#Dear {{ user.firstName }} {{ user.lastName }}#}
+Dear {{ user.email }}<br>
+You've been invited to Utility Bills<br>
+Please follow the link to set up your account
+<br><a href="{{ url('enable_account', {'token' : user.token}) }}">Set up password</a>
+<br>  {{  url('enable_account', {'token' : user.token}) }}
+{% block javascripts %}{% endblock %}
+</body>
+</html>

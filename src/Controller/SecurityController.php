@@ -115,4 +115,12 @@ class SecurityController extends Controller
 
         return $this->redirectToRoute('login');
     }
+
+
+//    public function testAction()
+//    {
+//        $this->getUser()->setToken('asjkh');
+//
+//        return $this->render('emails/reset_password.html.twig', ['user' => $this->getUser(), 'firstName' => 'KIL']);
+//    }
 }

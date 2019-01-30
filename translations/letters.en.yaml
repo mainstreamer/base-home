@@ -1,0 +1,4 @@
+activate_account:  Dear %firstName% %lastName%! <br> To activate your account please follow the link  <a href="%url%">activate</a>
+account_confirmed: Dear %firstName% %lastName%! <br> Your account was successfully confirmed 💼<br> Thank you for being with us! <br>
+pasword_changed: Dear %firstName% %lastName%! <br> Your password was successfully changed 💼<br> Thank you for staying with us! <br>
+pasword_confirm_change: Dear %firstName% %lastName%! <br> To change your password please follow the link 💼 <a href="%url%">change password</a> <br> Thank you for staying with us! <br>

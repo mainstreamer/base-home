@@ -1,3 +1,6 @@
+#test:
+#    path: /test
+#    controller: App\Controller\SecurityController::testAction
 index:
     path: /
     controller: App\Controller\ProfileController::index

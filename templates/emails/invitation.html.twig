@@ -6,14 +6,22 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
-{% block body %}{% endblock %}
-🗯Boom
+
+{% trans with {
+    '%firstName%': user.firstName,
+    '%lastName%': user.lastName,
+    '%url%' : path('enable_account', {'token' : user.token})
+    } from 'letters' %}activate_account
+{% endtrans %}
+
+{#{% trans %}Hello %firstName%{% endtrans %}#}
+{#🗯Boom#}
 {#Dear {{ user.firstName }} {{ user.lastName }}#}
-Dear {{ user.email }}<br>
-You've been invited to Utility Bills<br>
-Please follow the link to set up your account
-<br><a href="{{ url('enable_account', {'token' : user.token}) }}">Set up password</a>
-<br>  {{  url('enable_account', {'token' : user.token}) }}
-{% block javascripts %}{% endblock %}
+{#Dear {{ user.email }}<br>#}
+{#You've been invited to Utility Bills<br>#}
+{#Please follow the link to set up your account#}
+{#<br><a href="{{ url('enable_account', {'token' : user.token}) }}">Set up password</a>#}
+{#<br>  {{  url('enable_account', {'token' : user.token}) }}#}
+{#{% block javascripts %}{% endblock %}#}
 </body>
 </html>
