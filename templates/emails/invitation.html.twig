@@ -10,7 +10,7 @@
 {% trans with {
     '%firstName%': user.firstName,
     '%lastName%': user.lastName,
-    '%url%' : path('enable_account', {'token' : user.token})
+    '%url%' : url('enable_account', {'token' : user.token})
     } from 'letters' %}activate_account
 {% endtrans %}
 
