@@ -52,7 +52,7 @@
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
             {% for meter in place.meters %}
-                <li class="nav-item"> <a class="nav-link {% if loop.index == 1 %}active {% endif %}" data-toggle="tab" href="#meter-{{ meter.id }}" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">{{ meter.type }}</span></a> </li>
+                <li class="nav-item"> <a class="nav-link {% if loop.index == 1 %}active {% endif %}" data-toggle="tab" href="#meter-{{ meter.id }}" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">{{ meter.type| trans }}</span></a> </li>
 
 
             {% endfor %}
@@ -74,7 +74,7 @@
                                 <p>Tariff type: {{ tariff.type |capitalize}}  price: ({{ tariff.price }}) / {{ meter.unit }} </p>
                             {% endfor %}
                         {% else %}
-                            <p>No tariffs added for this meter</p>
+                            <p>{{ 'meter.tariff.missing' | trans }}</p>
                         {% endif %}
                         {#<p>And is full of waffle to It has multiple paragraphs and is full of waffle to pad out the comment. Usually, you just wish these sorts of comments would come to an end.multiple paragraphs and is full of waffle to pad out the comment..</p>#}
                         {#<img src="../../assets/images/background/img4.jpg" class="img-fluid">#}

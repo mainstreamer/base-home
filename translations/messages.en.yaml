@@ -96,6 +96,8 @@ meter:
   add:
     title: Add meter
   tariffs: Tariffs of the meter
+  tariff:
+    missing: No tariffs added for this meter
 
 bill:
   title: Bill
@@ -176,3 +178,5 @@ profile:
     settings: Settings
     logout: Logout
 message: Hello %name%
+
+
