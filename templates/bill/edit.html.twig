@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% set returnurl = path('bill_show', {'id' : bill.id }) %}
 
 {% block title %}Edit Bill{% endblock %}
 {% block head %}

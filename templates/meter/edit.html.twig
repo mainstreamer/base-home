@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% set returnurl = path('meter_show', {'id' : meter.id }) %}
 
 {% block title %}Edit Bill{% endblock %}
 

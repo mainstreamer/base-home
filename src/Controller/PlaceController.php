@@ -67,7 +67,12 @@ class PlaceController extends Controller
                 'template' => 'tables/switch.html.twig',
                 'label' => $translator->trans('PAID'),
             ])
-            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])
+//            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])
+            ->add('period', TwigColumn::class, [
+                'className' => '',
+                'template' => 'tables/cell-date-m-Y.html.twig',
+                'label' => $translator->trans('billPeriod'),
+            ])
             ->add('type', TwigColumn::class, [
                 'className' => '',
                 'template' => 'tables/cell.html.twig',
@@ -83,20 +88,35 @@ class PlaceController extends Controller
                 'template' => 'tables/cell-amount.html.twig',
                 'label' => $translator->trans('actuallyPaid'),
             ])
-
-            ->add('date', DateTimeColumn::class, [
-                'field' => 'bill.textDate',
-                'orderField' => 'bill.date',
-                'format' => 'd-m-Y',
-                'label' => $translator->trans('billDate')
+            ->add('date', TwigColumn::class, [
+                'className' => '',
+                'template' => 'tables/cell-date.html.twig',
+                'label' => $translator->trans('billDate'),
             ])
-            ->add('payDateText', DateTimeColumn::class, [
-                'className' => 'text-center',
-                'nullValue' => '–––',
-                'orderField' => 'bill.payDateText',
-                'format' => 'd-m-Y',
-                'label' => $translator->trans('payDate')
+//            ->add('date', DateTimeColumn::class, [
+//                'field' => 'bill.textDate',
+//                'orderField' => 'bill.date',
+//                'format' => 'd-m-Y',
+//                'label' => $translator->trans('billDate'),
+//            ])
+//            ->add('payDateText', TwigColumn::class, [
+//                'className' => 'text-center',
+//                'template' => 'tables/cell-amount.html.twig',
+////                'label' => $translator->trans('payDateText'),
+//            ])
+            ->add('payDateText', TwigColumn::class, [
+                'className' => '',
+                'template' => 'tables/cell-date.html.twig',
+                'label' => $translator->trans('payDate'),
             ])
+//            ->add('payDateText', DateTimeColumn::class, [
+//                'className' => 'text-center',
+//                'nullValue' => '–––',
+//                'orderField' => 'bill.payDateText',
+//                'format' => 'd-m-Y',
+//                'label' => $translator->trans('payDate'),
+//
+//            ])
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Bill::class,
 

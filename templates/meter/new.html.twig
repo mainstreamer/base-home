@@ -1,4 +1,5 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig'  %}
+{% set returnurl = path('place_show', {'id' : place.id }) %}
 
 {% block title %}New Meter{% endblock %}
 
@@ -8,6 +9,7 @@
 {% endblock %}
 
 {% block content %}
+
 
     {#<div class="page-breadcrumb">#}
         {#<div class="row">#}

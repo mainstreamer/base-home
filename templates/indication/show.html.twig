@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% set returnurl = path('meter_show', {'id' : indication.meter.id }) %}
 
 {% block title %}Bill{% endblock %}
 
@@ -66,13 +67,13 @@
                     <thead>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Назва</td>
-                        <td>{{ indication.name }}</td>
-                    </tr>
+                    {#<tr>#}
+                        {#<td>Назва</td>#}
+                        {#<td>{{ indication.name }}</td>#}
+                    {#</tr>#}
                     <tr>
                         <td>Показання лічильника</td>
-                        <td>{{ indication.value }}</td>
+                        <td><strong>{{ indication.value }}</strong></td>
                     </tr>
                     <tr>
                         <td>Дата показання</td>

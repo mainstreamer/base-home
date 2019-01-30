@@ -88,12 +88,7 @@ class MeterController extends Controller
 //                'template' => 'indication/cell.html.twig',
 //                'label' => $translator->trans('name'),
 //            ])
-            ->add('textDate', TwigColumn::class, [
-//                'format' => 'd-m-Y',
-                'label' => $translator->trans('indication.date'),
-                'orderField' => 'indication.date',
-                'template' => 'indication/cell.html.twig',
-            ])
+
             ->add('value', TwigColumn::class, [
                 'className' => '',
                 'template' => 'indication/cell.html.twig',
@@ -103,6 +98,18 @@ class MeterController extends Controller
                 'className' => '',
                 'template' => 'indication/cell.html.twig',
                 'label' => $translator->trans('indication.unit.title'),
+            ])
+            ->add('textDate', TwigColumn::class, [
+//                'format' => 'd-m-Y',
+                'label' => $translator->trans('indication.date'),
+                'orderField' => 'indication.date',
+                'template' => 'indication/cell.html.twig',
+            ])
+            ->add('tariff', TwigColumn::class, [
+                'className' => '',
+                'field' => 'indication.tariff',
+                'template' => 'indication/cell.html.twig',
+                'label' => $translator->trans('indication.tariff'),
             ])
 //            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])
 //            ->add('type', TwigColumn::class, [

@@ -62,7 +62,7 @@ indication:
   unit:
     title: Measure unit
   value: Value
-  tariff: Tariff for indication
+  tariff: Tariff of indication
 
 no data: No data
 name: name

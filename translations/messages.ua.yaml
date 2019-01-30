@@ -48,7 +48,7 @@ indication:
   unit:
     title: Одиниця виміру
   value: Значення
-  tariff: Тариф для показання
+  tariff: Тариф показання
 
 date: Дата
 id: Номер

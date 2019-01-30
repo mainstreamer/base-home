@@ -303,11 +303,14 @@
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
+                            {% if returnurl is defined %}
                             {#<a href="{{ path('meter_show', {'id':indication.meter.id}) }}">#}
+                            <a href="{{ returnurl }}">
                                 <li class="breadcrumb-item">
                                     <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
                                 </li>
-                            {#</a>#}
+                            </a>
+                            {% endif %}
                         </ol>
                     </nav>
                 </div>
@@ -316,7 +319,7 @@
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>
+                            {#<li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>#}
                             {#<li class="breadcrumb-item active">{{ indication.id }}</li>#}
                         </ol>
                     </nav>
