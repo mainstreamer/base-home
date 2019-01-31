@@ -135,7 +135,10 @@ class PlaceController extends Controller
             return $table->getResponse();
         }
 
-        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table, 'release' => getenv('LAST_UPDATE')]);
+        //temp solution for version display
+        preg_match('/\d+/', '/var/www/base/releases/18/public', $matches);
+
+        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table, 'release' => $matches[0]]);
     }
 
     public function edit(Request $request, Place $place): Response
