@@ -135,7 +135,7 @@ class PlaceController extends Controller
             return $table->getResponse();
         }
 
-        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table]);
+        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table, 'release' => getenv('LAST_UPDATE')]);
     }
 
     public function edit(Request $request, Place $place): Response
