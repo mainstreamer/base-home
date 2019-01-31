@@ -136,9 +136,9 @@ class PlaceController extends Controller
         }
 
         //temp solution for version display
-        preg_match('/\d+/', '/var/www/base/releases/18/public', $matches);
+        preg_match('/\d+/', getcwd(), $matches);
 
-        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table, 'release' => $matches[0]]);
+        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table, 'release' => $matches[0] ?? '']);
     }
 
     public function edit(Request $request, Place $place): Response
