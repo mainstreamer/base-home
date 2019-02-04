@@ -94,7 +94,7 @@ class Tariff
 
     public function __toString(): string
     {
-        return $this->type->getName();
+        return $this->type ? $this->type->getName() : 'n/a' ;
     }
 
     /**

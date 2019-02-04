@@ -21,7 +21,9 @@ App\Entity\Tariff:
     manyToOne:
         type:
             targetEntity: App\Entity\TariffType
-            cascade: ["persist", "remove"]
+            cascade: ["persist"]
+            joinColumn:
+                onDelete:  "CASCADE"
         user:
             targetEntity: App\Entity\User
             inversedBy: tariffs

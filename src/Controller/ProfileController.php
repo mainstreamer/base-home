@@ -2,20 +2,15 @@
 
 namespace App\Controller;
 
-use App\Entity\Place;
-use App\Entity\Bill;
 use App\Entity\User;
 use App\Form\UserPasswordType;
 use App\Form\UserType;
 use App\Services\FileUploaderService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\BrowserKit\Response;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Symfony\Component\Security\Core\Tests\Encoder\PasswordEncoder;
 
 class ProfileController extends Controller
 {
@@ -40,6 +35,7 @@ class ProfileController extends Controller
             $password = $encoder->encodePassword($user, $user->plainPassword);
             $user->setPassword($password);
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('message', 'security.message.password_changed');
         }
 
         return ['user' => $this->getUser(), 'form' => $form->createView(), 'password' => $passwordForm->createView()];
@@ -55,7 +51,6 @@ class ProfileController extends Controller
     {
         return $this->render('content.html.twig');
     }
-
 
     public function changePicture(Request $request, User $user, FileUploaderService $service)
     {

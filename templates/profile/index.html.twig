@@ -2,6 +2,7 @@
 
 {% form_theme password _self %}
 
+
 {% block form_errors %}
     {% spaceless %}
         {% if errors|length > 0 %}
@@ -15,6 +16,7 @@
 {% block title %}User index{% endblock %}
 
 {% block head %}
+    {#<link href="/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">#}
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
         .w3-card, .w3-card-2 {
@@ -29,6 +31,7 @@
             background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%); /* Chrome10-25,Safari5.1-6 */
             background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
             }
+        #toast-container > div {opacity: 1!important;}
     </style>
 {% endblock %}
 
@@ -154,4 +157,27 @@
             }
         );
     </script>
+
+    {% include('common/_toastr.html.twig')%}
+
+    {#<script src="assets/libs/toastr/toastr.js"></script>#}
+    {#<script>#}
+        {#toastr.options = {"positionClass": "toast-top-left"};#}
+        {#toastr.options.timeOut = 0;#}
+        {#toastr.options.extendedTimeOut = 0;#}
+        {#toastr.options.closeButton = true;#}
+        {#{% for label, message in app.flashes('message')%}#}
+        {#$(function(){#}
+            {#// toastr.options = {"positionClass": "toast-top-left"};#}
+
+            {#toastr.info(" {{ message|trans }} ", "{{ 'Message'|trans }} ");#}
+        {#});#}
+        {#{% endfor %}#}
+        {#{% for label, message in app.flashes('error')%}#}
+        {#$(function(){#}
+            {#toastr.error(" {{ message|trans }} ", "{{ 'error'|trans }} ");#}
+        {#});#}
+        {#{% endfor %}#}
+    {#</script>#}
+
 {% endblock javascripts %}

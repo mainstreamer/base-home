@@ -38,7 +38,7 @@ class SecurityController extends Controller
     }
 
     public function changePassword(Request $request, TokenGeneratorInterface $generator)
-    {
+    {die('123');
         $form =  $this->createForm(UserPasswordType::class, $user = $this->getUser());
         $form->handleRequest($request);
 
@@ -86,7 +86,7 @@ class SecurityController extends Controller
      * @throws \Twig_Error_Syntax
      */
     public function changePasswordConfirm(Request $request, User $user, MailerService $mailerService, UserPasswordEncoderInterface $passwordEncoder): Response
-    {
+    {die('ol');
         $form = $this->createForm(UserPasswordType::class, $user);
         $form->remove('oldPassword');
         $form->handleRequest($request);

@@ -1,0 +1,26 @@
+{% block toastr %}
+<script src="assets/libs/toastr/toastr.js"></script>
+<script>
+
+    toastr.options = {"positionClass": "toast-top-left"};
+    toastr.options.timeOut = 0;
+    toastr.options.extendedTimeOut = 0;
+    toastr.options.closeButton = true;
+
+    {% for label, message in app.flashes('message')%}
+    $(function(){
+        // toastr.options = {"positionClass": "toast-top-left"};
+
+        toastr.info(" {{ message|trans }} ", "{{ 'Message'|trans }} ");
+    });
+    {% endfor %}
+
+
+
+    {% for label, message in app.flashes('error') %}
+    $(function(){
+        toastr.error(" {{ message|trans }} ", "{{ 'error'|trans }} ");
+    });
+    {% endfor %}
+</script>
+{% endblock toastr %}

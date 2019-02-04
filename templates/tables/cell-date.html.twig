@@ -1,1 +1,1 @@
-<a class="text-dark" href="{{ path('bill_show', {'id' : row.id}) }}">{{ value|date('d-m-Y') }}</a>
+<a class="text-dark" href="{{ path('bill_show', {'id' : row.id}) }}">{% if value == '' %}  ––– {% else %} {{ value|date('d-m-Y') }} {% endif %} </a>

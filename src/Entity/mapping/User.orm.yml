@@ -51,6 +51,8 @@ App\Entity\User:
             targetEntity: App\Entity\TariffType
             mappedBy: user
             cascade: ['persist', 'remove']
+            joinColumn:
+                onDelete:  "SET NULL"
     oneToOne:
         picture:
             targetEntity: App\Entity\Picture

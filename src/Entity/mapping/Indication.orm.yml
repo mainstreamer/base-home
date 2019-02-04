@@ -36,4 +36,6 @@ App\Entity\Indication:
             inversedBy: indications
         tariff:
             targetEntity: App\Entity\Tariff
+            joinColumn:
+                onDelete:  "SET NULL"
 #            inversedBy: indications

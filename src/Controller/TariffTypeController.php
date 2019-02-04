@@ -111,8 +111,9 @@ class TariffTypeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($tariffType);
             $em->flush();
+            $this->addFlash('message', 'tariff type deleted');
         }
 
-        return $this->redirectToRoute('place_show', ['id' => $tariffType->getPlace()->getId()]);
+        return $this->redirectToRoute('tariff_index');
     }
 }
