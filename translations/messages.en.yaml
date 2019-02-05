@@ -179,4 +179,8 @@ profile:
     logout: Logout
 message: Hello %name%
 
+tariff_types:
+  title: Tariff types
 
+tariff:
+  add: add tariff

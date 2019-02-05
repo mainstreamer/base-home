@@ -194,9 +194,9 @@ tariff_new:
     path: /tariffs/new
     controller: App\Controller\TariffController::new
 
-#tariff_new_for_place:
-#    path: /tariff/{place}/new
-#    controller: App\Controller\TariffController::newBillForPlace
+tariff_new_for_meter:
+    path: /tariff/{meter}/new
+    controller: App\Controller\TariffController::newTariffForMeter
 
 tariff_show:
     path: /tariffs/{id}

@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="card m-b-0">
-        <div class="col-12"><h3>Tariff types</h3></div>
+        <div class="col-12"><h3>{{ 'tariff_types.title'| trans }}</h3></div>
     {% for tariffType in app.user.tariffTypes %}
         <div class="row m-t-0">
             <a href="{{ path('tariff_type_edit', {'id' : tariffType.id }) }}" class="text-dark w-100">
@@ -76,16 +76,17 @@
         {#</div>#}
     {#</div>#}
     <hr>
-<div class="col-12 m-t-25 m-l-5"><h3>Places</h3></div>
+<div class="col-12 m-t-25 m-l-5"><h3>{{ 'pages.places'|trans }}</h3></div>
 {% for place in places %}
     <div class="row m-l-5 m-t-40">
 
-        <div class="col-12"><h5>{{ place.name }}</h5></div>
+        <div class="col-12"><h5>{{ place.name }}</h5>  </div>
 
         <div class="card">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
             {% for meter in place.meters %}
+
                 <li class="nav-item"> <a class="nav-link {% if loop.index == 1 %}active {% endif %}" data-toggle="tab" href="#meter-{{ meter.id }}" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">{{ meter.type| trans }}</span></a> </li>
 
 
@@ -101,11 +102,51 @@
             {% for meter in place.meters %}
                 <div class="tab-pane p-20 {% if loop.index == 1 %}active {% endif %}" id="meter-{{ meter.id }}" role="tabpanel">
                     <div class="p-20">
-                        <p> {{ meter.type.icon }} {{ meter.name }} </p>
+                        <div class="row">
+                            <p class="col-10"> {{ meter.type.icon }} {{ meter.name }}</p>
+                            <p class="col-2">
+                            <a href="{{ path('tariff_new_for_meter', {'meter' : meter.id}) }}" class="btn btn-sm btn-outline-success ">
+                                {#<i class="mdi mdi-plus font-14"></i>&nbsp;#}
+
+                                {{ 'tariff.add'|trans }}
+                            </a>
+                            </p>
+                            {#<p class="col-1"><a class=" badge badge-success" href="{{ path('tariff_new_for_meter', {'meter' : meter.id}) }}"> + тариф </a></p>#}
+                        </div>
+
+
 
                         {% if meter.tariffs.count > 0 %}
                             {% for tariff in meter.tariffs %}
-                                <p>Tariff type: {{ tariff.type |capitalize}}  price: ({{ tariff.price }}) / {{ meter.unit }} </p>
+                                <div class="row m-t-0">
+
+                                    <a href="{{ path('tariff_edit', {'id' : tariff.id}) }}" class="text-dark w-100">
+                                        <div class="card m-b-0">
+                                            <div class="comment-widgets scrollable ps-container ps-theme-default m-b-0">
+
+                                                <div class="d-flex flex-row comment-row m-t-0 m-b-0 p-t-0 p-b-0">
+                                                    <div class="p-2">
+                                                        <span class="font-14">{#🔖📊💵📝🧮 📊📈#} 📈{#📇#}</span><span class="font-16"> {{ tariff.type |capitalize}} - 💰{{ (tariff.price/100)|number_format(2,',','') }} {{ 'uah'|trans }}{#{{ 'for_1'|trans }} #} ({{ meter.unit |trans}})</span>
+                                                        {#<img src="../../assets/images/users/1.jpg" alt="user" width="50" class="rounded-circle">#}
+                                                    </div>
+                                                    {#<div class="comment-text w-100 justify-content-center">#}
+                                                    {#<h6 class="font-medium">{{ tariffType.name }}</h6>#}
+                                                    {#<span class="m-b-15 d-block">Name: {{ tariffType.name }}</span>#}
+                                                    {#<div class="comment-footer">#}
+                                                    {#<span class="text-muted float-right">April 14, 2016</span>#}
+                                                    {#<button type="button" class="btn btn-cyan btn-sm">Edit</button>#}
+                                                    {#<button type="button" class="btn btn-success btn-sm">Publish</button>#}
+                                                    {#<button type="button" class="btn btn-danger btn-sm">Delete</button>#}
+                                                    {#</div>#}
+                                                    {#</div>#}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                {#<a href="{{ path('tariff_edit', {'id' : tariff.id}) }}"><p>Tariff type: {{ tariff.type |capitalize}}  price: ({{ tariff.price }}) / {{ meter.unit }} </p></a>#}
                             {% endfor %}
                         {% else %}
                             <p>{{ 'meter.tariff.missing' | trans }}</p>

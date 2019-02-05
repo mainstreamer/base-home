@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Indication;
+use App\Entity\Meter;
 use App\Entity\Tariff;
 use App\Entity\Place;
 use App\Form\TariffType;
@@ -35,6 +36,7 @@ class TariffController extends Controller
     public function new(Request $request): Response
     {
         $item = new Tariff();
+        $item->setUser($this->getUser());
         $form = $this->createForm(TariffType::class, $item);
         $form->handleRequest($request);
 
@@ -52,26 +54,34 @@ class TariffController extends Controller
         ]);
     }
 
-    public function newTariffForPlace(Request $request, Place $place): Response
+    public function newTariffForMeter(Request $request, Meter $meter): Response
     {
+
         $item = new Tariff();
-        $item->setPlace($place);
+        $item->setMeter($meter);
+        $item->setUser($this->getUser());
+        $meter->addTariff($item);
         $form = $this->createForm(TariffType::class, $item);
-        $form->remove('place');
+//        $form->remove('meter');
+        $form->remove('user');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
 
-            return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
+//            dump($item);exit;
+            return $this->redirectToRoute('tariff_index');
         }
 
         return $this->render('tariff/new.html.twig', [
             'tariff' => $item,
             'form' => $form->createView(),
-            'place' => $place
+            'place' => $meter->getPlace(),
+'meter' => $meter
+//            'user' => $item->getUser()
         ]);
     }
 
@@ -111,6 +121,6 @@ class TariffController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('place_show', ['id' => $tariff->getPlace()->getId()]);
+        return $this->redirectToRoute('tariff_index');
     }
 }

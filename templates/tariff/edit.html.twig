@@ -24,12 +24,15 @@
         {#</div>#}
     {#</div>#}
     <div class="row">
+
         <div class="col-9">
             {% include('tariff/_form.html.twig') with {'title' : 'tariff.edit.title' |trans, 'tariff' : tariff, 'url' : path('tariff_delete', { 'id' : tariff.id })} %}
         </div>
+
         <div class="col-3 d-flex align-items-end justify-content-end">
             {% include('common/_delete_button.html.twig') with {'url' : path('tariff_delete', { 'id' : tariff.id }), 'id' : tariff.id} %}
         </div>
+
     </div>
 {% endblock %}
 

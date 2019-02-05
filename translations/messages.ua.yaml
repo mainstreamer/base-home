@@ -149,7 +149,8 @@ site:
 
 options: Опції
 for: для
-uah: ГРН
+for_1: за
+uah: грн
 
 modals:
   delete_file_question: Видалити цей файл
@@ -189,3 +190,9 @@ profile:
     logout: Вийти
 
 letters:
+
+tariff_types:
+  title: Типи тарифів
+
+tariff:
+  add: Додати тариф
