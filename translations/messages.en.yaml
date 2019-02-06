@@ -181,6 +181,15 @@ message: Hello %name%
 
 tariff_types:
   title: Tariff types
+  add: Add type
+  edit:
+    title: Edit tariff type
+  new:
+    title: Create tariff type
 
 tariff:
   add: add tariff
+  edit:
+    title: edit tariff
+  new:
+    title: Create tariff

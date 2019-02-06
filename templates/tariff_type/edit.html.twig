@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% set returnurl = path('tariff_index') %}
 
 {% block title %}Edit Bill{% endblock %}
 
@@ -25,7 +26,7 @@
     {#</div>#}
     <div class="row">
         <div class="col-9">
-            {% include('tariff_type/_form.html.twig') with {'title' : 'tariff.edit.title' |trans, 'tariff' : tariff, 'url' : path('tariff_type_delete', { 'id' : tariff.id })} %}
+            {% include('tariff_type/_form.html.twig') with {'title' : 'tariff_types.edit.title' |trans, 'tariff' : tariff, 'url' : path('tariff_type_delete', { 'id' : tariff.id })} %}
         </div>
         <div class="col-3 d-flex align-items-end justify-content-end">
             {% include('common/_delete_button.html.twig') with {'url' : path('tariff_type_delete', { 'id' : tariff.id }), 'id' : tariff.id} %}

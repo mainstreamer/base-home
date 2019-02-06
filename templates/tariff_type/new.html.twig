@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% set returnurl = path('tariff_index') %}
 
 {% block title %}New Tariff{% endblock %}
 
@@ -20,6 +21,6 @@
         {#</div>#}
     {#</div>#}
 
-    {%  include('tariff_type/_form.html.twig') with {'title' : 'tariff.new.title'|trans ~' '~'for'|trans } %}
+    {%  include('tariff_type/_form.html.twig') with {'title' : 'tariff_types.new.title'|trans } %}
 
 {% endblock %}

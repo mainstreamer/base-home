@@ -23,6 +23,11 @@
             {{ form_widget(form.user, {'attr' : {'class' : 'form-control select2 form-control select2 select2-container form-control', 'placeholder' : 'indication.title' | trans}}) }}
         </div>
     </div>
+    <div class="form-group row" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'indication.file.value' | trans }}">
+        <div class="input-group col-12">
+            {{ form_widget(form.type, {'attr' : {'class' : 'form-control select2 form-control select2 select2-container form-control', 'placeholder' : 'indication.title' | trans}}) }}
+        </div>
+    </div>
 </div>
 <div class="border-top">
     <div class="card-body">

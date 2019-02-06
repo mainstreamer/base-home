@@ -9,6 +9,7 @@ use App\Entity\Meter;
 use App\Entity\Tariff;
 use App\Entity\TariffType;
 use App\Entity\Place;
+use App\Entity\User;
 use App\Form\TariffTypeType;
 use App\Repository\TariffTypeRepository;
 use App\Services\FileUploaderService;
@@ -37,6 +38,27 @@ class TariffTypeController extends Controller
     public function new(Request $request): Response
     {
         $item = new TariffType();
+        $form = $this->createForm(TariffTypeType::class, $item);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($item);
+            $em->flush();
+
+            return $this->redirectToRoute('tariff_type_index');
+        }
+
+        return $this->render('tariff_type/new.html.twig', [
+            'tariff' => $item,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    public function newForUser(Request $request, User $user ): Response
+    {
+        $item = new TariffType();
+        $item->setUser($user);
         $form = $this->createForm(TariffTypeType::class, $item);
         $form->handleRequest($request);
 

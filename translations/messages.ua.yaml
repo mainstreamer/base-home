@@ -193,6 +193,15 @@ letters:
 
 tariff_types:
   title: Типи тарифів
+  add: Додати тип
+  edit:
+    title: Редагування типу тарифу
+  new:
+    title: Створити тип тарифу
 
 tariff:
   add: Додати тариф
+  edit:
+    title: Редагування тарифу
+  new:
+    title: Створити тариф

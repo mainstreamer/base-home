@@ -4,7 +4,22 @@
 
 {% block content %}
     <div class="card m-b-0">
-        <div class="col-12"><h3>{{ 'tariff_types.title'| trans }}</h3></div>
+        <div class="row">
+        <div class="col-10 p-l-30"><h4>{{ 'tariff_types.title'| trans }}</h4></div>
+        {#<div class="row">#}
+            {#<p class="col-10"> </p>#}
+            <div class="col-2 ">
+                <div class="d-flex justify-content-end m-r-20">
+                <a href="{{ path('tariff_type_new_for_user', {'user' : app.user.id})}}" class="btn btn-sm btn-outline-success ">
+                    {#<i class="mdi mdi-plus font-14"></i>&nbsp;#}
+
+                    {{ 'tariff_types.add'|trans }}
+                </a>
+                </div>
+            </div>
+        </div>
+            {#<p class="col-1"><a class=" badge badge-success" href="{{ path('tariff_new_for_meter', {'meter' : meter.id}) }}"> + тариф </a></p>#}
+        {#</div>#}
     {% for tariffType in app.user.tariffTypes %}
         <div class="row m-t-0">
             <a href="{{ path('tariff_type_edit', {'id' : tariffType.id }) }}" class="text-dark w-100">
@@ -76,13 +91,14 @@
         {#</div>#}
     {#</div>#}
     <hr>
-<div class="col-12 m-t-25 m-l-5"><h3>{{ 'pages.places'|trans }}</h3></div>
+<div class="col-12 m-t-25 m-l-5"><h4>{{ 'pages.places'|trans }}:</h4></div>
 {% for place in places %}
-    <div class="row m-l-5 m-t-40">
+    <div class="row m-l-5 m-t-20">
 
         <div class="col-12"><h5>{{ place.name }}</h5>  </div>
+        <div class="col-12"><small>{{ place.address }}</small>  </div>
 
-        <div class="card">
+        <div class="card m-t-10">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
             {% for meter in place.meters %}
@@ -103,7 +119,7 @@
                 <div class="tab-pane p-20 {% if loop.index == 1 %}active {% endif %}" id="meter-{{ meter.id }}" role="tabpanel">
                     <div class="p-20">
                         <div class="row">
-                            <p class="col-10"> {{ meter.type.icon }} {{ meter.name }}</p>
+                            <p class="col-10 font-16 font-bold"> <span class="font-20">{{ meter.type.icon }}</span>  {{ meter.name }}</p>
                             <p class="col-2">
                             <a href="{{ path('tariff_new_for_meter', {'meter' : meter.id}) }}" class="btn btn-sm btn-outline-success ">
                                 {#<i class="mdi mdi-plus font-14"></i>&nbsp;#}
@@ -121,7 +137,7 @@
                                 <div class="row m-t-0">
 
                                     <a href="{{ path('tariff_edit', {'id' : tariff.id}) }}" class="text-dark w-100">
-                                        <div class="card m-b-0">
+                                        <div class="card m-b-0 m-l-15">
                                             <div class="comment-widgets scrollable ps-container ps-theme-default m-b-0">
 
                                                 <div class="d-flex flex-row comment-row m-t-0 m-b-0 p-t-0 p-b-0">

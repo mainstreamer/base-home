@@ -26,6 +26,7 @@
 
 
 {% extends 'base.html.twig' %}
+{% set returnurl = path('tariff_index') %}
 
 {% block title %}Edit Bill{% endblock %}
 
@@ -53,7 +54,7 @@
     <div class="row">
 
         <div class="col-9">
-            {% include('tariff/_form_new.html.twig') with {'title' : 'tariff.edit.title' |trans, 'tariff' : tariff } %}
+            {% include('tariff/_form_new.html.twig') with {'title' : 'tariff.new.title' |trans ~' '~'for'|trans ~' '~ meter.name, 'tariff' : tariff } %}
             {#{% include('tariff/_form_new.html.twig') with {'title' : 'tariff.edit.title' |trans, 'tariff' : tariff, 'url' : path('tariff_new_for_meter', { 'meter' : meter.id } )} %}#}
         </div>
 
