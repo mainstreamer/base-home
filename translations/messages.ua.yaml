@@ -32,7 +32,7 @@ Hot Water: Гаряча вода
 indications: Показники
 
 indication:
-  title: Показання
+  title: показання
   file:
     tooltip: Додайте фото показання лічильника (не обов`язково)
     placeholder: Додати файли
@@ -85,8 +85,8 @@ choose_file: Оберіть файл
 choose_files: Додати файли
 
 place:
-  title: Місце
-  titles: Місця
+  title: місце
+  titles: місця
   edit:
     title: Редагувати місце
   add:
@@ -97,7 +97,7 @@ menu:
     title: Дії
 
 meter:
-  title: Лічильник
+  title: лічильник
   new:
     title: Новий лічильник
   edit:
@@ -109,8 +109,8 @@ meter:
     missing: Для цього лічильника ще не додано тарифів :(
 
 bill:
-  title: Рахунок
-  titles: Рахунки
+  title: рахунок
+  titles: рахунки
   new:
     title: Новий рахунок
   edit:
@@ -153,6 +153,7 @@ for_1: за
 uah: грн
 
 modals:
+  delete_question: Видалити
   delete_file_question: Видалити цей файл
 
 file: Файл
@@ -192,7 +193,8 @@ profile:
 letters:
 
 tariff_types:
-  title: Типи тарифів
+  title: тип тарифів
+  titles: Типи тарифів
   add: Додати тип
   edit:
     title: Редагування типу тарифу
@@ -205,3 +207,4 @@ tariff:
     title: Редагування тарифу
   new:
     title: Створити тариф
+  title: тариф

@@ -131,9 +131,13 @@
 
                         {#{% include('place/_form.html.twig') with {'title' : 'place.edit.title' |trans, 'place' : place, 'url' : path('place_delete', { 'id' : place.id })} %}#}
                     </div>
-                    <div class="col-2 d-flex align-items-end justify-content-end">
-                        {% include('common/_delete_button.html.twig') with {'url' : path('bill_delete', { 'id' : bill.id }), 'id' : bill.id} %}
+                    {#<div class="col-2 d-flex align-items-end justify-content-end">#}
+                        {#{% include('common/_delete_button.html.twig') with {'url' : path('bill_delete', { 'id' : bill.id }), 'id' : bill.id} %}#}
                         {#{% include('common/_delete_button.html.twig') with {'url' : path('place_delete', { 'id' : bill.id }), 'id' : bill.id} %}#}
+                    {#</div>#}
+
+                    <div class="col-2 d-flex align-items-end justify-content-end">
+                        {% include('common/_delete_button_modal.html.twig') with {'url' : path('bill_delete', { 'id' : bill.id }), 'id' : bill.id, 'subject' : 'bill.title'|trans ~' '~'"'~(bill.amount/100)|number_format(2,".","")~'" ?' } %}
                     </div>
                 </div>
 

@@ -29,8 +29,12 @@
             {% include('tariff_type/_form.html.twig') with {'title' : 'tariff_types.edit.title' |trans, 'tariff' : tariff, 'url' : path('tariff_type_delete', { 'id' : tariff.id })} %}
         </div>
         <div class="col-3 d-flex align-items-end justify-content-end">
-            {% include('common/_delete_button.html.twig') with {'url' : path('tariff_type_delete', { 'id' : tariff.id }), 'id' : tariff.id} %}
+            {% include('common/_delete_button_modal.html.twig') with {'url' : path('tariff_type_delete', { 'id' : tariff.id }), 'id' : tariff.id, 'subject' : 'tariff_types.title'|trans ~' '~'"'~tariff.name~'"?' } %}
         </div>
+
+        {#<div class="col-3 d-flex align-items-end justify-content-end">#}
+            {#{% include('common/_delete_button.html.twig') with {'url' : path('tariff_type_delete', { 'id' : tariff.id }), 'id' : tariff.id} %}#}
+        {#</div>#}
     </div>
 {% endblock %}
 

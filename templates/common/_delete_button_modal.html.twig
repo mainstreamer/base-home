@@ -1,0 +1,39 @@
+<div class="card-body">
+    <button class="btn btn-outline-danger delete" data-toggle="modal" data-target="#Modal2">{{ button_label|default('delete'|trans|capitalize) }}</button>
+</div>
+<form method="post" action="{{ url }}" >
+
+    {#MODALS#}
+    <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ 'are_you_sure' | trans }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ 'modals.delete_question'|trans }} {{ subject }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">{{ 'cancel'|trans }}</button>
+                    <div class="card-body">
+                        <button type="submit" class="btn btn-outline-danger ">{{ button_label|default('delete'|trans|capitalize) }}</button>
+                    </div>
+
+                    {#<button type="button" class="btn btn-outline-primary confirm" data-dismiss="modal">{{ 'delete'|trans }}</button>#}
+                </div>
+            </div>
+        </div>
+    </div>
+    {#END MODALS#}
+
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ id) }}">
+    {#<div class="border-top">#}
+        {#<div class="card-body">#}
+            {#<button class="btn btn-outline-danger">{{ button_label|default('delete'|trans|capitalize) }}</button>#}
+        {#</div>#}
+    {#</div>#}
+</form>

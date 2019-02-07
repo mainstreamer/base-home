@@ -143,6 +143,7 @@ uah: UAH
 options: Options
 
 modals:
+  delete_question: Delete
   delete_file_question: Delete this file?
 
 file: File
@@ -180,7 +181,8 @@ profile:
 message: Hello %name%
 
 tariff_types:
-  title: Tariff types
+  title: tariff type
+  titles: Tariff types
   add: Add type
   edit:
     title: Edit tariff type
@@ -193,3 +195,4 @@ tariff:
     title: edit tariff
   new:
     title: Create tariff
+  title: tariff
