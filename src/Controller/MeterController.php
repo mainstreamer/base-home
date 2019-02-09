@@ -42,6 +42,7 @@ class MeterController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
+            $this->addFlash('message', 'meter.created');
 
             return $this->redirectToRoute('meter_index');
         }
@@ -64,6 +65,7 @@ class MeterController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
+            $this->addFlash('message', 'meter.created');
 
             return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
         }
@@ -163,6 +165,7 @@ class MeterController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('message', 'changes_saved');
 
             return $this->redirectToRoute('meter_edit', ['id' => $meter->getId()]);
         }
@@ -179,6 +182,8 @@ class MeterController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($meter);
             $em->flush();
+
+            $this->addFlash('message', 'meter.deleted');
         }
 
         return $this->redirectToRoute('place_show', ['id' => $meter->getPlace()->getId()]);

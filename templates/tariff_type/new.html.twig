@@ -24,3 +24,13 @@
     {%  include('tariff_type/_form.html.twig') with {'title' : 'tariff_types.new.title'|trans } %}
 
 {% endblock %}
+
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+    </script>
+
+{% endblock javascripts %}

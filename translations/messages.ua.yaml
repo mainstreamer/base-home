@@ -13,8 +13,10 @@ Error!: Помилка
 Attention: Увага
 Message: Повідомлення
 sign up: Реєстрація
-
 address: Адреса
+created: створено
+changes_saved: зміни збережено
+not_required: (не обов`язково)
 
 kW/h: кВт/год
 m3: м3
@@ -91,12 +93,15 @@ place:
     title: Редагувати місце
   add:
     title: Додати місце
+  created: нове місце додано
+  deleted: місце видалено
 
 menu:
   actions:
     title: Дії
 
 meter:
+  missing: Для цього місця ще не додано лічильників :(
   title: лічильник
   new:
     title: Новий лічильник
@@ -107,6 +112,8 @@ meter:
   tariffs: Тарифи лічильника
   tariff:
     missing: Для цього лічильника ще не додано тарифів :(
+  created: новий лічильник додано
+  deleted: лічильник видалено
 
 bill:
   title: рахунок
@@ -133,6 +140,8 @@ bill:
   actually_paid: Фактично сплачено
   pay_date:
     title: Дата оплати
+  created: новий рахунок створено
+  deleted: рахунок видалено
 
 
 service:
@@ -200,6 +209,10 @@ tariff_types:
     title: Редагування типу тарифу
   new:
     title: Створити тип тарифу
+  created: новий тип тарифів створено
+  deleted: тип тарифів видалено
+  name: назва
+tariff_type: тип тарифу
 
 tariff:
   add: Додати тариф
@@ -208,3 +221,8 @@ tariff:
   new:
     title: Створити тариф
   title: тариф
+  created: новий тариф створено
+  deleted: тариф видалено
+  price: ціна
+  name: назва
+  description: опис

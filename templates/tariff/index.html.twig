@@ -10,7 +10,7 @@
             {#<p class="col-10"> </p>#}
             <div class="col-2 ">
                 <div class="d-flex justify-content-end m-r-20">
-                <a href="{{ path('tariff_type_new_for_user', {'user' : app.user.id})}}" class="btn btn-sm btn-outline-success ">
+                <a href="{{ path('tariff_type_new_for_user', {'user' : app.user.id})}}" class="btn btn-outline-success ">
                     {#<i class="mdi mdi-plus font-14"></i>&nbsp;#}
 
                     {{ 'tariff_types.add'|trans }}
@@ -105,7 +105,6 @@
 
                 <li class="nav-item"> <a class="nav-link {% if loop.index == 1 %}active {% endif %}" data-toggle="tab" href="#meter-{{ meter.id }}" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">{{ meter.type| trans }}</span></a> </li>
 
-
             {% endfor %}
 
 
@@ -115,6 +114,9 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content tabcontent-border">
+            {% if place.meters.count == 0 %}
+                <div class="m-l-40 m-t-5">{{ 'meter.missing'|trans }}</div>
+            {% endif %}
             {% for meter in place.meters %}
                 <div class="tab-pane p-20 {% if loop.index == 1 %}active {% endif %}" id="meter-{{ meter.id }}" role="tabpanel">
                     <div class="p-20">
@@ -259,3 +261,6 @@
 
     {#<a href="{{ path('tariff_new') }}">Create new</a>#}
 {% endblock %}
+{% block javascripts %}
+    {% include('common/_toastr.html.twig')%}
+{% endblock javascripts %}

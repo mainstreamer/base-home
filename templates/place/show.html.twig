@@ -141,7 +141,7 @@
 {% endblock actions %}
 
 {% block javascripts %}
-
+    {% include('common/_toastr.html.twig')%}
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
     <!-- Insert this at the end of your body element, but before the closing tag -->
@@ -158,7 +158,7 @@
 
     <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
 
-<script>
+    <script>
 
         $('#presidents').on("click", ".custom-switch", (function () {
 

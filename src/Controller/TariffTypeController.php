@@ -45,6 +45,7 @@ class TariffTypeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
+            $this->addFlash('message', 'tariff_types.created');
 
             return $this->redirectToRoute('tariff_type_index');
         }
@@ -66,8 +67,9 @@ class TariffTypeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
+            $this->addFlash('message', 'tariff_types.created');
 
-            return $this->redirectToRoute('tariff_type_index');
+            return $this->redirectToRoute('tariff_index');
         }
 
         return $this->render('tariff_type/new.html.twig', [
@@ -117,6 +119,7 @@ class TariffTypeController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('message', 'changes_saved');
 
             return $this->redirectToRoute('tariff_type_edit', ['id' => $tariff->getId()]);
         }
@@ -133,7 +136,7 @@ class TariffTypeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($tariffType);
             $em->flush();
-            $this->addFlash('message', 'tariff type deleted');
+            $this->addFlash('message', 'tariff_types.deleted');
         }
 
         return $this->redirectToRoute('tariff_index');

@@ -31,8 +31,13 @@
 
     {#DATATABLE#}
 
-
-
+    {% block common_css %}
+        <style>
+        #toast-container>div {
+            opacity: 1;
+        }
+        </style>
+    {% endblock common_css %}
     {#<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.2.1/dt-1.10.16/datatables.min.css"/>#}
     {#<script#}
             {#src="https://code.jquery.com/jquery-3.3.1.js"#}

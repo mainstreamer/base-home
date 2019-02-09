@@ -30,6 +30,9 @@ yes: Yes
 no: No
 choose_file: Choose file
 address: Address
+created: created
+changes_saved: changes saved
+not_required: (no required)
 
 kW/h: kW/h
 m3: m3
@@ -83,11 +86,15 @@ place:
     title: Edit place
   add:
     title: Add place
+  created: new place created
+  deleted: place deleted
+
 menu:
   actions:
     title: Actions
 
 meter:
+  missing: No meters created for this place yet :(
   title: Meter
   new:
     title: New meter
@@ -98,6 +105,8 @@ meter:
   tariffs: Tariffs of the meter
   tariff:
     missing: No tariffs added for this meter
+  created: new meter added
+  deleted: meter deleted
 
 bill:
   title: Bill
@@ -124,6 +133,8 @@ bill:
   actually_paid: Actually paid
   pay_date:
     title: Payment date
+  created: new bill created
+  deleted: bill deleted
 
 service:
   title: Service
@@ -188,6 +199,12 @@ tariff_types:
     title: Edit tariff type
   new:
     title: Create tariff type
+  created: New tariff type created
+  deleted: tariff type was deleted
+  name: name
+
+tariff_type: tariff type
+
 
 tariff:
   add: add tariff
@@ -196,3 +213,6 @@ tariff:
   new:
     title: Create tariff
   title: tariff
+  created: new tariff created
+  deleted: tariff was deleted
+  price: price

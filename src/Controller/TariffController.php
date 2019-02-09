@@ -4,21 +4,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Indication;
 use App\Entity\Meter;
 use App\Entity\Tariff;
-use App\Entity\Place;
 use App\Form\TariffType;
 use App\Repository\TariffRepository;
-use App\Services\FileUploaderService;
-use Doctrine\ORM\QueryBuilder;
-use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
-use Omines\DataTablesBundle\Column\DateTimeColumn;
-use Omines\DataTablesBundle\Column\TextColumn;
-use Omines\DataTablesBundle\Column\TwigColumn;
 use Omines\DataTablesBundle\Controller\DataTablesTrait;
-use Omines\DataTablesBundle\DataTableFactory;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -44,6 +34,7 @@ class TariffController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
+            $this->addFlash('message', 'tariff.created');
 
             return $this->redirectToRoute('tariff_index');
         }
@@ -71,6 +62,7 @@ class TariffController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
+            $this->addFlash('message', 'tariff.created');
 
 //            dump($item);exit;
             return $this->redirectToRoute('tariff_index');
@@ -80,7 +72,7 @@ class TariffController extends Controller
             'tariff' => $item,
             'form' => $form->createView(),
             'place' => $meter->getPlace(),
-'meter' => $meter
+            'meter' => $meter
 //            'user' => $item->getUser()
         ]);
     }
@@ -98,11 +90,13 @@ class TariffController extends Controller
     public function edit(Request $request, Tariff $tariff): Response
     {
         $form = $this->createForm(TariffType::class, $tariff);
-        $form->remove('place');
+        $form->remove('place')->remove('user');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('message', 'changes_saved');
 
             return $this->redirectToRoute('tariff_edit', ['id' => $tariff->getId()]);
         }
@@ -119,6 +113,7 @@ class TariffController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($tariff);
             $em->flush();
+            $this->addFlash('message', 'tariff.deleted');
         }
 
         return $this->redirectToRoute('tariff_index');

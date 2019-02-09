@@ -29,6 +29,9 @@ class ProfileController extends Controller
 
         if ( ($form->isSubmitted() && $form->isValid())) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('message', 'changes_saved');
+
+            return $this->redirectToRoute('profile');
         }
 
         if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
@@ -36,6 +39,8 @@ class ProfileController extends Controller
             $user->setPassword($password);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('message', 'security.message.password_changed');
+
+            return $this->redirectToRoute('profile');
         }
 
         return ['user' => $this->getUser(), 'form' => $form->createView(), 'password' => $passwordForm->createView()];

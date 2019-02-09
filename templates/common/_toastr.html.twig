@@ -1,5 +1,5 @@
 {% block toastr %}
-<script src="assets/libs/toastr/toastr.js"></script>
+<script src="/assets/libs/toastr/toastr.js"></script>
 <script>
 
     toastr.options = {"positionClass": "toast-top-left"};
@@ -11,15 +11,14 @@
     $(function(){
         // toastr.options = {"positionClass": "toast-top-left"};
 
-        toastr.info(" {{ message|trans }} ", "{{ 'Message'|trans }} ");
+        toastr.info(" {{ message|trans|capitalize }} ", "{{ 'Message'|trans }} ");
     });
     {% endfor %}
 
 
-
     {% for label, message in app.flashes('error') %}
     $(function(){
-        toastr.error(" {{ message|trans }} ", "{{ 'error'|trans }} ");
+        toastr.error(" {{ message|trans|capitalize }} ", "{{ 'error'|trans }} ");
     });
     {% endfor %}
 </script>

@@ -49,6 +49,7 @@ class PlaceController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($place);
             $em->flush();
+            $this->addFlash('message', 'place.created');
 
             return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
         }
@@ -149,6 +150,7 @@ class PlaceController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('message', 'changes_saved');
 
             return $this->redirectToRoute('place_edit', ['id' => $place->getId()]);
         }
@@ -165,6 +167,7 @@ class PlaceController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->remove($place);
             $em->flush();
+            $this->addFlash('message', 'place.deleted');
         }
 
         return $this->redirectToRoute('my_places');
@@ -190,6 +193,7 @@ class PlaceController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($place);
             $em->flush();
+            $this->addFlash('message', 'place.created');
 
             return $this->redirectToRoute('place_show',  ['id' => $place->getId()]);
         }
