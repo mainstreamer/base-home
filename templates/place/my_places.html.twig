@@ -18,6 +18,9 @@
         </div>
     </div>
 
+    {% if places.count == 0 %}
+        <div class="m-l-10 m-t-10">{{ 'place.missing'|trans|capitalize }}</div>
+    {% endif %}
     {% for place in places %}
     <div class="row border-top">
         <div class="col-11">

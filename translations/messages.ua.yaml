@@ -95,6 +95,7 @@ place:
     title: Додати місце
   created: нове місце додано
   deleted: місце видалено
+  missing: ще не додано жодного місця :(
 
 menu:
   actions:

@@ -88,6 +88,7 @@ place:
     title: Add place
   created: new place created
   deleted: place deleted
+  missing: no places added yet :(
 
 menu:
   actions:

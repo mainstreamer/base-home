@@ -6,10 +6,11 @@ namespace App\Controller;
 
 use App\Entity\Meter;
 use App\Entity\Tariff;
+use App\Event\NewUserCreatedEvent;
 use App\Form\TariffType;
-use App\Repository\TariffRepository;
 use Omines\DataTablesBundle\Controller\DataTablesTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -18,7 +19,7 @@ class TariffController extends Controller
 {
     use DataTablesTrait;
 
-    public function index(TariffRepository $tariffRepository): Response
+    public function index(): Response
     {
         return $this->render('tariff/index.html.twig', ['places' => $this->getUser()->getPlaces()]);
     }
