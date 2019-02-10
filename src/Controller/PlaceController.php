@@ -11,8 +11,6 @@ use App\Form\PlaceType;
 use App\Repository\PlaceRepository;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
-use Omines\DataTablesBundle\Column\DateTimeColumn;
-use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\Column\TwigColumn;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Event\StartPlaceCreationEvent;
 use Omines\DataTablesBundle\Controller\DataTablesTrait;
 use Symfony\Component\Translation\TranslatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PlaceController extends Controller
 {
@@ -34,11 +33,21 @@ class PlaceController extends Controller
         $this->dispatcher = $dispatcher;
     }
 
+    /**
+     * @param PlaceRepository $placeRepository
+     * @return Response
+     * TODO remove
+     */
     public function index(PlaceRepository $placeRepository): Response
     {
         return $this->render('place/index.html.twig', ['places' => $placeRepository->findAll()]);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     * TODO remove
+     */
     public function new(Request $request): Response
     {
         $form = $this->createForm(PlaceType::class, $place = new Place());
@@ -60,6 +69,13 @@ class PlaceController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Place $place
+     * @param TranslatorInterface $translator
+     * @return Response
+     * @Security("user === place.getUser()")
+     */
     public function show(Request $request, Place $place, TranslatorInterface $translator): Response
     {
         $table = $this->createDataTable()
@@ -68,7 +84,6 @@ class PlaceController extends Controller
                 'template' => 'tables/switch.html.twig',
                 'label' => $translator->trans('PAID'),
             ])
-//            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])
             ->add('period', TwigColumn::class, [
                 'className' => '',
                 'template' => 'tables/cell-date-m-Y.html.twig',
@@ -94,30 +109,11 @@ class PlaceController extends Controller
                 'template' => 'tables/cell-date.html.twig',
                 'label' => $translator->trans('billDate'),
             ])
-//            ->add('date', DateTimeColumn::class, [
-//                'field' => 'bill.textDate',
-//                'orderField' => 'bill.date',
-//                'format' => 'd-m-Y',
-//                'label' => $translator->trans('billDate'),
-//            ])
-//            ->add('payDateText', TwigColumn::class, [
-//                'className' => 'text-center',
-//                'template' => 'tables/cell-amount.html.twig',
-////                'label' => $translator->trans('payDateText'),
-//            ])
             ->add('payDateText', TwigColumn::class, [
                 'className' => '',
                 'template' => 'tables/cell-date.html.twig',
                 'label' => $translator->trans('payDate'),
             ])
-//            ->add('payDateText', DateTimeColumn::class, [
-//                'className' => 'text-center',
-//                'nullValue' => '–––',
-//                'orderField' => 'bill.payDateText',
-//                'format' => 'd-m-Y',
-//                'label' => $translator->trans('payDate'),
-//
-//            ])
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Bill::class,
 
@@ -142,6 +138,13 @@ class PlaceController extends Controller
         return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table, 'release' => $matches[0] ?? '']);
     }
 
+
+    /**
+     * @param Request $request
+     * @param Place $place
+     * @return Response
+     * @Security("user === place.getUser()")
+     */
     public function edit(Request $request, Place $place): Response
     {
         $form = $this->createForm(PlaceType::class, $place);
@@ -161,6 +164,12 @@ class PlaceController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Place $place
+     * @return Response
+     * @Security("user === place.getUser()")
+     */
     public function delete(Request $request, Place $place): Response
     {
         if ($this->isCsrfTokenValid('delete'.$place->getId(), $request->request->get('_token'))) {
@@ -182,6 +191,10 @@ class PlaceController extends Controller
         return ['places' => $this->getUser()->getPlaces()];
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     */
     public function myNew(Request $request): Response
     {
         $place = new Place();
