@@ -9,29 +9,35 @@ use App\Entity\Meter;
 use App\Entity\Place;
 use App\Form\MeterType;
 use App\Repository\MeterRepository;
-use App\Services\FileUploaderService;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
-use Omines\DataTablesBundle\Column\DateTimeColumn;
-use Omines\DataTablesBundle\Column\TextColumn;
 use Omines\DataTablesBundle\Column\TwigColumn;
 use Omines\DataTablesBundle\Controller\DataTablesTrait;
-use Omines\DataTablesBundle\DataTableFactory;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Translation\TranslatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class MeterController extends Controller
 {
     use DataTablesTrait;
 
+    /**
+     * @param MeterRepository $meterRepository
+     * @return Response
+     * TODO remove
+     */
     public function index(MeterRepository $meterRepository): Response
     {
         return $this->render('meter/index.html.twig', ['meters' => $meterRepository->findAll()]);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     * TODO remove
+     */
     public function new(Request $request): Response
     {
         $item = new Meter();
@@ -53,6 +59,12 @@ class MeterController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Place $place
+     * @return Response
+     * @Security("user === place.getUser()")
+     */
     public function newMeterForPlace(Request $request, Place $place): Response
     {
         $item = new Meter();
@@ -77,20 +89,16 @@ class MeterController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Meter $meter
+     * @param TranslatorInterface $translator
+     * @return Response
+     * @Security("user === meter.getPlace().getUser()")
+     */
     public function show(Request $request, Meter $meter, TranslatorInterface $translator): Response
     {
         $table = $this->createDataTable()
-//            ->add('id', TwigColumn::class, [
-//                'className' => 'd-flex flex-row comment-row',
-//                'template' => 'indication/cell.html.twig',
-//                'label' => $translator->trans('id'),
-//            ])
-//            ->add('name', TwigColumn::class, [
-//                'className' => '',
-//                'template' => 'indication/cell.html.twig',
-//                'label' => $translator->trans('name'),
-//            ])
-
             ->add('value', TwigColumn::class, [
                 'className' => '',
                 'template' => 'indication/cell.html.twig',
@@ -102,7 +110,6 @@ class MeterController extends Controller
                 'label' => $translator->trans('indication.unit.title'),
             ])
             ->add('textDate', TwigColumn::class, [
-//                'format' => 'd-m-Y',
                 'label' => $translator->trans('indication.date'),
                 'orderField' => 'indication.date',
                 'template' => 'indication/cell.html.twig',
@@ -113,26 +120,6 @@ class MeterController extends Controller
                 'template' => 'indication/cell.html.twig',
                 'label' => $translator->trans('indication.tariff'),
             ])
-//            ->add('period', TextColumn::class, ['field' => 'bill.textPeriod', 'orderField' => 'bill.period', 'label' => $translator->trans('billPeriod')])
-//            ->add('type', TwigColumn::class, [
-//                'className' => '',
-//                'template' => 'tables/cell.html.twig',
-//                'label' => $translator->trans('service'),
-//            ])
-//            ->add('amount', TwigColumn::class, [
-//                'className' => '',
-//                'template' => 'tables/cell.html.twig',
-//                'label' => $translator->trans('due'),
-//            ])
-//            ->add('actuallyPaid', TwigColumn::class, [
-//                'className' => '',
-//                'template' => 'tables/cell.html.twig',
-//                'label' => $translator->trans('actuallyPaid'),
-//            ])
-//
-
-//            ->add('date', DateTimeColumn::class, ['field' => 'indictaion.textDate', 'orderField' => 'bill.date', 'format' => 'd-m-Y', 'label' => $translator->trans('billDate')])
-//            ->add('payDateText', DateTimeColumn::class, ['nullValue' => '–––', 'orderField' => 'bill.payDateText', 'format' => 'd-m-Y', 'label' => $translator->trans('payDate')])
             ->createAdapter(ORMAdapter::class, [
                 'entity' => Indication::class,
 
@@ -151,12 +138,15 @@ class MeterController extends Controller
             return $table->getResponse();
         }
 
-//        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table]);
-
-
         return $this->render('meter/show.html.twig', ['meter' => $meter, 'datatable' => $table]);
     }
 
+    /**
+     * @param Request $request
+     * @param Meter $meter
+     * @return Response
+     * @Security("user === meter.getPlace().getUser()")
+     */
     public function edit(Request $request, Meter $meter): Response
     {
         $form = $this->createForm(MeterType::class, $meter);
@@ -176,6 +166,12 @@ class MeterController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Meter $meter
+     * @return Response
+     * @Security("user === meter.getPlace().getUser()")
+     */
     public function delete(Request $request, Meter $meter): Response
     {
         if ($this->isCsrfTokenValid('delete'.$meter->getId(), $request->request->get('_token'))) {

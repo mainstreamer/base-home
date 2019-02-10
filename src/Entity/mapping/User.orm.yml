@@ -4,10 +4,10 @@ App\Entity\User:
     repositoryClass: App\Repository\UserRepository
     id:
         id:
-            type: integer
+            type: string
             id: true
             generator:
-                strategy: AUTO
+                strategy: UUID
     fields:
         email:
             type: string

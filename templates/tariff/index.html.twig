@@ -10,7 +10,7 @@
             {#<p class="col-10"> </p>#}
             <div class="col-2 ">
                 <div class="d-flex justify-content-end m-r-20">
-                <a href="{{ path('tariff_type_new_for_user', {'user' : app.user.id})}}" class="btn btn-outline-success ">
+                <a href="{{ path('tariff_type_new_for_user', {'userObject' : app.user.id})}}" class="btn btn-outline-success ">
                     {#<i class="mdi mdi-plus font-14"></i>&nbsp;#}
 
                     {{ 'tariff_types.add'|trans }}

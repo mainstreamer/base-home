@@ -66,6 +66,8 @@ indication:
     title: Measure unit
   value: Value
   tariff: Tariff of indication
+  created: new indication added
+  deleted: indication deleted
 
 no data: No data
 name: name

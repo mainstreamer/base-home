@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class SecurityController extends Controller
 {
@@ -37,22 +38,33 @@ class SecurityController extends Controller
         return ['last_username' => $lastUsername, 'error' => $error, 'form' => $form->createView()];
     }
 
+    /**
+     * @param Request $request
+     * @param TokenGeneratorInterface $generator
+     * @return JsonResponse
+     */
     public function changePassword(Request $request, TokenGeneratorInterface $generator)
-    {die('123');
+    {
         $form =  $this->createForm(UserPasswordType::class, $user = $this->getUser());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setToken($generator->generateToken());
+            $this->getDoctrine()->getManager()->flush();
         }
-//        $encoder->encodePassword()
-//        $response = $service->upload($request->files->get('file'));
-//        $user->setProfilePic($response);
-        $this->getDoctrine()->getManager()->flush();
 
-        return new JsonResponse('pl', \Symfony\Component\HttpFoundation\Response::HTTP_OK);
+        return new JsonResponse(null, Response::HTTP_OK);
     }
 
+    /**
+     * @param Request $request
+     * @param MailerService $mailerService
+     * @param TokenGeneratorInterface $generator
+     * @return Response
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function changePasswordRequest(Request $request, MailerService $mailerService, TokenGeneratorInterface $generator): Response
     {
         $form = $this->createForm(ChangePasswordRequest::class);
@@ -64,7 +76,6 @@ class SecurityController extends Controller
                 $user->setToken($generator->generateToken());
                 $mailerService->sendResetLink($user);
                 $this->getDoctrine()->getManager()->flush();
-                $statusCode = Response::HTTP_OK;
                 $this->addFlash('message', 'security.message.reset_letter_sent');
             } else {
                 $this->addFlash('error', 'security.message.not_found');
@@ -78,35 +89,41 @@ class SecurityController extends Controller
 
     /**
      * @param Request $request
-     * @param User $token
+     * @param User $userObject
      * @param MailerService $mailerService
+     * @param UserPasswordEncoderInterface $passwordEncoder
      * @return Response
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
+     * @Security("user === userObject")
      */
-    public function changePasswordConfirm(Request $request, User $user, MailerService $mailerService, UserPasswordEncoderInterface $passwordEncoder): Response
-    {die('ol');
-        $form = $this->createForm(UserPasswordType::class, $user);
+    public function changePasswordConfirm(Request $request, User $userObject, MailerService $mailerService, UserPasswordEncoderInterface $passwordEncoder): Response
+    {
+        $form = $this->createForm(UserPasswordType::class, $userObject);
         $form->remove('oldPassword');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $passwordEncoder->encodePassword($user, $user->plainPassword);
-            $user->setPassword($password);
-            $user->setToken(null);
+            $password = $passwordEncoder->encodePassword($userObject, $userObject->plainPassword);
+            $userObject->setPassword($password);
+            $userObject->setToken(null);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
-            $mailerService->sendPasswordChanged($user);
+            $mailerService->sendPasswordChanged($userObject);
             $this->addFlash('message', 'security.message.password_changed');
 
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('registration/password.html.twig', ['user' => $user, 'form'=> $form->createView()]);
+        return $this->render('registration/password.html.twig', ['user' => $userObject, 'form'=> $form->createView()]);
     }
 
-    public function confirmAccount(User $user)
+    /**
+     * @param User $user
+     * @return Response
+     */
+    public function confirmAccount(User $user): Response
     {
         $user->setEnabled(true);
         $user->setToken(null);
@@ -115,12 +132,4 @@ class SecurityController extends Controller
 
         return $this->redirectToRoute('login');
     }
-
-
-//    public function testAction()
-//    {
-//        $this->getUser()->setToken('asjkh');
-//
-//        return $this->render('emails/reset_password.html.twig', ['user' => $this->getUser(), 'firstName' => 'KIL']);
-//    }
 }

@@ -4,10 +4,10 @@ App\Entity\Unit:
     repositoryClass: App\Repository\UnitRepository
     id:
         id:
-            type: integer
+            type: string
             id: true
             generator:
-                strategy: AUTO
+                strategy: UUID
     fields:
         name:
             type: string
@@ -16,12 +16,3 @@ App\Entity\Unit:
             type: string
             length: 255
             nullable: true
-
-#        type:
-#        amount:
-#            type: integer
-#            nullable: true
-#    manyToOne:
-#        place:
-#            targetEntity: App\Entity\Place
-#            inversedBy: bills

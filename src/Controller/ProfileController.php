@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class ProfileController extends Controller
 {
@@ -20,7 +21,6 @@ class ProfileController extends Controller
      */
     public function profile(Request $request, FileUploaderService $service, UserPasswordEncoderInterface $encoder)
     {
-
         $passwordForm = $this->createForm(UserPasswordType::class, $user = $this->getUser());
         $form = $this->createForm(UserType::class, $user);
         $form->remove('plainPassword');
@@ -46,21 +46,35 @@ class ProfileController extends Controller
         return ['user' => $this->getUser(), 'form' => $form->createView(), 'password' => $passwordForm->createView()];
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * TODO do I need it ?
+     */
     public function index()
     {
         return $this->redirectToRoute('my_places');
 
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function analytics()
     {
         return $this->render('content.html.twig');
     }
 
-    public function changePicture(Request $request, User $user, FileUploaderService $service)
+    /**
+     * @param Request $request
+     * @param User $userObject
+     * @param FileUploaderService $service
+     * @return JsonResponse
+     * @Security("user === userObject")
+     */
+    public function changePicture(Request $request, User $userObject, FileUploaderService $service)
     {
         $response = $service->upload($request->files->get('file'));
-        $user->setProfilePic($response);
+        $userObject->setProfilePic($response);
         $this->getDoctrine()->getManager()->flush();
 
         return new JsonResponse($response, \Symfony\Component\HttpFoundation\Response::HTTP_OK);

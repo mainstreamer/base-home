@@ -8,32 +8,41 @@ use App\Entity\Indication;
 use App\Entity\Meter;
 use App\Form\IndicationType;
 use App\Repository\IndicationRepository;
-use App\Services\FileUploader;
 use App\Services\FileUploaderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class IndicationController extends AbstractController
 {
+    /**
+     * @param IndicationRepository $indicationRepository
+     * @return Response
+     * TODO remove
+     */
     public function index(IndicationRepository $indicationRepository): Response
     {
         return $this->render('indication/index.html.twig', ['indications' => $indicationRepository->findAll()]);
     }
 
+
+    /**
+     * @param Request $request
+     * @param FileUploaderService $fileUploaderService
+     * @return Response
+     * TODO remove
+     */
     public function new(Request $request, FileUploaderService $fileUploaderService): Response
     {
         $item = new Indication();
         $form = $this->createForm(IndicationType::class, $item);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $item->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($item->getFile())));
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
@@ -47,25 +56,30 @@ class IndicationController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Meter $meter
+     * @param FileUploaderService $fileUploaderService
+     * @return Response
+     * @Security("user === meter.getPlace().getUser()")
+     */
     public function newIndicationForMeter(Request $request, Meter $meter, FileUploaderService $fileUploaderService): Response
     {
         $item = new Indication();
         $item->setMeter($meter);
         $form = $this->createForm(IndicationType::class, $item);
         $form->remove('meter');
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if ($item->getFile()) {
-
                 $item->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($item->getFile())));
             }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
+            $this->addFlash('message', 'indication.created');
 
             return $this->redirectToRoute('meter_show', ['id' => $meter->getId()]);
         }
@@ -77,11 +91,23 @@ class IndicationController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Indication $indication
+     * @return Response
+     * @Security("user === indication.getMeter().getPlace().getUser()")
+     */
     public function show(Indication $indication): Response
     {
         return $this->render('indication/show.html.twig', ['indication' => $indication]);
     }
 
+    /**
+     * @param Request $request
+     * @param Indication $indication
+     * @param FileUploaderService $fileUploaderService
+     * @return Response
+     * @Security("user === indication.getMeter().getPlace().getUser()")
+     */
     public function edit(Request $request, Indication $indication, FileUploaderService $fileUploaderService): Response
     {
         if ($before = $indication->getFile()) {
@@ -90,7 +116,6 @@ class IndicationController extends AbstractController
 
         $form = $this->createForm(IndicationType::class, $indication);
         $form->remove('meter');
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -99,8 +124,8 @@ class IndicationController extends AbstractController
             } elseif ($indication->getFile()) {
                 $indication->setFile(new File($before));
             }
-
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('message', 'changes_saved');
 
             return $this->redirectToRoute('indication_edit', ['id' => $indication->getId()]);
         }
@@ -111,17 +136,29 @@ class IndicationController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Indication $indication
+     * @return Response
+     * @Security("user === indication.getMeter().getPlace().getUser()")
+     */
     public function delete(Request $request, Indication $indication): Response
     {
         if ($this->isCsrfTokenValid('delete'.$indication->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($indication);
             $em->flush();
+            $this->addFlash('message', 'indication.deleted');
         }
 
         return $this->redirectToRoute('meter_show', ['id' => $indication->getMeter()->getId()]);
     }
 
+    /**
+     * @param Indication $indication
+     * @return JsonResponse
+     * @Security("user === indication.getMeter().getPlace().getUser()")
+     */
     public function deleteFile(Indication $indication)
     {
         $indication->setFile(null);

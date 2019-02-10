@@ -4,27 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Indication;
 use App\Entity\Meter;
 use App\Entity\Tariff;
 use App\Entity\TariffType;
-use App\Entity\Place;
 use App\Entity\User;
 use App\Form\TariffTypeType;
 use App\Repository\TariffTypeRepository;
-use App\Services\FileUploaderService;
-use Doctrine\ORM\QueryBuilder;
-use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
-use Omines\DataTablesBundle\Column\DateTimeColumn;
-use Omines\DataTablesBundle\Column\TextColumn;
-use Omines\DataTablesBundle\Column\TwigColumn;
 use Omines\DataTablesBundle\Controller\DataTablesTrait;
-use Omines\DataTablesBundle\DataTableFactory;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Translation\TranslatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class TariffTypeController extends Controller
 {
@@ -35,6 +25,11 @@ class TariffTypeController extends Controller
         return $this->render('tariff_type/index.html.twig', ['tariffTypes' => $repo->findAll()]);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     * TODO remove
+     */
     public function new(Request $request): Response
     {
         $item = new TariffType();
@@ -56,10 +51,16 @@ class TariffTypeController extends Controller
         ]);
     }
 
-    public function newForUser(Request $request, User $user ): Response
+    /**
+     * @param Request $request
+     * @param User $userObject
+     * @return Response
+     * @Security("user === userObject")
+     */
+    public function newForUser(Request $request, User $userObject): Response
     {
         $item = new TariffType();
-        $item->setUser($user);
+        $item->setUser($userObject);
         $form = $this->createForm(TariffTypeType::class, $item);
         $form->handleRequest($request);
 
@@ -78,39 +79,46 @@ class TariffTypeController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Meter $meter
+     * @return Response
+     * @Security("user === meter.getPlace().getUser()")
+     */
     public function newTariffTypeAndTariffForMeter(Request $request, Meter $meter): Response
     {
         $user = $meter->getPlace()->getUser();
         $tariffType = new TariffType();
         $tariffType->setName($request->request->get('content'));
         $tariffType->setUser($user);
-
-
         $tariff = new Tariff();
         $tariff->setType($tariffType);
         $tariff->setUser($user);
-
         $tariff->setName($tariffType->getName().' tariff for '.$meter->getId());
         $em = $this->getDoctrine()->getManager();
-
         $em->persist($tariff);
-
         $meter->addTariff($tariff);
         $em->flush();
 
         return new Response($tariff->getId());
     }
 
-    public function show(Request $request, TariffType $tariff, TranslatorInterface $translator): Response
+    /**
+     * @param TariffType $tariff
+     * @return Response
+     * @Security("user === tariff.getUser()")
+     */
+    public function show(TariffType $tariff): Response
     {
-
-
-//        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table]);
-
-
         return $this->render('tariff/show.html.twig', ['tariff' => $tariff]);
     }
 
+    /**
+     * @param Request $request
+     * @param TariffType $tariff
+     * @return Response
+     * @Security("user === tariff.getUser()")
+     */
     public function edit(Request $request, TariffType $tariff): Response
     {
         $form = $this->createForm(TariffTypeType::class, $tariff);
@@ -130,6 +138,12 @@ class TariffTypeController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param TariffType $tariffType
+     * @return Response
+     * @Security("user === tariffType.getUser()")
+     */
     public function delete(Request $request, TariffType $tariffType): Response
     {
         if ($this->isCsrfTokenValid('delete'.$tariffType->getId(), $request->request->get('_token'))) {

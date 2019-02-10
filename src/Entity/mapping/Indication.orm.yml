@@ -4,10 +4,10 @@ App\Entity\Indication:
     repositoryClass: App\Repository\IndicationRepository
     id:
         id:
-            type: integer
+            type: string
             id: true
             generator:
-                strategy: AUTO
+                strategy: UUID
     fields:
         name:
             type: string
@@ -25,11 +25,7 @@ App\Entity\Indication:
         file:
             type: string
             nullable: true
-#        unit:
-#        type:
-#        amount:
-#            type: integer
-#            nullable: true
+
     manyToOne:
         meter:
             targetEntity: App\Entity\Meter
@@ -38,4 +34,3 @@ App\Entity\Indication:
             targetEntity: App\Entity\Tariff
             joinColumn:
                 onDelete:  "SET NULL"
-#            inversedBy: indications

@@ -6,14 +6,12 @@ namespace App\Controller;
 
 use App\Entity\Meter;
 use App\Entity\Tariff;
-use App\Event\NewUserCreatedEvent;
 use App\Form\TariffType;
 use Omines\DataTablesBundle\Controller\DataTablesTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Translation\TranslatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class TariffController extends Controller
 {
@@ -24,6 +22,11 @@ class TariffController extends Controller
         return $this->render('tariff/index.html.twig', ['places' => $this->getUser()->getPlaces()]);
     }
 
+    /**
+     * @param Request $request
+     * @return Response
+     * TODO remove
+     */
     public function new(Request $request): Response
     {
         $item = new Tariff();
@@ -46,15 +49,19 @@ class TariffController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Meter $meter
+     * @return Response
+     * @Security("user === meter.getPlace().getUser()")
+     */
     public function newTariffForMeter(Request $request, Meter $meter): Response
     {
-
         $item = new Tariff();
         $item->setMeter($meter);
         $item->setUser($this->getUser());
         $meter->addTariff($item);
         $form = $this->createForm(TariffType::class, $item);
-//        $form->remove('meter');
         $form->remove('user');
         $form->handleRequest($request);
 
@@ -65,7 +72,6 @@ class TariffController extends Controller
             $em->flush();
             $this->addFlash('message', 'tariff.created');
 
-//            dump($item);exit;
             return $this->redirectToRoute('tariff_index');
         }
 
@@ -74,20 +80,25 @@ class TariffController extends Controller
             'form' => $form->createView(),
             'place' => $meter->getPlace(),
             'meter' => $meter
-//            'user' => $item->getUser()
         ]);
     }
 
-    public function show(Request $request, Tariff $tariff, TranslatorInterface $translator): Response
+    /**
+     * @param Tariff $tariff
+     * @return Response
+     * @Security("user === tariff.getUser()")
+     */
+    public function show(Tariff $tariff): Response
     {
-
-
-//        return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table]);
-
-
         return $this->render('tariff/show.html.twig', ['tariff' => $tariff]);
     }
 
+    /**
+     * @param Request $request
+     * @param Tariff $tariff
+     * @return Response
+     * @Security("user === tariff.getUser()")
+     */
     public function edit(Request $request, Tariff $tariff): Response
     {
         $form = $this->createForm(TariffType::class, $tariff);
@@ -108,6 +119,12 @@ class TariffController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Tariff $tariff
+     * @return Response
+     * @Security("user === tariff.getUser()")
+     */
     public function delete(Request $request, Tariff $tariff): Response
     {
         if ($this->isCsrfTokenValid('delete'.$tariff->getId(), $request->request->get('_token'))) {
