@@ -4,10 +4,10 @@ App\Entity\MeterType:
     repositoryClass: App\Repository\MeterTypeRepository
     id:
         id:
-            type: integer
+            type: string
             id: true
             generator:
-                strategy: AUTO
+                strategy: UUID
     fields:
         name:
             type: string

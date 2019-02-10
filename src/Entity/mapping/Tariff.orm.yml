@@ -4,10 +4,10 @@ App\Entity\Tariff:
     repositoryClass: App\Repository\TariffRepository
     id:
         id:
-            type: integer
+            type: string
             id: true
             generator:
-                strategy: AUTO
+                strategy: UUID
     fields:
         price:
             type: integer

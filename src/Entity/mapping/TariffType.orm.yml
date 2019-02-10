@@ -4,10 +4,10 @@ App\Entity\TariffType:
     repositoryClass: App\Repository\TariffTypeRepository
     id:
         id:
-            type: integer
+            type: string
             id: true
             generator:
-                strategy: AUTO
+                strategy: UUID
     fields:
         name:
             type: string
@@ -17,7 +17,3 @@ App\Entity\TariffType:
         user:
             targetEntity: App\Entity\User
             inversedBy: tariffTypes
-#            type: string
-#            length: 255
-#            nullable: true
-

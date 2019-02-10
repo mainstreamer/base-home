@@ -4,10 +4,10 @@ App\Entity\Bill:
     repositoryClass: App\Repository\BillRepository
     id:
         id:
-            type: integer
+            type: string
             id: true
             generator:
-                strategy: AUTO
+                strategy: UUID
     fields:
         name:
             type: string

@@ -4,10 +4,10 @@ App\Entity\FileUpload:
     repositoryClass: App\Repository\FileUploadRepository
     id:
         id:
-            type: integer
+            type: string
             id: true
             generator:
-                strategy: AUTO
+                strategy: UUID
     fields:
         originalName:
             type: string

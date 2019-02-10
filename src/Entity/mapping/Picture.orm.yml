@@ -4,10 +4,10 @@ App\Entity\Picture:
     repositoryClass: App\Repository\PictureRepository
     id:
         id:
-            type: integer
+            type: string
             id: true
             generator:
-                strategy: AUTO
+                strategy: UUID
     fields:
         originalName:
             type: string
@@ -23,7 +23,3 @@ App\Entity\Picture:
             nullable: false
         created:
             type: datetime
-#        type:
-#        amount:
-#            type: integer
-#            nullable: true
