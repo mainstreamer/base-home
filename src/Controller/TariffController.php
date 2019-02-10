@@ -97,7 +97,7 @@ class TariffController extends Controller
      * @param Request $request
      * @param Tariff $tariff
      * @return Response
-     * @Security("user === meter.getPlace().getUser()")
+     * @Security("user === tariff.getUser()")
      */
     public function edit(Request $request, Tariff $tariff): Response
     {
@@ -123,7 +123,7 @@ class TariffController extends Controller
      * @param Request $request
      * @param Tariff $tariff
      * @return Response
-     * @Security("user === meter.getPlace().getUser()")
+     * @Security("user === tariff.getUser()")
      */
     public function delete(Request $request, Tariff $tariff): Response
     {

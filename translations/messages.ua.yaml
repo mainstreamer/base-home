@@ -51,6 +51,8 @@ indication:
     title: Одиниця виміру
   value: Значення
   tariff: Тариф показання
+  created: показання додано
+  deleted: показання видалено
 
 date: Дата
 id: Номер

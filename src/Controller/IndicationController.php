@@ -79,6 +79,7 @@ class IndicationController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
+            $this->addFlash('message', 'indication.created');
 
             return $this->redirectToRoute('meter_show', ['id' => $meter->getId()]);
         }
@@ -124,6 +125,7 @@ class IndicationController extends AbstractController
                 $indication->setFile(new File($before));
             }
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('message', 'changes_saved');
 
             return $this->redirectToRoute('indication_edit', ['id' => $indication->getId()]);
         }
@@ -146,6 +148,7 @@ class IndicationController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->remove($indication);
             $em->flush();
+            $this->addFlash('message', 'indication.deleted');
         }
 
         return $this->redirectToRoute('meter_show', ['id' => $indication->getMeter()->getId()]);

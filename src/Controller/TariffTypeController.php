@@ -57,7 +57,7 @@ class TariffTypeController extends Controller
      * @return Response
      * @Security("user === userObject")
      */
-    public function newForUser(Request $request, User $userObject ): Response
+    public function newForUser(Request $request, User $userObject): Response
     {
         $item = new TariffType();
         $item->setUser($userObject);

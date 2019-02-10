@@ -220,7 +220,7 @@ tariff_type_new:
     controller: App\Controller\TariffTypeController::new
 
 tariff_type_new_for_user:
-    path: /tarifftypes/{user}/new
+    path: /tarifftypes/{userObject}/new
     controller: App\Controller\TariffTypeController::newForUser
 
 tariff_type_show:

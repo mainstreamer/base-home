@@ -82,6 +82,7 @@ class BillController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($bill);
             $em->flush();
+            $this->addFlash('message', 'bill.created');
 
             return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
         }
@@ -129,6 +130,7 @@ class BillController extends AbstractController
             }
 
             $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('message', 'changes_saved');
 
             return $this->redirectToRoute('bill_edit', ['id' => $bill->getId()]);
         }

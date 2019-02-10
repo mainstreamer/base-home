@@ -57,7 +57,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
