@@ -5,3 +5,7 @@ App\Entity\TariffType:
         user: '@user_<current()>'
 #    type_2:
 #        name: 'night'
+    type_standard_electricity:
+        #    type_1:
+        name: 'Standard'
+#        user: '@user_<current()>'

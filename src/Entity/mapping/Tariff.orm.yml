@@ -18,6 +18,12 @@ App\Entity\Tariff:
         name:
             type: string
             length: 255
+#        discountedPrice:
+#            type: integer
+#            nullable: true
+#        discountedVolume:
+#            type: integer
+#            nullable: true
     manyToOne:
         type:
             targetEntity: App\Entity\TariffType
