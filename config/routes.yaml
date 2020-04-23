@@ -63,6 +63,10 @@ bill_new:
 bill_new_for_place:
     path: /bills/{place}/new
     controller: App\Controller\BillController::newBillForPlace
+    
+bill_new_for_subscription:
+    path: /subscriptions/{subscription}/bills/new
+    controller: App\Controller\BillController::newBillForSubscription
 
 bill_show:
     path: /bills/{id}
@@ -246,7 +250,39 @@ profile:
     path: /profile
     controller: App\Controller\ProfileController::profile
 picture:
-    path: /user/{user}/profile/picture
+    path: /user/{userObject}/profile/picture
     controller: App\Controller\ProfileController::changePicture
 
-
+####
+subscription_index:
+    path: /subscriptions
+    controller: App\Controller\SubscriptionController::index
+subscription_new:
+    path: /services/{service}/subscriptions/new
+    controller: App\Controller\SubscriptionController::new
+subscription_show:
+    path: /subscriptions/{id}
+    controller: App\Controller\SubscriptionController::show
+subscription_edit:
+    path: /subscriptions/{id}/edit
+    controller: App\Controller\SubscriptionController::edit
+subscription_delete:
+    path: /subscriptions/{id}/delete
+    controller: App\Controller\SubscriptionController::delete
+    
+###
+service_index:
+    path: /services
+    controller: App\Controller\ServiceController::index
+service_new:
+    path: /services/new
+    controller: App\Controller\ServiceController::new
+service_show:
+    path: /services/{id}
+    controller: App\Controller\ServiceController::show
+service_delete:
+    path: /services/{id}/delete
+    controller: App\Controller\ServiceController::delete
+service_edit:
+    path: /services/{id}/edit
+    controller: App\Controller\ServiceController::edit

@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
-{% set returnurl = path('place_show', {'id' : bill.place.id }) %}
+
+{% if bill.place != null %}
+    {% set returnurl = path('place_show', {'id' : bill.place.id }) %}
+{% else  %}
+    {% set returnurl = path('subscription_show', {'id' : bill.subscription.id }) %}
+{% endif %}
 
 {% block title %}Bill{% endblock %}
 
@@ -102,7 +107,11 @@
                                 {#<h3 class="text-left {% if bill.status == 'UNPAID' %}text-danger{% else %}text-success{% endif %}"><b>{{ bill.status | trans }}</b> </h3>#}
                                 <h3 class="text-left {% if bill.isPaid == false %}text-danger {% set status = constant('UNPAID', bill) %}{% else %}text-success {% set status = constant('PAID', bill) %}{% endif %}"><b>{{ status | trans }}</b> </h3>
                                 </p>
-                                <h5>{{ 'place.title' |trans}}: <span class="font-weight-light">{{ bill.place.name }} </span></h5>
+                                {%  if bill.place != null %}
+                                    <h5>{{ 'place.title' |trans}}: <span class="font-weight-light">{{ bill.place.name }} </span></h5>
+                                {% else %}
+                                    <h5>{{ 'service.title' |trans}}: <span class="font-weight-light">{{ bill.subscription.name }} </span></h5>
+                                {% endif %}
                                 <p class="m-t-30">
                                     <i class="fa fa-calendar"></i> <b>{{ bill.date | date('d-m-Y') }}</b> -  {{ 'bill.bill_date.title'|trans }}
                                 </p>

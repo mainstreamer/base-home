@@ -7,15 +7,15 @@ use App\Form\UserPasswordType;
 use App\Form\UserType;
 use App\Services\FileUploaderService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-class ProfileController extends Controller
-{
 
+class ProfileController extends AbstractController
+{
     /**
      * @Template("profile/index.html.twig")
      */

@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -12,17 +11,17 @@ use App\Repository\PlaceRepository;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\TwigColumn;
+use Omines\DataTablesBundle\DataTableFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Event\StartPlaceCreationEvent;
 use Omines\DataTablesBundle\Controller\DataTablesTrait;
 use Symfony\Component\Translation\TranslatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-class PlaceController extends Controller
+class PlaceController extends AbstractController
 {
     use DataTablesTrait;
 
@@ -50,8 +49,10 @@ class PlaceController extends Controller
      */
     public function new(Request $request): Response
     {
-        $form = $this->createForm(PlaceType::class, $place = new Place());
-        $this->dispatcher->dispatch(StartPlaceCreationEvent::NAME, new StartPlaceCreationEvent($form, $this->getUser(), $place));
+        $form = $this->createForm(PlaceType::class, $place = (new Place())->setUser($this->getUser()));
+//        $form->remove('user');
+//        $this->dispatcher->dispatch(StartPlaceCreationEvent::NAME, new StartPlaceCreationEvent($form, $this->getUser(), $place));
+//        dd($form->get);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -76,9 +77,9 @@ class PlaceController extends Controller
      * @return Response
      * @Security("user === place.getUser()")
      */
-    public function show(Request $request, Place $place, TranslatorInterface $translator): Response
+    public function show(Request $request, Place $place, TranslatorInterface $translator, DataTableFactory $tableFactory): Response
     {
-        $table = $this->createDataTable()
+        $table = $tableFactory->create()
             ->add('status', TwigColumn::class, [
                 'className' => '',
                 'template' => 'tables/switch.html.twig',

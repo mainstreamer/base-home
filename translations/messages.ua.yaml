@@ -156,6 +156,7 @@ pages:
   analytics: Аналітика
   places: Місця
   tariffs: Тарифи
+  subscriptions: Підписки
 site:
   title: Рахунки
 
@@ -191,7 +192,6 @@ security:
   button:
     reset:
       title: Надіслати
-
 day: денний
 
 profile:
@@ -229,3 +229,5 @@ tariff:
   price: ціна
   name: назва
   description: опис
+button:
+  add: Додати

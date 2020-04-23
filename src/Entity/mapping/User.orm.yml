@@ -53,6 +53,10 @@ App\Entity\User:
             cascade: ['persist', 'remove']
             joinColumn:
                 onDelete:  "SET NULL"
+        services:
+            targetEntity: App\Entity\Service
+            mappedBy: user
+            cascade: ['persist', 'remove']
     oneToOne:
         picture:
             targetEntity: App\Entity\Picture

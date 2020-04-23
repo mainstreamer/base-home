@@ -57,6 +57,9 @@ App\Entity\Bill:
         place:
             targetEntity: App\Entity\Place
             inversedBy: bills
+        subscription:
+            targetEntity: App\Entity\Subscription
+            inversedBy: bills
     oneToMany:
         files:
             targetEntity: App\Entity\FileUpload

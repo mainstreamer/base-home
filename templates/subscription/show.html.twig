@@ -1,0 +1,278 @@
+{% extends 'base.html.twig' %}
+{% set returnurl = path('service_index') %}
+
+{% block title %}Subscription{% endblock %}
+{% block head %}
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/fh-3.1.4/sc-1.5.0/datatables.min.css"/>
+
+    <style>
+        .outerDivFull { margin:50px; }
+        .custom-switch input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
+        .custom-switch label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 30px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
+        .custom-switch label:after {content: ''; position: absolute; top: 2px; left: 2px; width: 26px; height: 26px; background: #fff; border-radius: 90px; transition: 0.3s; }
+        .custom-switch input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
+        .custom-switch input + label:before, .switchToggle input + input + label:before {content: "{{ 'no'|trans }}"; position: absolute; top: 5px; left: 35px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .custom-switch input:checked + label:before, .switchToggle input:checked + input + label:before {content: "{{ 'yes'|trans }}"; position: absolute; top: 5px; left: 10px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .custom-switch input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
+        .custom-switch label:active:after {width: 60px; }
+        #dt_filter, #dt_length { display: inline-block;}
+        #dt_filter {float: right;}
+        #dt_filter label input {display: inline-block; width: 240px; float: right;}
+        #dt_length label, #dt_filter label {width: 300px;}
+        #dt_length  select.form-control.form-control-sm { display: inline-block; width: 40px;}
+
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+
+{% endblock head %}
+
+{% block content %}
+
+
+
+    {#<div class="page-breadcrumb card">#}
+        {#<div class="row">#}
+            {#<div  class="col-1">#}
+                {#<div class="ml-auto text-right">#}
+                    {#<nav aria-label="breadcrumb">#}
+                        {#<ol class="breadcrumb">#}
+                            {#<a href="{{ path('my_places') }}">#}
+                                {#<li class="breadcrumb-item">#}
+                                    {#<i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}#}
+                                {#</li>#}
+                            {#</a>#}
+                        {#</ol>#}
+                    {#</nav>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="col-11 d-flex no-block align-items-center">#}
+                {#<div class="ml-auto text-right">#}
+                    {#<nav aria-label="breadcrumb">#}
+                        {#<ol class="breadcrumb">#}
+                            {#<li class="breadcrumb-item" aria-current="page"><a href="{{ path('my_places') }}">Місця</a></li>#}
+                            {#<li class="breadcrumb-item active">{{ place.name }}</li>#}
+                        {#</ol>#}
+                    {#</nav>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+    <div class="container-fluid">
+{#        #}
+    <div class="row card-body">
+        <div class="card-body d-flex justify-content-between">
+            <div><h5>{{ 'subscription.title'|trans|capitalize }}</h5></div>
+        </div>
+        <div class="col-11">
+            <div class="row">
+
+
+                <div class="card-body">
+                    <div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                {#                                    <div class="card-body">#}
+                                {#
+                                {#                                    </div>#}
+                                <table class="table">
+
+                                    <tbody>
+                                    <tr>
+                                        <td><a href="#" class="link"></a>Start date</td>
+                                        <td>{{subscription.startDate | date('d-m-Y')}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#" class="link"></a>End date</td>
+                                        <td>{{subscription.endDate | date('d-m-Y')}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#" class="link"></a>Next billing date</td>
+                                        <td>{{subscription.nextBillingDate | date('d-m-Y')}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#" class="link">Price</a></td>
+                                        <td>{{ subscription.price / 100 }} {{ subscription.currency }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#" class="link">Period</a></td>
+
+                                        <td>{{ subscription.period }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#" class="link">Type</a></td>
+
+                                        <td>{{ subscription.type }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="#" class="link">Auto renew</a></td>
+
+                                        <td>{% if  subscription.autoRenew %} yes {% else %} no {% endif %}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{#                {{ subscription.name }}#}
+{#                {{ subscription.description }}#}
+{#                {{ subscription.type }}#}
+{#                {{ subscription.price }}#}
+{#                {{ subscription.period }}#}
+{#                {{ subscription.autoRenew }}#}
+{#                {{ subscription.startDate | date }}#}
+{#                {{ subscription.endDate | date }}#}
+{#                {{ subscription.endDate | date }}#}
+
+
+
+
+
+
+
+                {#                {% for meter in place.meters %}#}
+{#                    <div class="col-2 card card-hover">#}
+{#                        <a href="{{ path('meter_show', {'id': meter.id}) }}">#}
+{#                            <div class="bg-dark p-10 text-white text-center">#}
+{#                                <span class="font-24">️{{ meter.type.icon}}</span>#}
+{#                                <h5 class="m-b-0 m-t-5">{{ meter.indications.first |default('0') }} {{ (meter.unit.name)|trans }}</h5>#}
+{#                                <small class="font-light">{{ (meter.type.name) |trans|capitalize }}</small><br>#}
+{#                            </div>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#                <div class="col-2 card card-hover" >#}
+{#                    <a href=""  >#}
+{#                        #}{#<div class="card card-hover">#}
+{#                        <div class="box text-center ">#}
+{#                            #}{#<h1 class="font-light text-white"><i class="mdi mdi-plus-box-outline"></i></h1>#}
+{#                            <h1 class="font-light text-black" style="color: black;"><i class="mdi mdi-tooltip-outline-plus"></i></h1>#}
+{#                            <h5 class="font-light text-black" style="color: black;">{{ 'meter.title'|trans|capitalize }}</h5>#}
+{#                            <small class="text-white"></small>#}
+{#                        </div>#}
+{#                        #}{#</div>#}
+{#                        #}{#<div>#}
+
+{#                        #}{#<span class="font-24 text-black"></span>#}
+{#                        #}{#<h5 class="m-b-0 m-t-5">#}
+{#                        #}{##}
+{#                        #}{#</h5>#}
+{#                    </a>#}
+{#                    #}{#</div>#}
+{#                </div>#}
+            </div>
+        </div>
+        <div class="col-1 card-hover card" style="max-height: 100px;">
+            <a href="{{ path('subscription_edit', {'id' : subscription.id }) }}">
+                <div class="box bg-white text-center">
+                    <h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>
+                    <small class="m-p-0 font-10 text-dark">{{ 'options'|trans|capitalize }}</small>
+                </div>
+            </a>
+        </div>
+            {#        <div class="col-1 card-hover card">#}
+{#            <a href="{{ path('place_edit', {'id' : place.id }) }}">#}
+{#                <div class="box bg-white text-center">#}
+{#                    <h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>#}
+{#                    <h5 class="font-light text-dark" style="color: black;">{{ 'options'|trans|capitalize }}</h5>#}
+{#                    #}{#<small class="text-dark">{{ 'options'|trans|capitalize }}</small>#}
+{#                </div>#}
+{#            </a>#}
+{#        </div>#}
+    </div>
+    </div>
+    <div class="container-fluid">
+        <div class="card-body d-flex justify-content-between border-top">
+            <div><h5>{{ 'bill.titles'|trans|capitalize }}</h5></div>
+
+{#            <div class="card-body d-flex justify-content-between border-top">#}
+{#                <div><h5>{{ 'bill.titles'|trans|capitalize }}</h5></div>#}
+                <a href="{{ path('bill_new_for_subscription', {'subscription' : subscription.id }) }}" class="btn btn-outline-success ">
+                    {{ 'bill.add.title'|trans }}
+                </a>
+{#            </div>#}
+{#            <a href="{{ path('bill_new_for_place', {'place' : place.id }) }}" class="btn btn-outline-success ">#}
+{#                {{ 'bill.add.title'|trans }}#}
+{#            </a>#}
+        </div>
+        <div class="table-responsive">
+            <div id="presidents" class="table-responsive dataTables_wrapper container-fluid dt-bootstrap4">Loading...</div>
+        </div>
+    </div>
+    <div>
+        <div class="m-r-40 text-right"><small>v{{ release|default('00') }}</small></div>
+    </div>
+
+
+{% endblock %}
+
+{% block actions %}
+    <!-- ============================================================== -->
+    <!-- create new -->
+    <!-- ============================================================== -->
+    {#<li class="nav-item dropdown">#}
+        {#<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+            {#<span class="d-none d-md-block">{{ 'menu.actions.title' | trans }} <i class="fa fa-angle-down"></i></span>#}
+            {#<span class="d-block d-md-none"><i class="fa fa-plus"></i></span>#}
+        {#</a>#}
+        {#<div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+            {#<a class="dropdown-item" href="{{ path('bill_new_for_place', {'place' : place.id}) }}">{{ 'bill.add.title' |trans }}</a>#}
+            {#<a class="dropdown-item" href="{{ path('meter_new_for_place', {'place' : place.id}) }}">{{ 'meter.add.title' |trans }}</a>#}
+            {#<div class="dropdown-divider"></div>#}
+            {#<a class="dropdown-item" href="{{ path('place_edit', {'id': place.id}) }}">{{ 'place.edit.title' |trans }}</a>#}
+        {#</div>#}
+    {#</li>#}
+{% endblock actions %}
+
+{% block javascripts %}
+    {% include('common/_toastr.html.twig')%}
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <!-- Insert this at the end of your body element, but before the closing tag -->
+    <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+    <script>
+
+        $(function() {
+            $('#presidents').initDataTables({{ datatable_settings(datatable) }},  {
+                searching: true
+            });
+        });
+
+    </script>
+
+    <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+
+    <script>
+
+        $('#presidents').on("click", ".custom-switch", (function () {
+
+            var url = "/bills/payment/";
+
+            var jqxhr = $.ajax( url+$(this).find('input').prop("id").replace('switch-', ''))
+                .done ((data) => {
+                    $(this).find('input').prop("checked", !$(this).find('input').prop("checked"));
+                    $(this).parent().parent().find('.sorting_1').next().text(data);
+
+                    var text = '';
+
+                    if ( $(this).find('input').prop("checked")) {
+                        text = $(this).parent().parent().find('.sorting_1').prev().prev().text();
+                    } else {
+                        text = '0.00';
+                    }
+
+                    $(this).parent().parent().find('.sorting_1').prev().text(text);
+
+                })
+                .fail( () => {
+                    alert( "error" );
+                })
+            ;
+
+        }));
+
+</script>
+
+{% endblock javascripts %}

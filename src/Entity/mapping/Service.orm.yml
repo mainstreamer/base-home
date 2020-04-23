@@ -1,0 +1,31 @@
+App\Entity\Service:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\ServiceRepository
+    id:
+        id:
+            type: string
+            id: true
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: false
+        linkUrl:
+            type: string
+            length: 2048
+            nullable: true
+        description:
+            type: text
+            nullable: true
+    manyToOne:
+        user:
+            targetEntity: App\Entity\User
+            inversedBy: services
+    oneToMany:
+        subscriptions:
+            targetEntity: App\Entity\Subscription
+            mappedBy: service
+            cascade: ['persist', 'remove']

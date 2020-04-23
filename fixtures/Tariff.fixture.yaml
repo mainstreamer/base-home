@@ -11,9 +11,9 @@ App\Entity\Tariff:
 #        type: '@type_2'
 #        description: 'night time tariff for electricity'
 #        user: '@user_<current()>'
-    tariff_standard:
-        discountedPrice:
-        discountedVolume:
-        price:
-        name:
-        type:
+#tariff_standard:
+          ##        discountedPrice:
+          ##        discountedVolume:
+          ##        price:
+        ##        name:
+        ##        type:

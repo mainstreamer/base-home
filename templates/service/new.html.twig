@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% set returnurl = path('service_index') %}
+
+{% block title %}New Subscription{% endblock %}
+
+{% block content %}
+
+    {% include('service/_form.html.twig') with {'title' : 'button.add'|trans} %}
+
+{% endblock %}
+{% block javascripts %}
+    <script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/assets/libs/select2/dist/js/i18n/uk.js"></script>
+    <script src="/assets/libs/bootstrap-datepicker/dist/locales/bootstrap-datepicker.uk.min.js"></script>
+    <script src="/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="/dist/js/pages/mask/mask.init.js"></script>
+    <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+    <script>
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+        // //***********************************//
+        // // For select 2
+        // //***********************************//
+        $(".select2").select2({
+            language: "uk"
+        });
+
+        jQuery('.datepicker-autoclose').datepicker({
+            autoclose: true,
+            // todayHighlight: true,
+            language: 'uk',
+            format : "dd/mm/yyyy",
+            orientation: 'bottom',
+
+        }).val('');
+        jQuery('.billing-period').datepicker({
+            autoclose: true,
+            language: 'uk',
+            format : "MM yyyy",
+            viewMode: "months",
+            minViewMode: "months",
+            orientation: 'bottom'
+        });
+
+        $('input[type="file"]').change(function(e){
+            var fileName = e.target.files[0].name;
+            $('.custom-file-label').text(fileName);
+        });
+
+        $('.custom-switch').on("click", (function () {
+
+            $(this).find('input').prop("checked", !$(this).find('input').prop("checked"));
+
+        }));
+    </script>
+    {% include('common/_toastr.html.twig')%}
+{% endblock javascripts %}

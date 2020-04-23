@@ -1,0 +1,30 @@
+App\Entity\Bill:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\CardRepository
+    id:
+        id:
+            type: string
+            id: true
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
+        digits:
+            type: string
+            length: 4
+            nullable: true
+        type:
+            type: string
+            length: 255
+            nullable: true
+        active:
+            type: boolean
+            
+    oneToMany:
+        subscriptions:
+            targetEntity: App\Entity\Subscription
+            mappedBy: card

@@ -1,0 +1,232 @@
+{% extends 'base.html.twig' %}
+{% set returnurl = path('service_index') %}
+
+{% block title %}Subscription{% endblock %}
+{% block head %}
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/fh-3.1.4/sc-1.5.0/datatables.min.css"/>
+
+    <style>
+        .outerDivFull { margin:50px; }
+        .custom-switch input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
+        .custom-switch label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 30px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
+        .custom-switch label:after {content: ''; position: absolute; top: 2px; left: 2px; width: 26px; height: 26px; background: #fff; border-radius: 90px; transition: 0.3s; }
+        .custom-switch input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
+        .custom-switch input + label:before, .switchToggle input + input + label:before {content: "{{ 'no'|trans }}"; position: absolute; top: 5px; left: 35px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .custom-switch input:checked + label:before, .switchToggle input:checked + input + label:before {content: "{{ 'yes'|trans }}"; position: absolute; top: 5px; left: 10px; width: 26px; height: 14px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; font-size: 14px;}
+        .custom-switch input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
+        .custom-switch label:active:after {width: 60px; }
+        #dt_filter, #dt_length { display: inline-block;}
+        #dt_filter {float: right;}
+        #dt_filter label input {display: inline-block; width: 240px; float: right;}
+        #dt_length label, #dt_filter label {width: 300px;}
+        #dt_length  select.form-control.form-control-sm { display: inline-block; width: 40px;}
+
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+
+{% endblock head %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="card-body d-flex justify-content-between border-top">
+            <div><h5>{{ 'pages.subscriptions' |trans|capitalize }}</h5></div>
+            <a href="{{ path('subscription_new', { 'service' : service.id }) }}" class="btn btn-outline-success ">
+                {#<i class="fa fa-plus font-10"></i>&nbsp;#}
+                {{ 'button.add'|trans }}
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title m-b-0"><a href="{{ path('service_edit', {'id' : service.id}) }}">{{ service.name }}</a></h5>
+                </div>
+                <table class="table">
+{#                    <thead>#}
+{#                    <tr>#}
+{#                        <th scope="col">Browser</th>#}
+{#                        <th scope="col">Visits</th>#}
+{#                    </tr>#}
+{#                    </thead>#}
+                    <tbody>
+                    <tr>
+                        <td>адреса сервісу</td>
+                        <td>{{ service.linkUrl }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{{ service.description }}</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion" id="accordionExample">
+    {% for subscription in service.subscriptions %}
+            <div class="card m-b-0">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <a data-toggle="collapse" data-target="#collapse-{{ loop.index }}" aria-expanded="true" aria-controls="collapseOne" class="">
+                            <i class="m-r-5 fa fa-magnet" aria-hidden="true"></i>
+                            <span>{{ subscription.name }}  | next payment: {{subscription.nextBillingDate | date('d-m-Y')}}</span>
+                        </a>
+                    </h5>
+                </div>
+                <div id="collapse-{{ loop.index }}" class="collapse {% if loop.index == 1 %}show{% endif %}" aria-labelledby="headingOne" data-parent="#accordionExample" style="">
+                    <div class="card-body">
+                        <div>
+                            <div class="col-md-4">
+                                <div class="card">
+{#                                    <div class="card-body">#}
+{#                                        <h5 class="card-title m-b-0">Visited Pages</h5>#}
+{#                                    </div>#}
+                                    <table class="table">
+
+                                        <tbody>
+                                        <tr>
+                                            <td><a href="#" class="link"></a>Start date</td>
+                                            <td>{{subscription.startDate | date('d-m-Y')}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" class="link"></a>End date</td>
+                                            <td>{{subscription.endDate | date('d-m-Y')}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" class="link">Price</a></td>
+                                            <td>{{ subscription.price / 100 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" class="link">Period</a></td>
+
+                                            <td>{{ subscription.period }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" class="link">Auto renew</a></td>
+
+                                            <td>{% if  subscription.autoRenew %} yes {% else %} no {% endif %}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{#            <div class="card m-b-0 border-top">#}
+{#                <div class="card-header" id="headingTwo">#}
+{#                    <h5 class="mb-0">#}
+{#                        <a class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">#}
+{#                            <i class="m-r-5 fa fa-magnet" aria-hidden="true"></i>#}
+{#                            <span>Accordion Example 2</span>#}
+{#                        </a>#}
+{#                    </h5>#}
+{#                </div>#}
+{#                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="">#}
+{#                    <div class="card-body">#}
+{#                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="card m-b-0 border-top">#}
+{#                <div class="card-header" id="headingThree">#}
+{#                    <h5 class="mb-0">#}
+{#                        <a class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">#}
+{#                            <i class="m-r-5 fa fa-magnet" aria-hidden="true"></i>#}
+{#                            <span>Accordion Example 3</span>#}
+{#                        </a>#}
+{#                    </h5>#}
+{#                </div>#}
+{#                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">#}
+{#                    <div class="card-body">#}
+{#                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+
+    {% endfor %}
+    </div>
+
+
+</div>
+
+
+
+
+{% endblock %}
+
+{% block actions %}
+    <!-- ============================================================== -->
+    <!-- create new -->
+    <!-- ============================================================== -->
+    {#<li class="nav-item dropdown">#}
+        {#<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">#}
+            {#<span class="d-none d-md-block">{{ 'menu.actions.title' | trans }} <i class="fa fa-angle-down"></i></span>#}
+            {#<span class="d-block d-md-none"><i class="fa fa-plus"></i></span>#}
+        {#</a>#}
+        {#<div class="dropdown-menu" aria-labelledby="navbarDropdown">#}
+            {#<a class="dropdown-item" href="{{ path('bill_new_for_place', {'place' : place.id}) }}">{{ 'bill.add.title' |trans }}</a>#}
+            {#<a class="dropdown-item" href="{{ path('meter_new_for_place', {'place' : place.id}) }}">{{ 'meter.add.title' |trans }}</a>#}
+            {#<div class="dropdown-divider"></div>#}
+            {#<a class="dropdown-item" href="{{ path('place_edit', {'id': place.id}) }}">{{ 'place.edit.title' |trans }}</a>#}
+        {#</div>#}
+    {#</li>#}
+{% endblock actions %}
+
+{% block javascripts %}
+    {% include('common/_toastr.html.twig')%}
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <!-- Insert this at the end of your body element, but before the closing tag -->
+    <script src="{{ asset('bundles/datatables/js/datatables.js') }}"></script>
+    <script>
+
+        {#$(function() {#}
+        {#    $('#presidents').initDataTables({{ datatable_settings(datatable) }},  {#}
+        {#        searching: true#}
+        {#    });#}
+        {#});#}
+
+    </script>
+
+    <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+
+    <script>
+
+        $('#presidents').on("click", ".custom-switch", (function () {
+
+            var url = "/bills/payment/";
+
+            var jqxhr = $.ajax( url+$(this).find('input').prop("id").replace('switch-', ''))
+                .done ((data) => {
+                    $(this).find('input').prop("checked", !$(this).find('input').prop("checked"));
+                    $(this).parent().parent().find('.sorting_1').next().text(data);
+
+                    var text = '';
+
+                    if ( $(this).find('input').prop("checked")) {
+                        text = $(this).parent().parent().find('.sorting_1').prev().prev().text();
+                    } else {
+                        text = '0.00';
+                    }
+
+                    $(this).parent().parent().find('.sorting_1').prev().text(text);
+
+                })
+                .fail( () => {
+                    alert( "error" );
+                })
+            ;
+
+        }));
+
+</script>
+
+{% endblock javascripts %}

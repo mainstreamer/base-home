@@ -61,6 +61,9 @@ class Bill
 
     private $files;
 
+    /** @var $subscription Subscription|null */
+    private $subscription;
+
     public function __construct()
     {
         $this->date = new \DateTime();
@@ -341,5 +344,21 @@ class Bill
     public function setFiles($files)
     {
         $this->files = $files;
+    }
+
+    /**
+     * @return Subscription|null
+     */
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    /**
+     * @param Subscription|null $subscription
+     */
+    public function setSubscription(?Subscription $subscription): void
+    {
+        $this->subscription = $subscription;
     }
 }

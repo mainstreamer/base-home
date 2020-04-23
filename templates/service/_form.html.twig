@@ -1,0 +1,29 @@
+{{ form_start(form, {'attr' : {'class' : 'form-horizontal col-xl-4 col-lg-6 col-md-8 col-sm-8 col-xs-12'}}) }}
+<div class="card-body">
+    <h5 class="form-group row">{{ title }}</h5>
+    <div class="form-group row">
+        <div class="input-group col-12" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'name'|trans }}">
+            {{ form_widget(form.name, {'attr' : {'class' : 'form-control', 'placeholder' : 'name'|trans|capitalize}}) }}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="input-group col-12" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'address'|trans }}">
+            {{ form_widget(form.description, {'attr' : {'class' : 'form-control', 'placeholder' : 'address'|trans|capitalize}}) }}
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <div class="input-group col-12" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'address'|trans }}">
+            {{ form_widget(form.linkUrl, {'attr' : {'class' : 'form-control', 'placeholder' : 'address'|trans|capitalize}}) }}
+        </div>
+    </div>
+</div>
+<div class="border-top">
+    <div class="card-body">
+        <button class="btn btn-outline-primary">{{ button_label|default('save'|trans|capitalize) }}</button>
+    </div>
+</div>
+<div style="display: none">{{ form_rest(form) }}</div>
+{{ form_end(form) }}

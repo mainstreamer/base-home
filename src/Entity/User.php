@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Entity;
@@ -38,9 +37,10 @@ class User implements UserInterface
 
     public $oldPassword;
 
-    /**
-     * @var boolean
-     */
+    /** @var ArrayCollection */
+    public $services;
+
+    /** @var bool */
     private $enabled;
 
     /**
@@ -51,6 +51,7 @@ class User implements UserInterface
         $this->places = new ArrayCollection();
         $this->tariffs = new ArrayCollection();
         $this->tariffTypes = new ArrayCollection();
+        $this->services = new ArrayCollection();
         $this->enabled = false;
     }
 
@@ -325,4 +326,20 @@ class User implements UserInterface
         $this->enabled = $enabled;
     }
 
+    public function addService(Service $service): void
+    {
+        $this->services[] = $service;
+        $service->setUser($this);
+    }
+
+    public function removeService(Service $service): void
+    {
+        $this->services->removeElement($service);
+        $service->setUser(null);
+    }
+
+    public function getServices(): Collection
+    {
+        return $this->services;
+    }
 }

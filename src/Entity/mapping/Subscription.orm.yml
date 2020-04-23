@@ -1,0 +1,46 @@
+App\Entity\Subscription:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\SubscriptionRepository
+    id:
+        id:
+            type: string
+            id: true
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: false
+        description:
+            type: text
+            nullable: true
+        startDate:
+            type: datetime
+        endDate:
+            type: datetime
+            nullable: true
+        period:
+            type: integer
+        price:
+            type: integer
+        autoRenew:
+            type: boolean
+        type:
+            type: string
+            length: 255
+        currency:
+            type: string
+            length: 5
+        nextBillingDate:
+            type: datetime
+            nullable: true
+    manyToOne:
+        service:
+            targetEntity: App\Entity\Service
+            inversedBy: subscriptions
+    oneToMany:
+        bills:
+            targetEntity: App\Entity\Bill
+            mappedBy: subscription

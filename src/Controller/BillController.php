@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Bill;
 use App\Entity\FileUpload;
 use App\Entity\Place;
+use App\Entity\Subscription;
 use App\Form\BillType;
 use App\Repository\BillRepository;
 use App\Services\FileUploaderService;
@@ -97,7 +98,7 @@ class BillController extends AbstractController
     /**
      * @param Bill $bill
      * @return Response
-     * @Security("user === bill.getPlace().getUser()")
+     * @Security(" bill.getPlace() !== null and user === bill.getPlace().getUser() or bill.getSubscription()")
      */
     public function show(Bill $bill): Response
     {
@@ -109,7 +110,7 @@ class BillController extends AbstractController
      * @param Bill $bill
      * @param FileUploaderService $fileUploaderService
      * @return Response
-     * @Security("user === bill.getPlace().getUser()")
+     * @Security(" bill.getPlace() !== null and user === bill.getPlace().getUser() or bill.getSubscription()")
      */
     public function edit(Request $request, Bill $bill, FileUploaderService $fileUploaderService): Response
     {
@@ -145,7 +146,7 @@ class BillController extends AbstractController
      * @param Request $request
      * @param Bill $bill
      * @return Response
-     * @Security("user === bill.getPlace().getUser()")
+     * @Security(" (bill.getPlace() != null and user === bill.getPlace().getUser()) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
      */
     public function delete(Request $request, Bill $bill): Response
     {
@@ -162,7 +163,7 @@ class BillController extends AbstractController
     /**
      * @param FileUpload $file
      * @return JsonResponse
-     * @Security("user === file.getBill().getPlace().getUser()")
+     * @Security(" (bill.getPlace() != null and user === bill.getPlace().getUser()) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
      */
     public function deleteFile(FileUpload $file)
     {
@@ -176,7 +177,7 @@ class BillController extends AbstractController
     /**
      * @param Bill $bill
      * @return JsonResponse
-     * @Security("user === bill.getPlace().getUser()")
+     * @Security(" (bill.getPlace() != null and user === bill.getPlace().getUser()) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
      */
     public function togglePayment(Bill $bill)
     {
@@ -195,4 +196,46 @@ class BillController extends AbstractController
 
         return new JsonResponse( $response, Response::HTTP_OK);
     }
+
+    /**
+     * @param Request $request
+     * @param Place $place
+     * @param FileUploaderService $fileUploaderService
+     * @return Response
+     */
+    public function newBillForSubscription(Request $request, Subscription $subscription, FileUploaderService $fileUploaderService): Response
+    {
+        $place = $subscription;
+        $bill = new Bill();
+        $bill->setSubscription($place);
+        $form = $this->createForm(BillType::class, $bill);
+        $form->remove('place');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $bill->setFile(null);
+            $files = array_values($request->files->all()[$form->getName()])[0];
+
+            foreach ($files as $file)
+            {
+                $path = $this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($file);
+                $bill->addFile( new FileUpload($path));
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($bill);
+            $em->flush();
+            $this->addFlash('message', 'bill.created');
+
+            return $this->redirectToRoute('subscription_show', ['id' => $place->getId()]);
+        }
+
+        return $this->render('bill/new_for_subscription.html.twig', [
+            'bill' => $bill,
+//            'place' => $place,
+            'form' => $form->createView(),
+        ]);
+    }
+
 }

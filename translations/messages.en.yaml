@@ -148,6 +148,7 @@ pages:
   places: Places
   analytics: Analytics
   tariffs: Tariffs
+  subscriptions: Subscriptions
 
 site:
   title: Bills
@@ -182,7 +183,6 @@ security:
   button:
     reset:
       title: Reset
-
 day: day
 
 profile:
@@ -219,3 +219,5 @@ tariff:
   created: new tariff created
   deleted: tariff was deleted
   price: price
+button:
+  add: Add

@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class Place
 {
@@ -64,11 +65,14 @@ class Place
     }
 
     /**
-     * @param mixed $user
+     * @param UserInterface|null $user
+     * @return $this
      */
-    public function setUser($user): void
+    public function setUser(?UserInterface $user): self
     {
         $this->user = $user;
+
+        return $this;
     }
 
     public function __toString(): string
