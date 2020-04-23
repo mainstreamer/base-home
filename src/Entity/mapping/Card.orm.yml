@@ -1,4 +1,4 @@
-App\Entity\Bill:
+App\Entity\Card:
     type: entity
     table: null
     repositoryClass: App\Repository\CardRepository
@@ -23,8 +23,8 @@ App\Entity\Bill:
             nullable: true
         active:
             type: boolean
-            
-    oneToMany:
-        subscriptions:
-            targetEntity: App\Entity\Subscription
-            mappedBy: card
+#
+#    oneToMany:
+#        subscriptions:
+#            targetEntity: App\Entity\Subscription
+#            mappedBy: card
