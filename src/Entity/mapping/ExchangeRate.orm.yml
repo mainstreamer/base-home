@@ -9,8 +9,16 @@ App\Entity\ExchangeRate:
             generator:
                 strategy: UUID
     fields:
-        payload:
-            type: array
         date:
             type: datetime
+        currency:
+            type: string
+            length: 10
+        sellRate:
+            type: float
+        buyRate:
+            type: float
+        bank:
+            type: string
+            length: 255
             

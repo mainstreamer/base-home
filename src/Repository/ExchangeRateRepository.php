@@ -20,42 +20,52 @@ class ExchangeRateRepository extends ServiceEntityRepository
         parent::__construct($registry, ExchangeRate::class);
     }
 
+    /**
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function findLastRecord()
     {
         return $this->createQueryBuilder('e')
+            ->andWhere('e.currency = :usd')
             ->orderBy('e.date', 'DESC')
             ->setMaxResults(1)
+            ->setParameter('usd', 'USD')
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
 
-    // /**
-    //  * @return Subscription[] Returns an array of Subscription objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getLatest()
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.date BETWEEN :val AND :val1')
+            ->orderBy('e.bank', 'ASC')
+            ->setParameter('val', (new \DateTime())->format('Y-m-d').' 00:00:00')
+            ->setParameter('val1', (new \DateTime())->format('Y-m-d').' 23:59:59')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Subscription
+    /**
+     * @param string $currency
+     * @return ExchangeRate
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getRate(string $currency): ExchangeRate
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.currency = :usd')
+            ->orderBy('e.date', 'DESC')
+            ->setMaxResults(1)
+            ->setParameter('usd', $currency)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

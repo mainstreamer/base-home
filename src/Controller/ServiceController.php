@@ -5,11 +5,9 @@ namespace App\Controller;
 use App\Entity\Service;
 use App\Form\ServiceType;
 use App\Repository\ServiceRepository;
-use App\Services\BillCreatorService;
 use App\Services\RatesFetcherService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,11 +31,31 @@ class ServiceController extends AbstractController
     {
         $rates = $service->execute();
 
+        $ratesNbu = ['EUR' => $rates[2]->getSellRate(), 'USD' => $rates[3]->getSellRate(), 'UAH' => 1];
+
+//        $response = $client->request('GET', 'http://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11');
+//        $result = $response->toArray();
+
+        $privatRates['USD'] = round($rates[4]->getBuyRate(), 2).' / '.round($rates[4]->getSellRate(), 2);
+        $privatRates['EUR'] = round($rates[5]->getBuyRate(), 2).' / '.round($rates[5]->getSellRate(), 2);
+//        $privatRates['EUR'] = round($result[1]['buy'], 2).' / '.round($result[1]['sale'], 2);
+
+//        $response = $client->request('GET', 'https://api.monobank.ua/bank/currency');
+//        $result = $response->toArray();
+        $monoRates['USD'] = round($rates[1]->getBuyRate(), 2).' / '.round($rates[1]->getSellRate(), 2);
+        $monoRates['EUR'] = round($rates[0]->getBuyRate(), 2).' / '.round($rates[0]->getSellRate(), 2);
+//        $monoRates['USD'] = round($result[0]['rateBuy'], 2).' / '.round($result[0]['rateSell'], 2);
+//        $monoRates['EUR'] = round($result[1]['rateBuy'], 2).' / '.round($result[1]['rateSell'], 2);
+
+
+
         return [
             'services' => $repository->orderByNextBilling($this->getUser()),
-            'rates' => $rates->getPayload()['nbu'],
-            'privatRates' => $rates->getPayload()['privat'],
-            'monoRates' => $rates->getPayload()['mono'],
+            'rates' => $ratesNbu,
+//            'privatRates' => $rates->getPayload()['privat'],
+            'privatRates' => $privatRates,
+//            'monoRates' => $rates->getPayload()['mono'],
+            'monoRates' => $monoRates,
         ];
     }
 

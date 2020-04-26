@@ -13,10 +13,13 @@ class BillCreatorService
 
     private $entityManager;
 
-    public function __construct(SubscriptionRepository $repository, EntityManagerInterface $entityManager)
+    private $ratesFetcher;
+
+    public function __construct(SubscriptionRepository $repository, EntityManagerInterface $entityManager, RatesFetcherService $ratesFetcher)
     {
         $this->repository = $repository;
         $this->entityManager = $entityManager;
+        $this->ratesFetcher = $ratesFetcher;
     }
 
     public function execute()
@@ -38,7 +41,7 @@ class BillCreatorService
     {
         $bill = new Bill();
         $bill->setSubscription($subscription);
-        $bill->setAmount($subscription->getPrice());
+        $bill->setAmount($this->getAmount($subscription));
         $bill->setDate(new \DateTime());
         $bill->setIsPaid(false);
         $bill->setStatus('UNPAID');
@@ -54,5 +57,19 @@ class BillCreatorService
             case Subscription::DAILY: $subscription->setNextBillingDate($subscription->getNextBillingDate()->modify('+'.$subscription->getPeriod().' days')); break;
             default: break;
         }
+    }
+
+    public function getAmount(Subscription $subscription): float
+    {
+        $rate = $this->getBankRate('privat', $subscription->getCurrency());
+
+        return $subscription->getPrice() * $rate;
+    }
+
+    public function getBankRate(string $bank, string $currency): float
+    {
+        $rate = $this->ratesFetcher->execute();
+
+        return $rate->getSellRate();
     }
 }
