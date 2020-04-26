@@ -68,4 +68,23 @@ class ExchangeRateRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    /**
+     * @param string $currency
+     * @return ExchangeRate
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getRateByBankAndCurrency(string $currency, string $bank): ExchangeRate
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.currency = :usd')
+            ->andWhere('e.bank = :bank')
+            ->orderBy('e.date', 'DESC')
+            ->setMaxResults(1)
+            ->setParameter('usd', $currency)
+            ->setParameter('bank', $bank)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

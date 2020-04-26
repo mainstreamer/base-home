@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Entity\Bill;
 use App\Entity\Subscription;
+use App\Repository\ExchangeRateRepository;
 use App\Repository\SubscriptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -12,14 +13,15 @@ class BillCreatorService
     private $repository;
 
     private $entityManager;
-
     private $ratesFetcher;
+    private $ratesRepo;
 
-    public function __construct(SubscriptionRepository $repository, EntityManagerInterface $entityManager, RatesFetcherService $ratesFetcher)
+    public function __construct(SubscriptionRepository $repository, EntityManagerInterface $entityManager, RatesFetcherService $ratesFetcher, ExchangeRateRepository $repo)
     {
         $this->repository = $repository;
         $this->entityManager = $entityManager;
         $this->ratesFetcher = $ratesFetcher;
+        $this->ratesRepo = $repo;
     }
 
     public function execute()
@@ -68,7 +70,8 @@ class BillCreatorService
 
     public function getBankRate(string $bank, string $currency): float
     {
-        $rate = $this->ratesFetcher->execute();
+        // get rate for bank and curr
+        $rate = $this->ratesRepo->getRateByBankAndCurrency($currency, $bank);
 
         return $rate->getSellRate();
     }

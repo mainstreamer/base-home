@@ -7,7 +7,7 @@ require 'recipe/symfony4.php';
 // Configuration
 set('repository', 'git@base.github.com:mainstreamer/base-home.git');
 set('git_tty', false); // [Optional] Allocate tty for git on first deployment
-add('shared_files', []);
+add('shared_files', ['.env']);
 add('shared_dirs', ['public/uploads']);
 add('writable_dirs', ['public/uploads']);
 set('allow_anonymous_stats', false);
