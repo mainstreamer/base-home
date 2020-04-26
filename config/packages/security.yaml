@@ -43,7 +43,7 @@ security:
 #         - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: /test, roles: IS_AUTHENTICATED_FULLY }
          - { path: /password/request, allow_if: "!is_authenticated()" }
-         - { path: ^/password/reset, allow_if: "!is_authenticated()" }
+         - { path: ^/password/reset/, allow_if: "!is_authenticated()" }
          - { path: /account, allow_if: "!is_authenticated()" }
          - { path: /login, allow_if: "!is_authenticated()" }
          - { path: /register, allow_if: "!is_authenticated()" }

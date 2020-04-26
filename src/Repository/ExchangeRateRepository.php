@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\ExchangeRate;
 use App\Entity\Subscription;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -12,21 +13,20 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Subscription[]    findAll()
  * @method Subscription[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SubscriptionRepository extends ServiceEntityRepository
+class ExchangeRateRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Subscription::class);
+        parent::__construct($registry, ExchangeRate::class);
     }
 
-    public function findDueSubscriptions()
+    public function findLastRecord()
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.nextBillingDate BETWEEN :val AND :val1')
-            ->setParameter('val', (new \DateTime())->format('Y-m-d').' 00:00:00')
-            ->setParameter('val1', (new \DateTime())->format('Y-m-d').' 23:59:59')
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.date', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
 

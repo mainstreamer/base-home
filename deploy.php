@@ -15,7 +15,7 @@ set('http_user', 'www-data');
 set('env', [
     'APP_ENV' => 'prod',
     'DATABASE_URL' => 'mysql://webapp:12345678@127.0.0.1:3306/base',
-    'MAILER_URL' => 'smtp://smtp.sendgrid.net:587?encryption=tls&username=apikey&password=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',
+    'MAILER_URL' => 'smtp://smtp.sendgrid.net:587?encryption=tls&username=apikey&password=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;',
     'LAST_UPDATE' => 'sei4as'
 ]);
 

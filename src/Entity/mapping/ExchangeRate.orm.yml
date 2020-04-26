@@ -1,0 +1,16 @@
+App\Entity\ExchangeRate:
+    type: entity
+    table: null
+    repositoryClass: App\Repository\ExchangeRateRepository
+    id:
+        id:
+            type: string
+            id: true
+            generator:
+                strategy: UUID
+    fields:
+        payload:
+            type: array
+        date:
+            type: datetime
+            

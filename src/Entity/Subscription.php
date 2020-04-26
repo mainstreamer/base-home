@@ -2,11 +2,9 @@
 
 namespace App\Entity;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Intl\Currencies;
-use Symfony\Component\Intl\Intl;
 
 class Subscription
 {
@@ -260,7 +258,7 @@ class Subscription
      */
     public function getNextBillingDate(): ?\DateTime
     {
-        return $this->nextBillingDate;
+        return clone $this->nextBillingDate;
     }
 
     /**
@@ -268,6 +266,6 @@ class Subscription
      */
     public function setNextBillingDate(?\DateTime $nextBillingDate): void
     {
-        $this->nextBillingDate = $nextBillingDate;
+        $this->nextBillingDate = clone $nextBillingDate;
     }
 }

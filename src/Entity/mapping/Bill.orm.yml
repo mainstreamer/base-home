@@ -22,6 +22,7 @@ App\Entity\Bill:
         textPeriod:
             type: string
             length: 255
+            nullable: true
         status:
             type: string
             length: 255
