@@ -75,7 +75,7 @@ class PlaceController extends AbstractController
      * @param Place $place
      * @param TranslatorInterface $translator
      * @return Response
-     * @Security("user === place.getUser()")
+     * @Security("place.getUsers().contains(user)")
      */
     public function show(Request $request, Place $place, TranslatorInterface $translator, DataTableFactory $tableFactory): Response
     {
@@ -144,7 +144,7 @@ class PlaceController extends AbstractController
      * @param Request $request
      * @param Place $place
      * @return Response
-     * @Security("user === place.getUser()")
+     * @Security("place.getUsers().contains(user)")
      */
     public function edit(Request $request, Place $place): Response
     {
@@ -169,7 +169,7 @@ class PlaceController extends AbstractController
      * @param Request $request
      * @param Place $place
      * @return Response
-     * @Security("user === place.getUser()")
+     * @Security("place.getUsers().contains(user)")
      */
     public function delete(Request $request, Place $place): Response
     {

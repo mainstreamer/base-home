@@ -42,7 +42,7 @@ class IndicationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $item->setFile( new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($item->getFile())));
+            $item->setFile(new File($this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($item->getFile())));
             $em = $this->getDoctrine()->getManager();
             $em->persist($item);
             $em->flush();
@@ -61,7 +61,7 @@ class IndicationController extends AbstractController
      * @param Meter $meter
      * @param FileUploaderService $fileUploaderService
      * @return Response
-     * @Security("user === meter.getPlace().getUser()")
+     * @Security("meter.getPlace().getUsers().contains(user)")
      */
     public function newIndicationForMeter(Request $request, Meter $meter, FileUploaderService $fileUploaderService): Response
     {
@@ -94,7 +94,7 @@ class IndicationController extends AbstractController
     /**
      * @param Indication $indication
      * @return Response
-     * @Security("user === indication.getMeter().getPlace().getUser()")
+     * @Security("indication.getMeter().getPlace().getUsers().contains(user)")
      */
     public function show(Indication $indication): Response
     {
@@ -106,7 +106,7 @@ class IndicationController extends AbstractController
      * @param Indication $indication
      * @param FileUploaderService $fileUploaderService
      * @return Response
-     * @Security("user === indication.getMeter().getPlace().getUser()")
+     * @Security("indication.getMeter().getPlace().getUsers().contains(user)")
      */
     public function edit(Request $request, Indication $indication, FileUploaderService $fileUploaderService): Response
     {
@@ -140,7 +140,7 @@ class IndicationController extends AbstractController
      * @param Request $request
      * @param Indication $indication
      * @return Response
-     * @Security("user === indication.getMeter().getPlace().getUser()")
+     * @Security("indication.getMeter().getPlace().getUsers().contains(user)")
      */
     public function delete(Request $request, Indication $indication): Response
     {
@@ -157,7 +157,7 @@ class IndicationController extends AbstractController
     /**
      * @param Indication $indication
      * @return JsonResponse
-     * @Security("user === indication.getMeter().getPlace().getUser()")
+     * @Security("indication.getMeter().getPlace().getUsers().contains(user)")
      */
     public function deleteFile(Indication $indication)
     {

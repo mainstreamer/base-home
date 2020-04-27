@@ -16,7 +16,7 @@ class Place
 
     private $address;
 
-    private $user;
+    private $users;
 
     private $bills;
 
@@ -26,6 +26,7 @@ class Place
     {
         $this->bills = new ArrayCollection();
         $this->meters = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -59,18 +60,29 @@ class Place
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getUsers()
     {
-        return $this->user;
+        return $this->users;
     }
 
     /**
      * @param UserInterface|null $user
      * @return $this
      */
-    public function setUser(?UserInterface $user): self
+    public function addUser(?UserInterface $user): self
     {
-        $this->user = $user;
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * @param UserInterface|null $user
+     * @return $this
+     */
+    public function removeUser(?UserInterface $user): self
+    {
+        $this->users->removeElement($user);
 
         return $this;
     }

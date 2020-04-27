@@ -83,11 +83,12 @@ class TariffTypeController extends Controller
      * @param Request $request
      * @param Meter $meter
      * @return Response
-     * @Security("user === meter.getPlace().getUser()")
+     * @Security("meter.getPlace().getUsers().contains(user)")
      */
     public function newTariffTypeAndTariffForMeter(Request $request, Meter $meter): Response
     {
-        $user = $meter->getPlace()->getUser();
+//        $user = $meter->getPlace()->getUser();
+        $user = $this->getUser();
         $tariffType = new TariffType();
         $tariffType->setName($request->request->get('content'));
         $tariffType->setUser($user);

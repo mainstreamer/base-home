@@ -63,7 +63,7 @@ class MeterController extends Controller
      * @param Request $request
      * @param Place $place
      * @return Response
-     * @Security("user === place.getUser()")
+     * @Security("place.getUsers().contains(user)")
      */
     public function newMeterForPlace(Request $request, Place $place): Response
     {
@@ -94,7 +94,7 @@ class MeterController extends Controller
      * @param Meter $meter
      * @param TranslatorInterface $translator
      * @return Response
-     * @Security("user === meter.getPlace().getUser()")
+     * @Security("meter.getPlace().getUsers().contains(user)")
      */
     public function show(Request $request, Meter $meter, TranslatorInterface $translator): Response
     {
@@ -145,7 +145,7 @@ class MeterController extends Controller
      * @param Request $request
      * @param Meter $meter
      * @return Response
-     * @Security("user === meter.getPlace().getUser()")
+     * @Security("meter.getPlace().getUsers().contains(user)")
      */
     public function edit(Request $request, Meter $meter): Response
     {
@@ -170,7 +170,7 @@ class MeterController extends Controller
      * @param Request $request
      * @param Meter $meter
      * @return Response
-     * @Security("user === meter.getPlace().getUser()")
+     * @Security("meter.getPlace().getUsers().contains(user)")
      */
     public function delete(Request $request, Meter $meter): Response
     {

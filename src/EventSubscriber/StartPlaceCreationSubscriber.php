@@ -13,7 +13,7 @@ class StartPlaceCreationSubscriber implements EventSubscriberInterface
         if (!$event->getForm()->isSubmitted()
 //            && !$event->getUser()->hasRole('ROLE_ADMIN')
         ) {
-            $event->getPlace()->setUser($event->getUser());
+//            $event->getPlace()->setUser($event->getUser());
             $event->getForm()->remove('user');
         }
     }

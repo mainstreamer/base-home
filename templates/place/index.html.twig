@@ -19,7 +19,7 @@
             <tr>
                 <td>{{ place.id }}</td>
                 <td>{{ place.name }}</td>
-                <td>{{ place.user.firstName }}</td>
+{#                <td>{{ place.user.firstName }}</td>#}
                 <td>
                     <a href="{{ path('place_show', {'id': place.id}) }}">show</a>
                     <a href="{{ path('place_edit', {'id': place.id}) }}">edit</a>

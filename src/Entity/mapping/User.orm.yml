@@ -39,10 +39,6 @@ App\Entity\User:
             options:
                 default: false
     oneToMany:
-        places:
-            targetEntity: App\Entity\Place
-            mappedBy: user
-            cascade: ['persist', 'remove']
         tariffs:
             targetEntity: App\Entity\Tariff
             mappedBy: user
@@ -56,6 +52,19 @@ App\Entity\User:
         services:
             targetEntity: App\Entity\Service
             mappedBy: user
+            cascade: ['persist', 'remove']
+    manyToMany:
+        places:
+            joinTable:
+                name: users_places
+                joinColumns:
+                    user_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    place_id:
+                        referencedColumnName: id
+            targetEntity: App\Entity\Place
+            inversedBy: users
             cascade: ['persist', 'remove']
     oneToOne:
         picture:

@@ -59,7 +59,7 @@ class BillController extends AbstractController
      * @param Place $place
      * @param FileUploaderService $fileUploaderService
      * @return Response
-     * @Security("user === place.getUser()")
+     * @Security("place.getUsers().contains(user)")
      */
     public function newBillForPlace(Request $request, Place $place, FileUploaderService $fileUploaderService): Response
     {
@@ -98,7 +98,7 @@ class BillController extends AbstractController
     /**
      * @param Bill $bill
      * @return Response
-     * @Security(" bill.getPlace() !== null and user === bill.getPlace().getUser() or bill.getSubscription()")
+     * @Security("bill.getPlace() !== null and bill.getPlace().getUsers().contains(user) or bill.getSubscription()")
      */
     public function show(Bill $bill): Response
     {
@@ -110,7 +110,7 @@ class BillController extends AbstractController
      * @param Bill $bill
      * @param FileUploaderService $fileUploaderService
      * @return Response
-     * @Security(" bill.getPlace() !== null and user === bill.getPlace().getUser() or bill.getSubscription()")
+     * @Security(" bill.getPlace() !== null and bill.getPlace().getUsers().contains(user) or bill.getSubscription()")
      */
     public function edit(Request $request, Bill $bill, FileUploaderService $fileUploaderService): Response
     {
@@ -146,7 +146,7 @@ class BillController extends AbstractController
      * @param Request $request
      * @param Bill $bill
      * @return Response
-     * @Security(" (bill.getPlace() != null and user === bill.getPlace().getUser()) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
+     * @Security(" (bill.getPlace() != null and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
      */
     public function delete(Request $request, Bill $bill): Response
     {
@@ -163,7 +163,7 @@ class BillController extends AbstractController
     /**
      * @param FileUpload $file
      * @return JsonResponse
-     * @Security(" (bill.getPlace() != null and user === bill.getPlace().getUser()) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
+     * @Security(" (bill.getPlace() != null and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
      */
     public function deleteFile(FileUpload $file)
     {
@@ -177,7 +177,7 @@ class BillController extends AbstractController
     /**
      * @param Bill $bill
      * @return JsonResponse
-     * @Security(" (bill.getPlace() != null and user === bill.getPlace().getUser()) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
+     * @Security(" (bill.getPlace() != null and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
      */
     public function togglePayment(Bill $bill)
     {

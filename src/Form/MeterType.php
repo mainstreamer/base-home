@@ -21,7 +21,7 @@ class MeterType extends AbstractType
                 'query_builder' => function (EntityRepository $er) use ($options) {
                     return $er->createQueryBuilder('m')
                         ->andWhere('m.user = :user')
-                        ->setParameter('user', $options['data']->getPlace()->getUser())
+                        ->setParameter('user', $options['data']->getPlace()->getUsers()[0])
                         ;
                 },
                 'expanded' => false,
