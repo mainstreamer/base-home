@@ -11,7 +11,7 @@ class Bill
 {
     const STATUSES = [self::PAID, self::UNPAID];
 
-    const TYPES = [self::GAS, self::ELECTRICITY, self::HOT_WATER, self::COLD_WATER, self::HEATING];
+    const TYPES = [self::COMMUNAL, self::ELECTRICITY, self::GAS, self::HOT_WATER, self::COLD_WATER, self::HEATING];
 
     const GAS = 'gas';
 
@@ -26,6 +26,8 @@ class Bill
     const PAID = 'PAID';
 
     const UNPAID = 'UNPAID';
+
+    const COMMUNAL = 'communal';
 
     private $id;
 

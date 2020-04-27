@@ -20,6 +20,7 @@ hot water: Hot water
 cold water: Cold water
 heating: Heating
 electricity: Electricity
+communal: Communal services
 payDate: Payment Date
 actuallyPaid: Actually Paid
 billDate: Bill Date
@@ -46,6 +47,7 @@ Gas: Gas
 Cold Water: Cold Water
 Heating: Heating
 Hot Water: Hot Water
+
 
 #service: Service
 indication:
