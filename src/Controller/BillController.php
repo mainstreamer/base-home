@@ -146,7 +146,7 @@ class BillController extends AbstractController
      * @param Request $request
      * @param Bill $bill
      * @return Response
-     * @Security(" (bill.getPlace() != null and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
+     * @Security(" (bill.getPlace() != fnull and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
      */
     public function delete(Request $request, Bill $bill): Response
     {
@@ -163,7 +163,7 @@ class BillController extends AbstractController
     /**
      * @param FileUpload $file
      * @return JsonResponse
-     * @Security(" (bill.getPlace() != null and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
+     * @Security(" (file.getBIll().getPlace() != null and file.getBill().getPlace().getUsers().contains(user)) or (file.getBill().getSubscription()!= null and user === file.getBill().getSubscription().getService().getUser())")
      */
     public function deleteFile(FileUpload $file)
     {
