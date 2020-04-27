@@ -22,23 +22,23 @@
         <div class="card">
             <div class="card-body row">
 
-                <div class="col-1 bg-purple p-10 text-white" style="width: 100px;">
+                <div class="col-1 col-sm-2 bg-purple p-10 text-white" style="width: 100px;">
                     <div class="d-flex align-content-center"><h1>{{ date()|date('d') }}</h1></div>
                     <div>{{ date()|date('D') }}</div>
                     <div>{{ date()|date('M') }} / {{ date()|date('Y') }}</div>
                 </div>
-                    <div class="col-2 bg-purple p-10 text-white" style="width: 100px;">
+                    <div class="col-2 col-sm-2 bg-purple p-10 text-white" style="width: 100px;">
                         <div>NBU</div>
                         <div>USD/UAH {{ rates['USD'] | round(2)}}</div>
                         <div>EUR/UAH {{ rates['EUR'] | round(2)}}</div>
                     </div>
-                <div class="col-2 bg-purple p-10 text-white" style="width: 100px;">
+                <div class="col-2 col-sm-4 bg-purple p-10 text-white" style="width: 100px;">
                     <div>PRIVATBANK</div>
                     <div>USD {{ privatRates['USD'] }}</div>
                     <div>EUR {{ privatRates['EUR'] }}</div>
                 </div>
 
-                <div class="col-2 bg-purple p-10 text-white" style="width: 100px;">
+                <div class="col-2 col-sm-4 bg-purple p-10 text-white" style="width: 100px;">
                     <div>MONOBANK</div>
                     <div>USD {{ monoRates['USD'] }}</div>
                     <div>EUR {{ monoRates['EUR'] }}</div>
