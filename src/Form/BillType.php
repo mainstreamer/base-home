@@ -37,15 +37,32 @@ class BillType extends AbstractType
                 ->addModelTransformer(
                     new CallbackTransformer(
                         function ($dateToString) {
-
                             return $dateToString->format('d/m/Y');
                         },
                         function ($stringToDate) {
-
                             return \DateTime::createFromFormat('d/m/Y', $stringToDate);
                         }
                     )
                 )
+            )
+            ->add(
+                $builder->create('payDate', TextType::class, ['required' => false])
+                    ->addModelTransformer(
+                        new CallbackTransformer(
+                            function ($dateToString) {
+                                if (null !== $dateToString) {
+                                    return $dateToString->format('d/m/Y');
+                                }
+                                return null;
+                            },
+                            function ($stringToDate) {
+                                if ($stringToDate) {
+                                    return \DateTime::createFromFormat('d/m/Y', $stringToDate);
+                                }
+                                return null;
+                            }
+                        )
+                    )
             )
             ->add(
                 $builder->create('period', TextType::class)
