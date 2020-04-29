@@ -194,7 +194,7 @@
                                         <div class="el-overlay">
                                             <ul class="list-style-none el-info">
                                                 {% if file.path matches '/(.jpg|.jpeg|.png|.gif|.bmp|.svg)$/'%}
-                                                    <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="/{{ file.path }}"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                                    <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" download="{{ file.originalName }}" href="/{{ file.path }}"><i class="mdi mdi-magnify-plus"></i></a></li>
                                                 {% endif %}
                                                 <li class="el-item"><a class="btn default btn-outline el-link " download="{{ file.originalName }}" href="/{{ file.path }}"><i class="mdi mdi-download"></i></a></li>
                                                 {#<li class="el-item"><a class="btn default btn-outline el-link "  href="/{{ file.path }}"><i class="mdi mdi-download"></i></a></li>#}
