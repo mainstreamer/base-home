@@ -63,7 +63,7 @@ class BillCreatorService
 
     public function getAmount(Subscription $subscription): float
     {
-        $rate = $this->getBankRate('privat', $subscription->getCurrency());
+        $rate = $this->getBankRate($subscription->getCurrency(), 'privat');
 
         return $subscription->getPrice() * $rate;
     }
