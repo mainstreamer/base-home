@@ -9,7 +9,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Intl\Currencies;
-use Symfony\Component\Intl\Intl;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SubscriptionType extends AbstractType
@@ -23,6 +22,7 @@ class SubscriptionType extends AbstractType
             ->add('period')
             ->add('type', ChoiceType::class, ['choices' => Subscription::TYPES])
             ->add('autoRenew')
+            ->add('card')
             ->add('currency', ChoiceType::class, [
                 'choices' => array_map(function ($v) { return [$v => $v];}, Currencies::getCurrencyCodes())
                 ]

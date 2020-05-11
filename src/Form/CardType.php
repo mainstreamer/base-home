@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Entity\Card;
-use App\Entity\Place;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Intl\Currencies;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CardType extends AbstractType
@@ -19,6 +20,12 @@ class CardType extends AbstractType
             ->add('firstDigits')
             ->add('digits')
             ->add('bank')
+            ->add('description')
+            ->add('currency', ChoiceType::class,
+                ['choices' => array_map(function ($v) {
+                    return [$v => $v];
+                }, Currencies::getCurrencyCodes())]
+            )
         ;
     }
 

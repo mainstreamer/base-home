@@ -45,6 +45,12 @@ class Card
     /** @var User */
     private $user;
 
+    /** @var string */
+    private $currency = 'UAH';
+
+    /** @var ?string */
+    private $description;
+
     public function __construct()
     {
         $this->subscriptions = new ArrayCollection();
@@ -69,7 +75,7 @@ class Card
 
     public function __toString(): string
     {
-        return 'Card '.$this->type.' '.$this->digits;
+        return $this->digits;
     }
 
     /**
@@ -194,5 +200,37 @@ class Card
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    /**
+     * @param string $currency
+     */
+    public function setCurrency(string $currency): void
+    {
+        $this->currency = $currency;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description): void
+    {
+        $this->description = $description;
     }
 }

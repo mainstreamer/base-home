@@ -24,6 +24,16 @@
             {{ form_widget(form.bank, {'attr' : {'class' : 'form-control', 'placeholder' : 'cards.bank'|trans|capitalize}}) }}
         </div>
     </div>
+    <div class="form-group row">
+        <div class="input-group col-12" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'currency'|trans }}">
+            {{ form_widget(form.currency, {'attr' : {'class' : 'form-control', 'placeholder' : 'currency'|trans|capitalize}}) }}
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="input-group col-12" data-toggle="tooltip" data-placement="right" data-original-title="{{ 'description'|trans }}">
+            {{ form_widget(form.description, {'attr' : {'class' : 'form-control', 'placeholder' : 'description'|trans|capitalize}}) }}
+        </div>
+    </div>
 </div>
 <div class="border-top">
     <div class="card-body">

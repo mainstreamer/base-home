@@ -40,10 +40,6 @@ class RatesFetcherService
         $client = HttpClient::create();
         $response = $client->request('GET', 'http://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json');
         $result = $response->toArray();
-        $eur = $result[33];
-        $usd = $result[26];
-        $rates = ['EUR' => $eur['rate'], 'USD' => $usd['rate'], 'UAH' => 1];
-
 
         $nbuExchangeRateEur = new ExchangeRate();
         $nbuExchangeRateEur->setCurrency('EUR');
@@ -104,7 +100,5 @@ class RatesFetcherService
         $this->entityManager->persist($monoExchangeRateUsd);
 
         $this->entityManager->flush();
-
-//        return $rate;
     }
 }

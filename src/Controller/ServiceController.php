@@ -30,9 +30,9 @@ class ServiceController extends AbstractController
     public function index(ServiceRepository $repository, RatesFetcherService $service): array
     {
         $rates = $service->execute();
-
         $ratesNbu = ['EUR' => $rates[2]->getSellRate(), 'USD' => $rates[3]->getSellRate(), 'UAH' => 1];
-
+        $rates2['NBU']['BUY'] = $ratesNbu;
+        $rates2['NBU']['SELL'] = $ratesNbu;
 //        $response = $client->request('GET', 'http://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11');
 //        $result = $response->toArray();
 
@@ -46,12 +46,20 @@ class ServiceController extends AbstractController
         $monoRates['EUR'] = round($rates[0]->getBuyRate(), 2).' / '.round($rates[0]->getSellRate(), 2);
 //        $monoRates['USD'] = round($result[0]['rateBuy'], 2).' / '.round($result[0]['rateSell'], 2);
 //        $monoRates['EUR'] = round($result[1]['rateBuy'], 2).' / '.round($result[1]['rateSell'], 2);
-
+        $rates2['PRIVATBANK']['BUY']['USD'] = round($rates[4]->getBuyRate(), 2);
+        $rates2['PRIVATBANK']['SELL']['USD'] = round($rates[4]->getSellRate(), 2);
+        $rates2['PRIVATBANK']['BUY']['EUR'] = round($rates[5]->getBuyRate(), 2);
+        $rates2['PRIVATBANK']['SELL']['EUR'] = round($rates[5]->getSellRate(), 2);
+        $rates2['MONOBANK']['BUY']['USD'] = round($rates[1]->getBuyRate(), 2);
+        $rates2['MONOBANK']['SELL']['USD'] = round($rates[1]->getSellRate(), 2);
+        $rates2['MONOBANK']['BUY']['EUR'] = round($rates[0]->getBuyRate(), 2);
+        $rates2['MONOBANK']['SELL']['EUR'] = round($rates[0]->getSellRate(), 2);
 
 
         return [
             'services' => $repository->orderByNextBilling($this->getUser()),
             'rates' => $ratesNbu,
+            'rates2' => $rates2,
 //            'privatRates' => $rates->getPayload()['privat'],
             'privatRates' => $privatRates,
 //            'monoRates' => $rates->getPayload()['mono'],

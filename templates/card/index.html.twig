@@ -24,16 +24,19 @@
                     {% for card in app.user.cards %}
                     <li class="d-flex no-block card-body border-bottom">
                         <a href="{{ path('card_edit', {'id' : card.id}) }}" class="m-b-0 font-medium p-0">
-                        <div class="col-md-6 col-lg-2 col-xlg-3">
+                        <div class="col-md-6 col-lg-3 col-xlg-3">
                             <div class="row card card-hover">
-                                <div class="box bg-info text-left">
+                                <div class="box bg-info text-left ">
                                     <h1 class="font-light text-white">
                                         {% if card.firstDigits|first == '4' %}
                                             <i class="fab fa-cc-visa"></i>
                                         {% else %}
                                             <i class="fab fa-cc-mastercard"  aria-hidden="true"></i>
                                         {% endif %}
+                                        <div class="text-white font-16" style="display: inline-block; float: right; vertical-align: top; top: 10px; line-height: 25px;">{{ card.currency }}</div>
                                     </h1>
+
+
                                     <h6 class="text-white" style="min-width: 150px;">{{ card.bank }}</h6>
                                     <h6 class="text-white">{{card.firstDigits}}●● ●●●● ●●●● {{card.digits}}</h6>
                                 </div>
@@ -41,8 +44,8 @@
                         </div>
                         </a>
                         <div class="m-l-20">
-                            <a href="{{ path('card_edit', {'id' : card.id}) }}" class="m-b-0 font-medium p-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-                            <span class="text-muted">dolor sit amet, consectetur adipiscing</span>
+                            <a href="{{ path('card_edit', {'id' : card.id}) }}" class="m-b-0 font-medium p-0">{{ card.bank }}</a>
+                            <span class="text-muted">{{ card.name }} {{ card.description }}</span>
                         </div>
                     </li>
                     {% endfor %}

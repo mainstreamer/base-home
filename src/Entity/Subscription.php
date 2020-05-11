@@ -50,7 +50,7 @@ class Subscription
     /** @var string */
     private $type = 'daily';
 
-    /** @var $bills ArrayCollection */
+    /** @var ArrayCollection */
     private $bills;
 
     /** @var string
@@ -60,6 +60,9 @@ class Subscription
 
     /** @var \DateTime|null */
     private $nextBillingDate;
+
+    /** @var Card|null */
+    private $card;
 
     public function __construct()
     {
@@ -267,5 +270,21 @@ class Subscription
     public function setNextBillingDate(?\DateTime $nextBillingDate): void
     {
         $this->nextBillingDate = clone $nextBillingDate;
+    }
+
+    /**
+     * @return Card|null
+     */
+    public function getCard(): ?Card
+    {
+        return $this->card;
+    }
+
+    /**
+     * @param Card|null $card
+     */
+    public function setCard(?Card $card): void
+    {
+        $this->card = $card;
     }
 }

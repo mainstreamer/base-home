@@ -66,18 +66,37 @@
                             </div>
 {#                            <div class="ml-auto">#}
                                 {#                                    {% set cur = subscription.currency %}#}
-
 {#                            </div>#}
                                 <li class="d-flex no-block card-body">
                                     <i class="fa fa-check-circle w-30px m-t-5"></i>
                                     <div>
-                                        <a href="{{ path('subscription_show', {'id' : subscription.id }) }}" class="m-b-0 font-medium p-0">{{ subscription.name }}</a>
-                                        <span class="text-muted">cost: {{ subscription.price / 100}} {{ subscription.currency }}  {% if subscription.currency != 'UAH' %}(<span>{{  subscription.price/100 * rates[subscription.currency] | round}} UAH</span>){% endif %}</span>
+                                        <a href="{{ path('subscription_show', {'id' : subscription.id }) }}" class="m-b-0 font-medium p-0">{{ subscription.name }} </a>
+                                        <span class="text-muted">
+                                            cost: {{ subscription.price / 100}} {{ subscription.currency }}
+                                            {% if subscription.currency != 'UAH' %}
+{#                                                (<span>{{  subscription.price/100 * rates[subscription.currency] | round}} UAH</span>)#}
+{#                                                {% if subscription.currency == subscription.card.currency %}#}
+{#                                                {% else %}#}
+                                                {% if subscription.card == null or rates2[subscription.card.bank] is not defined %}
+                                                    (<span>{{  (subscription.price/100) * rates2['NBU']['BUY'][subscription.currency]  | round (2)}} UAH</span>)
+                                                {% else %}
+{#                                                    {{ subscription.price/100 * rates2[subscription.card.bank]['SELL'][subscription.currency] }}#}
+                                                    (<span>{{ (((subscription.price/100) * rates2[subscription.card.bank]['SELL'][subscription.currency]) / rates2[subscription.card.bank]['BUY'][subscription.card.currency] ) |round(2) }} {{ subscription.card.currency }}</span>)
+{#                                                {% endif %}#}
+                                                {% endif %}
+                                            {% endif %}
+
+                                        </span>
                                     </div>
                                     <div class="ml-auto">
-                                        <div class="tetx-right">
+                                        <div class="text-right">
 {#                                            <h5 class="text-muted m-b-0">{{ subscription.endDate | date('d') }}</h5>#}
                                             <span class="text-muted font-16">{{ subscription.nextBillingDate | date('d M Y') }}</span>
+                                        </div>
+                                        <div>
+                                            {% if subscription.card != null %}
+                                                <i class="fa fa-credit-card "></i> {{subscription.card}} {{ subscription.card.currency }}
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </li>

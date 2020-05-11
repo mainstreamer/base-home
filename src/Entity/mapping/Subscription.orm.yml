@@ -40,6 +40,8 @@ App\Entity\Subscription:
         service:
             targetEntity: App\Entity\Service
             inversedBy: subscriptions
+        card:
+            targetEntity: App\Entity\Card
     oneToMany:
         bills:
             targetEntity: App\Entity\Bill
