@@ -78,11 +78,13 @@
 {#                                                {% if subscription.currency == subscription.card.currency %}#}
 {#                                                {% else %}#}
                                                 {% if subscription.card == null or rates2[subscription.card.bank] is not defined %}
-                                                    (<span>{{  (subscription.price/100) * rates2['NBU']['BUY'][subscription.currency]  | round (2)}} UAH</span>)
+                                                    (<span>{{  ((subscription.price/100) * rates2['NBU']['BUY'][subscription.currency]) | round (2)}} UAH</span>)
                                                 {% else %}
-{#                                                    {{ subscription.price/100 * rates2[subscription.card.bank]['SELL'][subscription.currency] }}#}
-                                                    (<span>{{ (((subscription.price/100) * rates2[subscription.card.bank]['SELL'][subscription.currency]) / rates2[subscription.card.bank]['BUY'][subscription.card.currency] ) |round(2) }} {{ subscription.card.currency }}</span>)
-{#                                                {% endif %}#}
+                                                    {% if subscription.card.currency != 'UAH' %}
+                                                        (<span>{{ (((subscription.price/100) * rates2[subscription.card.bank]['SELL'][subscription.currency]) / rates2[subscription.card.bank]['BUY'][subscription.card.currency] ) |round(2) }} {{ subscription.card.currency }}</span>)
+                                                    {% else %}
+                                                        {{ (subscription.price/100 * rates2[subscription.card.bank]['SELL'][subscription.currency]) |round(2) }}
+                                                    {% endif %}
                                                 {% endif %}
                                             {% endif %}
 
