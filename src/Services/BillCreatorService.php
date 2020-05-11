@@ -71,7 +71,7 @@ class BillCreatorService
     public function getBankRate(string $bank, string $currency): float
     {
         // get rate for bank and curr
-        $rate = $currency === 'UAH' ? 1 : $this->ratesRepo->getRateByBankAndCurrency($currency, $bank)->getSellRate();
+        $rate = 'UAH' === $currency ? 1 : $this->ratesRepo->getRateByBankAndCurrency($currency, $bank)->getSellRate();
 
         return $rate;
     }

@@ -53,6 +53,10 @@ App\Entity\User:
             targetEntity: App\Entity\Service
             mappedBy: user
             cascade: ['persist', 'remove']
+        cards:
+            targetEntity: App\Entity\Card
+            mappedBy: user
+            cascade: ['persist', 'remove']
     manyToMany:
         places:
             joinTable:

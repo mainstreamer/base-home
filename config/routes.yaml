@@ -286,3 +286,20 @@ service_delete:
 service_edit:
     path: /services/{id}/edit
     controller: App\Controller\ServiceController::edit
+    
+card_index:
+    path: /cards
+    controller: App\Controller\CardController::index
+card_new:
+    path: /cards/new
+    controller: App\Controller\CardController::new
+card_show:
+    path: /cards/{id}
+    controller: App\Controller\CardController::show
+card_delete:
+    path: /cards/{id}/delete
+    controller: App\Controller\CardController::delete
+card_edit:
+    path: /cards/{id}/edit
+    controller: App\Controller\CardController::edit
+    

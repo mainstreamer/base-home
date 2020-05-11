@@ -13,6 +13,9 @@ App\Entity\Card:
             type: string
             length: 255
             nullable: true
+        firstDigits:
+            type: string
+            length: 2
         digits:
             type: string
             length: 4
@@ -21,10 +24,13 @@ App\Entity\Card:
             type: string
             length: 255
             nullable: true
+        bank:
+            type: string
+            length: 255
         active:
             type: boolean
-#
-#    oneToMany:
-#        subscriptions:
-#            targetEntity: App\Entity\Subscription
-#            mappedBy: card
+    manyToOne:
+        user:
+            targetEntity: App\Entity\User
+            inversedBy: cards
+            

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class Card
 {
@@ -26,14 +27,23 @@ class Card
     /** @var string */
     private $type;
 
-    /** @var string|null */
+    /** @var string */
     private $digits;
 
     /** @var bool */
     private $active = true;
 
-    /** @var $subscriptions ArrayCollection */
+    /** @var ArrayCollection */
     private $subscriptions;
+
+    /** @var string */
+    private $bank;
+
+    /** @var string */
+    private $firstDigits;
+
+    /** @var User */
+    private $user;
 
     public function __construct()
     {
@@ -133,5 +143,56 @@ class Card
     public function setActive(bool $active): void
     {
         $this->active = $active;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBank(): ?string
+    {
+        return $this->bank;
+    }
+
+    /**
+     * @param string $bank
+     */
+    public function setBank(string $bank): void
+    {
+        $this->bank = $bank;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstDigits(): ?string
+    {
+        return $this->firstDigits;
+    }
+
+    /**
+     * @param string $firstDigits
+     */
+    public function setFirstDigits(string $firstDigits): void
+    {
+        $this->firstDigits = $firstDigits;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return $this
+     */
+    public function setUser(UserInterface $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }

@@ -43,6 +43,9 @@ class User implements UserInterface
     /** @var bool */
     private $enabled;
 
+    /** @var ArrayCollection */
+    private $cards;
+
     /**
      * User constructor.
      */
@@ -52,6 +55,7 @@ class User implements UserInterface
         $this->tariffs = new ArrayCollection();
         $this->tariffTypes = new ArrayCollection();
         $this->services = new ArrayCollection();
+        $this->cards = new ArrayCollection();
         $this->enabled = false;
     }
 
@@ -341,5 +345,22 @@ class User implements UserInterface
     public function getServices(): Collection
     {
         return $this->services;
+    }
+
+    public function addCard(Card $card): void
+    {
+        $this->cards[] = $card;
+        $card->setUser($this);
+    }
+
+    public function removeCard(Card $card): void
+    {
+        $this->cards->removeElement($card);
+        $card->setUser(null);
+    }
+
+    public function getCards(): Collection
+    {
+        return $this->cards;
     }
 }
