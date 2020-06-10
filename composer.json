@@ -2,7 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.2",
+        "php": "^7.4",
         "ext-iconv": "*",
         "deployer/deployer": "^6.7",
         "doctrine/doctrine-migrations-bundle": "^1.3",

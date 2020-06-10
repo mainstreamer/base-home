@@ -6,7 +6,7 @@ use App\Entity\Service;
 use App\Entity\Subscription;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * @method Subscription|null find($id, $lockMode = null, $lockVersion = null)

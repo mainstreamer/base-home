@@ -16,7 +16,8 @@ set('env', [
     'APP_ENV' => 'prod',
     'DATABASE_URL' => 'mysql://webapp:12345678@127.0.0.1:3306/base',
     'MAILER_URL' => 'smtp://smtp.sendgrid.net:587?encryption=tls&username=apikey&password=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;',
-    'LAST_UPDATE' => 'sei4as'
+    'LAST_UPDATE' => 'sei4as',
+    'SENTRY_DSN' => 'https://ff5a4c1dbd904ddf9a6e98712908df57@o351249.ingest.sentry.io/5271857',
 ]);
 
 // Hosts
