@@ -15,7 +15,8 @@ class FileUploaderService
 
     public function upload(UploadedFile $file)
     {
-        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $extension = 'bin' === $file->guessExtension() ? 'pdf' : $file->guessExtension();
+        $fileName = md5(uniqid()).'.'.$extension;
 
         try {
             $file->move($this->getTargetDirectory(), $fileName);
