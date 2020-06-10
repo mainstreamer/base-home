@@ -6,17 +6,18 @@ namespace App\EventSubscriber;
 
 use App\Entity\TariffType;
 use App\Event\NewUserCreatedEvent;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class NewUserCreatedSubscriber implements EventSubscriberInterface
 {
     private $em;
 
-    public function __construct(RegistryInterface $registry)
+    public function __construct(EntityManagerInterface $registry)
     {
 
-        $this->em = $registry->getEntityManager();
+        $this->em = $registry;
     }
 
     public function onUserCreation(NewUserCreatedEvent $event): void
