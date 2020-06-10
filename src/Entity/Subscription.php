@@ -261,7 +261,7 @@ class Subscription
      */
     public function getNextBillingDate(): ?\DateTime
     {
-        return clone $this->nextBillingDate;
+        return $this->nextBillingDate ? clone $this->nextBillingDate : null;
     }
 
     /**
