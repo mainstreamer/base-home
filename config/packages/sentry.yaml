@@ -1,2 +1,17 @@
 sentry:
     dsn: '%env(SENTRY_DSN)%'
+    options:
+        error_types: 'E_ALL & ~E_NOTICE'
+        in_app_exclude:
+            - '%kernel.cache_dir%'
+            - '%kernel.project_dir%/vendor'
+        excluded_exceptions:
+            - 'Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException'
+            - 'Symfony\Component\HttpKernel\Exception\BadRequestHttpException'
+            - 'Symfony\Component\Routing\Exception\ResourceNotFoundException'
+            - 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException'
+            - 'InvalidArgumentException'
+            - 'Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException'
+            - 'Symfony\Component\Security\Core\Exception\AccessDeniedException'
+            - 'Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException'
+    
