@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -19,8 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BillController extends AbstractController
 {
-    /**
-     * @param BillRepository $billRepository
+    /**@param BillRepository $billRepository
      * @return Response
      * TODO do I need it at all?
      */
@@ -29,8 +27,7 @@ class BillController extends AbstractController
         return $this->render('bill/index.html.twig', ['bills' => $billRepository->findAll()]);
     }
 
-    /**
-     * @param Request $request
+    /**@param Request $request
      * @return Response
      * TODO do I need it at all?
      */
@@ -54,8 +51,7 @@ class BillController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Request $request
+    /**@param Request $request
      * @param Place $place
      * @param FileUploaderService $fileUploaderService
      * @return Response
@@ -70,14 +66,12 @@ class BillController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $bill->setFile(null);
             $files = array_values($request->files->all()[$form->getName()])[0];
 
-            foreach ($files as $file)
-            {
+            foreach ($files as $file) {
                 $path = $this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($file);
-                $bill->addFile( new FileUpload($path));
+                $bill->addFile(new FileUpload($path));
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -95,8 +89,7 @@ class BillController extends AbstractController
         ]);
     }
 
-    /**
-     * @param Bill $bill
+    /**@param Bill $bill
      * @return Response
      * @Security("bill.getPlace() !== null and bill.getPlace().getUsers().contains(user) or bill.getSubscription()")
      */
@@ -105,8 +98,7 @@ class BillController extends AbstractController
         return $this->render('bill/show.html.twig', ['bill' => $bill]);
     }
 
-    /**
-     * @param Request $request
+    /**@param Request $request
      * @param Bill $bill
      * @param FileUploaderService $fileUploaderService
      * @return Response
@@ -119,7 +111,6 @@ class BillController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $bill->setFile(null);
             $files = array_values($request->files->all()[$form->getName()])[0];
 
@@ -138,30 +129,31 @@ class BillController extends AbstractController
 
         return $this->render('bill/edit.html.twig', [
             'bill' => $bill,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
-    /**
-     * @param Request $request
+    /**@param Request $request
      * @param Bill $bill
      * @return Response
-     * @Security(" (bill.getPlace() != null and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
+     * @Security("(bill.getPlace() != null and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
      */
     public function delete(Request $request, Bill $bill): Response
     {
-        $place = $bill->getPlace()->getId();
+        if ($bill->getPlace()) {
+            $place = $bill->getPlace()->getId();
+        }
+
         if ($this->isCsrfTokenValid('delete'.$bill->getId(), $request->request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($bill);
             $em->flush();
         }
 
-        return $this->redirectToRoute('place_show', ['id' => $place]);
+        return isset($place) ? $this->redirectToRoute('place_show', ['id' => $place]) : $this->redirectToRoute('service_index');
     }
 
-    /**
-     * @param FileUpload $file
+    /**@param FileUpload $file
      * @return JsonResponse
      * @Security(" (file.getBIll().getPlace() != null and file.getBill().getPlace().getUsers().contains(user)) or (file.getBill().getSubscription()!= null and user === file.getBill().getSubscription().getService().getUser())")
      */
@@ -174,9 +166,9 @@ class BillController extends AbstractController
         return new JsonResponse();
     }
 
-    /**
-     * @param Bill $bill
+    /**@param Bill $bill
      * @return JsonResponse
+     * @throws \Exception
      * @Security(" (bill.getPlace() != null and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
      */
     public function togglePayment(Bill $bill)
@@ -186,20 +178,19 @@ class BillController extends AbstractController
             $bill->setActuallyPaid($bill->getAmount());
             $bill->setPayDate(new \DateTime());
             $response = $bill->getPayDateText();
-        }
-        else {
+        } else {
             $bill->setPayDate(null);
             $bill->setActuallyPaid(null);
             $response = '–––'; //TODO think about moving this away
         }
         $this->getDoctrine()->getManager()->flush();
 
-        return new JsonResponse( $response, Response::HTTP_OK);
+        return new JsonResponse($response, Response::HTTP_OK);
     }
 
     /**
      * @param Request $request
-     * @param Place $place
+     * @param Subscription $subscription
      * @param FileUploaderService $fileUploaderService
      * @return Response
      */
@@ -213,14 +204,12 @@ class BillController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $bill->setFile(null);
             $files = array_values($request->files->all()[$form->getName()])[0];
 
-            foreach ($files as $file)
-            {
+            foreach ($files as $file) {
                 $path = $this->getParameter('uploads_directory').'/'.$fileUploaderService->upload($file);
-                $bill->addFile( new FileUpload($path));
+                $bill->addFile(new FileUpload($path));
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -233,9 +222,7 @@ class BillController extends AbstractController
 
         return $this->render('bill/new_for_subscription.html.twig', [
             'bill' => $bill,
-//            'place' => $place,
             'form' => $form->createView(),
         ]);
     }
-
 }
