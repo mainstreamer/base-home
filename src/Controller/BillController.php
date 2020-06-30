@@ -146,7 +146,7 @@ class BillController extends AbstractController
      * @param Request $request
      * @param Bill $bill
      * @return Response
-     * @Security(" (bill.getPlace() != fnull and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
+     * @Security(" (bill.getPlace() != null and bill.getPlace().getUsers().contains(user)) or (bill.getSubscription()!= null and user === bill.getSubscription().getService().getUser())")
      */
     public function delete(Request $request, Bill $bill): Response
     {
