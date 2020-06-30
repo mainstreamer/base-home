@@ -9,17 +9,26 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\HttpClient\HttpClient;
 
+/**
+ * Class RatesFetcherCommand
+ * @package App\Command
+ */
 class RatesFetcherCommand extends Command
 {
     protected static $defaultName = 'app:fetch:rates';
 
+    private $botKey = '1092299871:AAGvl46y4bRpso-_u-wN2hSpkuNYkstb600';
     private $ratesFetcher;
+
+    private $client;
 
     public function __construct(RatesFetcherService $service)
     {
         parent::__construct();
         $this->ratesFetcher = $service;
+        $this->client = HttpClient::create();
     }
 
     protected function configure()
@@ -33,6 +42,8 @@ class RatesFetcherCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->sendMessage('HELO WORLD', '263800667');
+
         $io = new SymfonyStyle($input, $output);
         $arg1 = $input->getArgument('arg1');
 
@@ -49,5 +60,26 @@ class RatesFetcherCommand extends Command
         $io->success('OK');
 
         return 0;
+    }
+
+    /**
+     * @param string $message
+     * @param string $chatId
+     * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function sendMessage(string $message, string $chatId): bool
+    {
+//        $chatId = isset($message['parsedObj']) ? $message['parsedObj']->getChat() : null;
+//        if (!$chatId) { return false;}
+
+        $this->client->request('GET',
+            'https://api.telegram.org/bot'.
+            $this->botKey.'/sendMessage?parse_mode=HTML&text='.
+//                $this->botKey.'/sendMessage?text='.
+            urlencode($message).'&chat_id='.$chatId
+        );
+
+        return true;
     }
 }

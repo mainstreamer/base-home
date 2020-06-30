@@ -1,0 +1,54 @@
+version: "3.6"
+services:
+  php:
+    environment:
+      APP_ENV: "staging"
+      DB_NAME: ${DB_NAME_STAGING}
+      DB_PASS: ${DB_PASS_STAGING}
+      DB_USER: ${DB_USER_STAGING}
+      DB_PORT: ${DB_PORT_STAGING}
+      DB_HOST: ${DB_HOST_STAGING}
+      APP_SECRET: ${APP_SECRET}
+      JWT_PASSPHRASE: ${JWT_PASSPHRASE}
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_TOKEN_TTL: ${JWT_TOKEN_TTL}
+      MAILER_URL: ${MAILER_URL}
+      CIRCLE_BUILD_NUM: ${CIRCLE_BUILD_NUM}
+      SYMFONY_DEPRECATIONS_HELPER: "disabled"
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      GENERIC_TEMPLATE_ID: ${GENERIC_TEMPLATE_ID}
+      DOMAIN: ${DOMAIN_STAGING}
+      DO_SPACES_KEY: ${DO_SPACES_KEY}
+      DO_SPACES_SECRET: ${DO_SPACES_SECRET}
+      DO_SPACES_ENDPOINT: ${DO_SPACES_ENDPOINT}
+      DO_SPACES_REGION: ${DO_SPACES_REGION}
+      DO_SPACES_NAME: ${DO_SPACES_NAME}
+      DO_SPACES_DOWNLOAD_URL: ${DO_SPACES_DOWNLOAD_URL}
+      FILE_UPLOAD_DIR: ${FILE_UPLOAD_DIR}
+      SENTRY_DSN: ${SENTRY_DSN}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY_TEST}
+    container_name: "php-${PROJECT_NAME}"
+    build:
+      context: .
+      dockerfile: .docker/php-fpm/Dockerfile
+    volumes:
+      - log:/var/www/webapp/var/log
+    depends_on:
+      - nginx
+    networks:
+      - backend
+  nginx:
+    container_name: "nginx-${PROJECT_NAME}"
+    build:
+      context: .
+      dockerfile: .docker/nginx/Dockerfile
+    ports:
+      - "443:443"
+    restart: always
+    networks:
+      - backend
+networks:
+  backend:
+volumes:
+  log: ~

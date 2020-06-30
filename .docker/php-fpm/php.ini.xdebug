@@ -1,0 +1,16 @@
+memory_limit=-1
+max_execution_time=0
+upload_max_filesize=20M
+post_max_size=20M
+
+xdebug.remote_autostart=0
+xdebug.remote_enable=1
+xdebug.remote_handler="dbgp"
+xdebug.remote_host="host.docker.internal"
+xdebug.remote_port=9001
+xdebug.remote_mode=req
+xdebug.idekey="PHPSTORM"
+xdebug.remote_log=/var/log/php/xdebug.log
+xdebug.remote_connect_back=0
+
+max_execution_time=0

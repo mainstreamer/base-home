@@ -1,0 +1,76 @@
+version: "3.6"
+services:
+  php:
+    container_name: "php-${PROJECT_NAME}"
+    environment:
+#      XDEBUG_CONFIG: "remote_host=192.168.1.110"
+#      XDEBUG_CONFIG: "remote_host=host.docker.internal"
+#      PHP_IDE_CONFIG: "serverName=Docker"
+      XDEBUG_CONFIG: "remote_host=host.docker.internal remote_enable=1 remote_autostart=off  remote_port=9001"
+      PHP_IDE_CONFIG: "serverName=Docker"
+      APP_ENV: "dev"
+      DB_NAME: ${DB_NAME}
+      DB_PASS: ${DB_PASS}
+      DB_USER: ${DB_USER}
+      APP_SECRET: ${APP_SECRET}
+      JWT_PASSPHRASE: ${JWT_PASSPHRASE}
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_TOKEN_TTL: ${JWT_TOKEN_TTL}
+      MAILER_URL: ${MAILER_URL}
+      CIRCLE_BUILD_NUM: ${CIRCLE_BUILD_NUM}
+      SYMFONY_DEPRECATIONS_HELPER: "disabled"
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      GENERIC_TEMPLATE_ID: ${GENERIC_TEMPLATE_ID}
+      DOMAIN: ${DOMAIN}
+    #    env_file: .env
+    build:
+      context: .
+      dockerfile: .docker/php-fpm/Dockerfile-xdebug
+    volumes:
+      - .:/var/www/webapp:rw,cached
+      - ${PROJECT_NAME}-codesync:/var/www/webapp:nocopy
+#      - uploads:/var/www/webapp/uploads:rw,cached
+    depends_on:
+      - nginx
+      - db
+    networks:
+      - backend
+  db:
+    image: mysql:5.7
+    volumes:
+      - db-data:/var/lib/mysql
+    container_name: "db-${PROJECT_NAME}"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "7dd8c4284984a2e9"
+      MYSQL_DATABASE: qit
+      MYSQL_USER: dbuser
+      MYSQL_PASSWORD: "7dd8c4284984a2e0"
+    networks:
+      - backend
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+  nginx:
+    container_name: "nginx-${PROJECT_NAME}"
+    build:
+      context: .
+      dockerfile: .docker/nginx/Dockerfile
+    volumes:
+      - ${PROJECT_NAME}-codesync:/var/www/webapp:nocopy
+    expose:
+      - 80
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    networks:
+      - backend
+networks:
+   backend:
+volumes:
+  db-data: ~
+#  uploads:
+#    external: true

@@ -24,7 +24,7 @@ class ServiceRepository extends ServiceEntityRepository
     // /**
     //  * @return Subscription[] Returns an array of Subscription objects
     //  */
-    public function orderByNextBilling(User $user)
+    public function orderByNextBilling1(User $user)
     {
         return $this->createQueryBuilder('s')
             ->innerJoin('s.user', 'u')
@@ -35,6 +35,41 @@ class ServiceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+
+    public function orderByNextBilling(User $user)
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.user', 'u')
+            ->leftJoin('s.subscriptions', 'sub')
+            ->leftJoin('sub.bills', 'b')
+            ->orderBy('b.payDate', 'ASC')
+            ->orderBy('sub.nextBillingDate', 'ASC')
+            ->andWhere('s.user = :val')
+//            ->andWhere('s.user = :val and b.isPaid = :paid')
+            ->setParameter('val', $user->getId())
+//            ->setParameter('paid', true)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function orderByNextBillingDue(User $user)
+    {
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.user', 'u')
+            ->leftJoin('s.subscriptions', 'sub')
+            ->leftJoin('sub.bills', 'b')
+            ->orderBy('b.payDate', 'ASC')
+            ->orderBy('sub.nextBillingDate', 'ASC')
+//            ->andWhere('s.user = :val')
+            ->andWhere('s.user = :val and b.isPaid = :paid')
+            ->setParameter('val', $user->getId())
+            ->setParameter('paid', false)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     /*

@@ -30,40 +30,52 @@ class ServiceController extends AbstractController
     public function index(ServiceRepository $repository, RatesFetcherService $service): array
     {
         $rates = $service->execute();
-        $ratesNbu = ['EUR' => $rates[2]->getSellRate(), 'USD' => $rates[3]->getSellRate(), 'UAH' => 1];
-        $rates2['NBU']['BUY'] = $ratesNbu;
-        $rates2['NBU']['SELL'] = $ratesNbu;
+        if (!$rates) {
+            $v = 1;
+        }
+            $ratesNbu = ['EUR' => $v ?? $rates[2]->getSellRate(), 'USD' => $v ?? $rates[3]->getSellRate(), 'UAH' => 1];
+            $rates2['NBU']['BUY'] = $ratesNbu;
+            $rates2['NBU']['SELL'] = $ratesNbu;
 //        $response = $client->request('GET', 'http://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11');
 //        $result = $response->toArray();
 
-        $privatRates['USD'] = round($rates[4]->getBuyRate(), 2).' / '.round($rates[4]->getSellRate(), 2);
-        $privatRates['EUR'] = round($rates[5]->getBuyRate(), 2).' / '.round($rates[5]->getSellRate(), 2);
+            $privatRates['USD'] = $v ??  round($rates[4]->getBuyRate(), 2).' / '.round($rates[4]->getSellRate(), 2);
+            $privatRates['EUR'] = $v ??  round($rates[5]->getBuyRate(), 2).' / '.round($rates[5]->getSellRate(), 2);
 //        $privatRates['EUR'] = round($result[1]['buy'], 2).' / '.round($result[1]['sale'], 2);
 
 //        $response = $client->request('GET', 'https://api.monobank.ua/bank/currency');
 //        $result = $response->toArray();
-        $monoRates['USD'] = round($rates[1]->getBuyRate(), 2).' / '.round($rates[1]->getSellRate(), 2);
-        $monoRates['EUR'] = round($rates[0]->getBuyRate(), 2).' / '.round($rates[0]->getSellRate(), 2);
+            $monoRates['USD'] = $v ?? round($rates[1]->getBuyRate(), 2).' / '.round($rates[1]->getSellRate(), 2);
+            $monoRates['EUR'] = $v ?? round($rates[0]->getBuyRate(), 2).' / '.round($rates[0]->getSellRate(), 2);
 //        $monoRates['USD'] = round($result[0]['rateBuy'], 2).' / '.round($result[0]['rateSell'], 2);
 //        $monoRates['EUR'] = round($result[1]['rateBuy'], 2).' / '.round($result[1]['rateSell'], 2);
-        $rates2['PRIVATBANK']['BUY']['USD'] = round($rates[4]->getBuyRate(), 2);
-        $rates2['PRIVATBANK']['SELL']['USD'] = round($rates[4]->getSellRate(), 2);
-        $rates2['PRIVATBANK']['BUY']['EUR'] = round($rates[5]->getBuyRate(), 2);
-        $rates2['PRIVATBANK']['SELL']['EUR'] = round($rates[5]->getSellRate(), 2);
-        $rates2['MONOBANK']['BUY']['USD'] = round($rates[1]->getBuyRate(), 2);
-        $rates2['MONOBANK']['SELL']['USD'] = round($rates[1]->getSellRate(), 2);
-        $rates2['MONOBANK']['BUY']['EUR'] = round($rates[0]->getBuyRate(), 2);
-        $rates2['MONOBANK']['SELL']['EUR'] = round($rates[0]->getSellRate(), 2);
+            $rates2['PRIVATBANK']['BUY']['USD'] = $v ??  round($rates[4]->getBuyRate(), 2);
+            $rates2['PRIVATBANK']['SELL']['USD'] = $v ??  round($rates[4]->getSellRate(), 2);
+            $rates2['PRIVATBANK']['BUY']['EUR'] = $v ?? round($rates[5]->getBuyRate(), 2);
+            $rates2['PRIVATBANK']['SELL']['EUR'] = $v ?? round($rates[5]->getSellRate(), 2);
+            $rates2['MONOBANK']['BUY']['USD'] = $v ?? round($rates[1]->getBuyRate(), 2);
+            $rates2['MONOBANK']['SELL']['USD'] = $v ?? round($rates[1]->getSellRate(), 2);
+            $rates2['MONOBANK']['BUY']['EUR'] = $v ?? round($rates[0]->getBuyRate(), 2);
+            $rates2['MONOBANK']['SELL']['EUR'] = $v ?? round($rates[0]->getSellRate(), 2);
 
+        $all = $repository->orderByNextBilling($this->getUser());
+        $due = $repository->orderByNextBillingDue($this->getUser());
+
+        foreach ($due as $service) {
+            unset($all[array_search($service, $all)]);
+        }
 
         return [
-            'services' => $repository->orderByNextBilling($this->getUser()),
-            'rates' => $ratesNbu,
-            'rates2' => $rates2,
+            'services' => $all,
+    //            'services' => $repository->orderByNextBilling($this->getUser()),
+//            'services_due' => $repository->orderByNextBillingDue($this->getUser()),
+            'services_due' => $due,
+            'rates' => $ratesNbu ?? null,
+            'rates2' => $rates2 ?? null,
 //            'privatRates' => $rates->getPayload()['privat'],
-            'privatRates' => $privatRates,
+            'privatRates' => $privatRates ?? null,
 //            'monoRates' => $rates->getPayload()['mono'],
-            'monoRates' => $monoRates,
+            'monoRates' => $monoRates ?? null,
         ];
     }
 

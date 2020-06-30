@@ -1,0 +1,55 @@
+version: "3.6"
+services:
+  php:
+    environment:
+      APP_ENV: "prod"
+      DB_NAME: ${DB_NAME_LIVE}
+      DB_PASS: ${DB_PASS_LIVE}
+      DB_USER: ${DB_USER_LIVE}
+      DB_PORT: ${DB_PORT_LIVE}
+      DB_HOST: ${DB_HOST_LIVE}
+      APP_SECRET: ${APP_SECRET}
+      JWT_PASSPHRASE: ${JWT_PASSPHRASE}
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_TOKEN_TTL: ${JWT_TOKEN_TTL}
+      MAILER_URL: ${MAILER_URL}
+      CIRCLE_BUILD_NUM: ${CIRCLE_BUILD_NUM}
+      SYMFONY_DEPRECATIONS_HELPER: "disabled"
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      GENERIC_TEMPLATE_ID: ${GENERIC_TEMPLATE_ID}
+      DOMAIN: ${DOMAIN}
+      DO_SPACES_KEY: ${DO_SPACES_KEY}
+      DO_SPACES_SECRET: ${DO_SPACES_SECRET}
+      DO_SPACES_ENDPOINT: ${DO_SPACES_ENDPOINT}
+      DO_SPACES_REGION: ${DO_SPACES_REGION}
+      DO_SPACES_NAME: ${DO_SPACES_NAME}
+      DO_SPACES_DOWNLOAD_URL: ${DO_SPACES_DOWNLOAD_URL}
+      FILE_UPLOAD_DIR: ${FILE_UPLOAD_DIR}
+      SENTRY_DSN: ${SENTRY_DSN}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY_LIVE}
+    container_name: "php-${PROJECT_NAME}"
+    build:
+      context: .
+      dockerfile: .docker/php-fpm/Dockerfile
+    depends_on:
+      - nginx
+    networks:
+      - backend
+    volumes:
+      - log:/var/www/webapp/var/log
+  nginx:
+    container_name: "nginx-${PROJECT_NAME}"
+    build:
+      context: .
+      dockerfile: .docker/nginx-live/Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    networks:
+      - backend
+networks:
+  backend:
+volumes:
+  log: ~

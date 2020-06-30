@@ -1,0 +1,78 @@
+version: "3.6"
+services:
+  php:
+    container_name: "php-${PROJECT_NAME}"
+    environment:
+      APP_ENV: "test"
+      APP_SECRET: ${APP_SECRET}
+      DB_NAME: ${DB_NAME}
+      DB_PASS: ${DB_PASS_CI}
+      DB_USER: ${DB_USER}
+      DB_HOST: "db"
+      DB_PORT: "3306"
+      JWT_PASSPHRASE: ${JWT_PASSPHRASE}
+      JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_TOKEN_TTL: ${JWT_TOKEN_TTL}
+      MAILER_URL: ${MAILER_URL}
+      CIRCLE_BUILD_NUM: ${CIRCLE_BUILD_NUM}
+      SYMFONY_DEPRECATIONS_HELPER: "disabled"
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      GENERIC_TEMPLATE_ID: ${GENERIC_TEMPLATE_ID}
+      FILE_UPLOAD_DIR: ${FILE_UPLOAD_DIR}
+      DOMAIN: ${DOMAIN}
+      DO_SPACES_KEY: ${DO_SPACES_KEY}
+      DO_SPACES_SECRET: ${DO_SPACES_SECRET}
+      DO_SPACES_ENDPOINT: ${DO_SPACES_ENDPOINT}
+      DO_SPACES_REGION: ${DO_SPACES_REGION}
+      DO_SPACES_NAME: ${DO_SPACES_NAME}
+      DO_SPACES_DOWNLOAD_URL: ${DO_SPACES_DOWNLOAD_URL}
+      KERNEL_CLASS: ${KERNEL_CLASS}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY_TEST}
+    build:
+      context: .
+      dockerfile: .docker/php-fpm/Dockerfile
+    depends_on:
+      - nginx
+      - db
+    networks:
+      - backend
+    volumes:
+      - log:/var/www/webapp/var/log
+  db:
+    build:
+      context: .
+      dockerfile: .docker/mysql/Dockerfile
+    container_name: "db-${PROJECT_NAME}"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASS_CI}"
+      MYSQL_DATABASE: "${LIVE_DB_NAME}"
+      MYSQL_USER: "${LIVE_DB_USER}"
+      MYSQL_PASSWORD: "${LIVE_DB_PASS}"
+    volumes:
+      - db-data:/var/lib/mysql
+    restart: always
+    networks:
+      - backend
+    ports:
+      - "3306:3306"
+    expose:
+      - 3306
+  nginx:
+    build:
+      context: .
+      dockerfile: .docker/nginx/Dockerfile
+    container_name: "nginx-${PROJECT_NAME}"
+    expose:
+      - 80
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    networks:
+      - backend
+networks:
+   backend:
+volumes:
+   db-data: ~
+   log: ~

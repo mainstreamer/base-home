@@ -287,4 +287,18 @@ class Subscription
     {
         $this->card = $card;
     }
+
+    /**
+     * @return bool
+     */
+    public function hasDueBill(): bool
+    {
+        foreach ($this->bills as $bill) {
+            if (!$bill->getisPaid()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

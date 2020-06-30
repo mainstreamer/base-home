@@ -49,6 +49,66 @@
 
                 <h4 class="card-title"></h4>
                 <div class="m-t-20">
+                    {% for service in services_due %}
+                        <div class="d-flex no-block align-items-center">
+                            <a href="{{ path('service_show', {'id' : service.id}) }}" ><span>{{ service.name }}</span></a>
+                        </div>
+
+                        <ul class="list-style-none">
+                            {% for subscription in service.subscriptions %}
+
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {% set difference = date().diff(date(subscription.nextBillingDate)) %} {% if difference.days > 30 %}0{% else %}{{ (100/30) * (30 - difference.days)  }}{% endif %}%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+
+                                </div>
+                                {#                            <div class="ml-auto">#}
+                                {#                                    {% set cur = subscription.currency %}#}
+                                {#                            </div>#}
+                                <li class="d-flex no-block card-body">
+                                    {%  if subscription.hasDueBill() %}
+                                        <i class="fa fa-times-circle w-30px m-t-5"></i>
+                                    {% else %}
+                                        <i class="fa fa-check-circle w-30px m-t-5"></i>
+                                    {% endif %}
+
+                                    <div>
+                                        <a href="{{ path('subscription_show', {'id' : subscription.id }) }}" class="m-b-0 font-medium p-0">{{ subscription.name }} </a>
+                                        <span class="text-muted">
+                                            cost: {{ subscription.price / 100}} {{ subscription.currency }}
+                                            {% if subscription.currency != 'UAH' %}
+                                                {#                                                (<span>{{  subscription.price/100 * rates[subscription.currency] | round}} UAH</span>)#}
+                                                {#                                                {% if subscription.currency == subscription.card.currency %}#}
+                                                {#                                                {% else %}#}
+                                                {% if subscription.card == null or rates2[subscription.card.bank] is not defined %}
+                                                    (<span>{{  ((subscription.price/100) * rates2['NBU']['BUY'][subscription.currency]) | round (2)}} UAH</span>)
+                                                {% else %}
+                                                    {% if subscription.card.currency != 'UAH' %}
+                                                        (<span>{{ (((subscription.price/100) * rates2[subscription.card.bank]['SELL'][subscription.currency]) / rates2[subscription.card.bank]['BUY'][subscription.card.currency] ) |round(2) }} {{ subscription.card.currency }}</span>)
+                                                    {% else %}
+                                                        {{ (subscription.price/100 * rates2[subscription.card.bank]['SELL'][subscription.currency]) |round(2) }}
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+
+                                        </span>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="text-right">
+                                            {#                                            <h5 class="text-muted m-b-0">{{ subscription.endDate | date('d') }}</h5>#}
+                                            <span class="text-muted font-16">{{ subscription.nextBillingDate | date('d M Y') }}</span>
+                                        </div>
+                                        <div>
+                                            {% if subscription.card != null %}
+                                                <i class="fa fa-credit-card "></i> {{subscription.card}} {{ subscription.card.currency }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endfor %}
+
+<HR>
                     {% for service in services %}
                         <div class="d-flex no-block align-items-center">
                             <a href="{{ path('service_show', {'id' : service.id}) }}" ><span>{{ service.name }}</span></a>

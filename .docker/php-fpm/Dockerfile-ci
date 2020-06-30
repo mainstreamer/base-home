@@ -1,0 +1,54 @@
+FROM php:7.2-fpm-alpine
+
+RUN echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories; \
+    echo http://dl-2.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories; \
+    echo http://dl-3.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories; \
+    echo http://dl-4.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories; \
+    echo http://dl-5.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
+
+RUN apk add --update \
+     acl \
+     sudo \
+     bash \
+     shadow \
+     postgresql-dev \
+     nano \
+     openssl \
+     mysql-client \
+     libpng-dev \
+     grep \
+     git \
+     tcpdump
+
+RUN docker-php-ext-install pdo pdo_pgsql \
+    zip \
+    pcntl
+
+RUN rm -rf /var/cache/apk/* && rm -rf /tmp/*
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer
+
+RUN groupmod -g 1000 www-data
+
+RUN usermod -u 1000 www-data
+
+RUN mkdir /var/www/webapp
+
+RUN chown 1000:1000 /var/www/webapp
+
+COPY . /var/www/webapp
+
+WORKDIR /var/www/webapp
+
+RUN useradd -g root www-data & groups
+
+RUN composer install --no-suggest && \
+    composer clear-cache
+
+RUN chown -R 1000:1000 /var/www/webapp/var /var/www/webapp/tests /var/www/webapp/public
+
+USER www-data
+
+RUN ls -la .
+
+EXPOSE 9000

@@ -30,7 +30,12 @@ class RatesFetcherService
         if (null !== $rates && !empty($rates) && $rates[0]->getDate()->format('d-m-Y') === (new \DateTime())->format('d-m-Y')) {
             return $rates;
         } else {
-            $this->fetchAndSave();
+            try {
+                $this->fetchAndSave();
+            } catch (\Exception $e) {
+                return $rates;
+            }
+
             return $this->repository->getLatest();
         }
     }

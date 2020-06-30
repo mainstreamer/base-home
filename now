@@ -1,0 +1,131 @@
+#!/usr/bin/env sh
+cd $PWD
+APP_PATH="/var/www/webapp"
+#REMOTE_HOST_STAGING="142.93.139.44:2376"
+#REMOTE_HOST_PROD="142.93.225.156:2376"
+#DOCKER_CERT_FOLDER_PROD=".docker/cert-live"
+#DOCKER_CERT_FOLDER_STAGING=".docker/cert-staging"
+
+#PROJECT_NAME="qit"
+#REMOTE_CONTAINER_NAME="php-$PROJECT_NAME"
+COMPOSER_MEMORY_LIMIT=-1
+
+export $(egrep -v '^#' .env | xargs)
+export $(egrep -v '^#' .now.cnf | xargs)
+source .now.cnf
+
+#if  [ $ENV == "staging" ]
+#then
+ #DOCKER_CERT_FOLDER=$DOCKER_CERT_FOLDER_STAGING
+ #REMOTE_HOST=$REMOTE_HOST_STAGING
+#fi
+
+#if [ $ENV == "prod" ]
+#then
+ #DOCKER_CERT_FOLDER=$DOCKER_CERT_FOLDER_PROD
+ #REMOTE_HOST=$REMOTE_HOST_PROD
+#fi
+
+echo environment: $ENV
+#echo remote host: $REMOTE_HOST
+#echo cert folder: $DOCKER_CERT_FOLDER
+
+case "$1" in
+
+env-prod)       source .env.prod echo $DOCKER_CERT_FOLDER;;
+env-staging)    source .env.staging;;
+restart)        echo "restarting $PROJECT_NAME project"
+                now stop
+                now operate;;
+c)              now bin/console cache:clear $2 $3 $4;;
+v)              now bin/console d:s:v;;
+u)              now bin/console d:s:u --force;;
+cache)          now c;;
+f)              now bin/console hautelook:fixtures:load -n;;
+fix)            now f;;
+phpunit)        docker-compose exec php sh -c "cd $APP_PATH && $APP_PATH/vendor/bin/phpunit $2 $3 $4 $5";;
+build)          docker-compose build;;
+build-live-env) docker-compose -f docker-compose-live.yaml build;;
+build-ci-env)   docker-compose -f docker-compose-ci.yaml build;;
+build-staging-env) docker-compose -f docker-compose-staging.yaml build;;
+shape)          docker-compose exec php sh -c "composer install -d $APP_PATH"e
+                now f:load;;
+run-live-env)   docker-compose -f docker-compose-live.yaml up -d;;
+run-ci-env)     docker-compose -f docker-compose-ci.yaml up -d;;
+run-staging-env) docker-compose -f docker-compose-staging.yaml up -d;;
+run)            docker-compose up -d;;
+operate)        docker-sync-stack start;;
+stop)           docker stop $(docker ps -q);;
+rm)             docker-compose down
+                docker-sync-stack clean;;
+
+test)           echo "Testing $PROJECT_NAME project with behat"
+                docker-compose exec php sh -c "cd $APP_PATH && $APP_PATH/vendor/bin/behat -f progress $2 $3 $4 $5";;
+#               docker-compose exec php sh -c "cd $APP_PATH && $APP_PATH/vendor/bin/behat -f pretty $2 $3 $4 $5";;
+composer)       docker-compose exec php sh -c "cd $APP_PATH && composer $2 $3 $4 $5";;
+bin/console)    docker-compose exec php sh -c "cd $APP_PATH && $1 $2 $3 $4";;
+ssh)            docker-compose exec -u 0 "$2" sh;;
+services)       docker service ps;;
+::)             docker --tlsverify --tlscacert=$DOCKER_CERT_FOLDER/ca.pem --tlscert=$DOCKER_CERT_FOLDER/cert.pem --tlskey=$DOCKER_CERT_FOLDER/key.pem -H=$REMOTE_HOST $2 $3 $4 $5;;
+rebuild)        docker-compose build $2;;
+reset)          now rm
+                now build
+                now operate
+                echo "project $PROJECT_NAME rebuilt successfully"
+                ;;
+::compose-live) docker-compose -f docker-compose-live.yaml  --tlsverify --tlscacert=.docker/cert-live/ca.pem --tlscert=.docker/cert-live/cert.pem --tlskey=.docker/cert-live/key.pem -H=$REMOTE_HOST up --build -d;;
+::compose-live-nb) docker-compose -f docker-compose-live.yaml  --tlsverify --tlscacert=.docker/cert-live/ca.pem --tlscert=.docker/cert-live/cert.pem --tlskey=.docker/cert-live/key.pem -H=$REMOTE_HOST up -d;;
+::compose)      docker-compose -f docker-compose-deploy.yaml  --tlsverify --tlscacert=.docker/cert/ca.pem --tlscert=.docker/cert/cert.pem --tlskey=.docker/cert/key.pem -H=$REMOTE_HOST up --build -d;;
+::compose-nb)   docker-compose -f docker-compose-deploy.yaml  --tlsverify --tlscacert=.docker/cert/ca.pem --tlscert=.docker/cert/cert.pem --tlskey=.docker/cert/key.pem -H=$REMOTE_HOST up -d;;
+::ssh)          docker --tlsverify --tlscacert=$DOCKER_CERT_FOLDER/ca.pem --tlscert=$DOCKER_CERT_FOLDER/cert.pem --tlskey=$DOCKER_CERT_FOLDER/key.pem -H=$REMOTE_HOST exec -u 0 -it $REMOTE_CONTAINER_NAME sh;;
+::ssh_)         docker --tlsverify --tlscacert=.docker/cert/ca.pem --tlscert=.docker/cert/cert.pem --tlskey=.docker/cert/key.pem -H=142.93.225.156:2376 exec -u 0 -it $2 sh;;
+ports)          docker-compose ps;;
+ip)             echo $REMOTE_HOST;;
+::bin/console)  docker --tlsverify --tlscacert=.docker/cert/ca.pem --tlscert=.docker/cert/cert.pem --tlskey=.docker/cert/key.pem -H=$REMOTE_HOST exec $REMOTE_CONTAINER_NAME sh -c "cd $APP_PATH && bin/console $2 $3 $4" ;;
+db)             now bin/console d:d:d --force && now bin/console d:d:c && now bin/console d:m:m -n && now f;;
+
+import)         mysqldump -u $DB_USER_LIVE -p$DB_PASS_LIVE -h $DB_HOST_LIVE -P $DB_PORT_LIVE --set-gtid-purged=OFF $DB_NAME_STAGING > ~/Downloads/qit_staging_latest.sql && mysql --protocol=tcp --host=127.0.0.1 --user=root -proot --port=3306 --database=qit  < "/users/User/Downloads/qit_staging_latest.sql";;
+import-prod)    mysqldump -u $DB_USER_LIVE -p$DB_PASS_LIVE -h $DB_HOST_LIVE -P $DB_PORT_LIVE --set-gtid-purged=OFF $DB_NAME_LIVE > ~/Downloads/qit_live_latest.sql && mysql --protocol=tcp --host=127.0.0.1 --user=root -proot --port=3306 --database=qit  < "/users/User/Downloads/qit_live_latest.sql";;
+-h) echo "
+                     _   ______ _       __
+      ▀▄   ▄▀       / | / / __ \ |     / /
+     ▄█▀███▀█▄     /  |/ / / / / | /| / /
+    █▀███████▀█   / /|  / /_/ /| |/ |/ /
+    ▀ ▀▄▄ ▄▄▀ ▀  /_/ |_/\____/ |__/|__/
+
+    now v 1.2.6 (190319)
+    Handy docker shortcuts
+    ----------------------
+    USAGE: now [key] [param]
+    KEYS:
+    test                    runs behat test inside container [up to 4 optional params]
+
+    rm                      clean docker sync stack
+    build                   builds docker containers from docker-compose file
+    operate                 run containers and docker-sync
+    ssh [service]           ssh into docker service
+    restart                 stops all docker services and starts them again
+    stop                    stops all docker services
+    c, cache                clears cache [up to 4 optional params]
+    f, fix                  loads fixtures
+    rm                      cleans docker sync stack
+    bin/console [command]   do anything with symfony console inside container
+    composer                runs composer with optional params [up to 4 optional params]
+    build-test-env          builds environment for testing
+    run-test-env            runs environment for testing
+    build-prod-env          builds environment for prod
+    run-prod-env            runs environment for prod
+    run                     runs stack w/o sync container
+    operate                 runs stack with sync container
+    reset                   stops all, destroys all, rebuilds all and starts stack again
+    :: [docker command]     connect to remote docker daemon and execute command
+    ports                   shows exposed ports of your stack
+    h                       help
+    ip                      get ip of current remote host with dockerd
+    ::compose               execute docker compose for remote host
+    ::bin/console)          execute symfony console in remote php container
+    import                  copy staging db to local
+    import-prod             copy prod db to local
+    ";;
+*) now -h
+esac

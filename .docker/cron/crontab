@@ -1,0 +1,2 @@
+# [Minute] [hour] [Day_of_the_Month] [Month_of_the_Year] [Day_of_the_Week] [command]
+30 3 * * *   docker exec -it php-qit sh -c "php /var/www/webapp/bin/console app:mail:send"

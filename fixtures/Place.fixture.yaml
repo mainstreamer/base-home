@@ -1,4 +1,4 @@
 App\Entity\Place:
     place_{1..10}:
         name: <name()>
-        user: '@user_<current()>'
+        users: ['@user_<current()>']
