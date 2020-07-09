@@ -38,3 +38,5 @@ package-lock.json
 
 public/uploads/!.gitkeep
 public/uploads/*
+
+deploy.php
