@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Services;
+
 use App\Entity\User;
 use Twig\Environment;
+use SendGrid\Mail\Mail;
 
 /**
  * Class MailerService.
@@ -80,12 +82,35 @@ class MailerService
      */
     public function sendResetLink(User $user): void
     {
-        $message = $this->mailer->createMessage();
-        $message->setFrom('info@billscontrol.top')
-            ->setTo($user->getEmail())
-            ->setSubject('Password change for Utility BIlls')
-            ->setBody($this->twig->render('emails/reset_password.html.twig', ['user' => $user]), 'text/html');
-        $this->mailer->send($message);
+        $email = new Mail();
+        $email->setFrom("info@billscontrol.top", "Example User");
+        $email->setSubject("PWD reset");
+        $email->addTo($user->getEmail(), (string) $user);
+//        $email->addContent("text/plain", "and easy to do anywhere, even with PHP");
+        $email->addContent(
+            "text/html", "<strong>Plase reset your password by following the link: <a href='/password/reset/".$user->getToken()."'></a></strong> "
+        );
+
+        $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+        try {
+            $response = $sendgrid->send($email);
+            print $response->statusCode() . "\n";
+            print_r($response->headers());
+            print $response->body() . "\n";
+
+        } catch (Exception $e) {
+            echo 'Caught exception: '. $e->getMessage() ."\n";
+        }
+
+
+
+
+//        $message = $this->mailer->createMessage();
+//        $message->setFrom('info@billscontrol.top')
+//            ->setTo($user->getEmail())
+//            ->setSubject('Password change for Utility BIlls')
+//            ->setBody($this->twig->render('emails/reset_password.html.twig', ['user' => $user]), 'text/html');
+//        $this->mailer->send($message);
     }
     /**
      * @param User $user

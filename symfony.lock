@@ -242,6 +242,12 @@
     "sebastian/recursion-context": {
         "version": "3.0.0"
     },
+    "sendgrid/php-http-client": {
+        "version": "3.10.8"
+    },
+    "sendgrid/sendgrid": {
+        "version": "7.7.0"
+    },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
         "recipe": {
@@ -268,6 +274,9 @@
         "files": [
             "config/packages/sentry.yaml"
         ]
+    },
+    "starkbank/ecdsa": {
+        "version": "0.0.4"
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.1.3"

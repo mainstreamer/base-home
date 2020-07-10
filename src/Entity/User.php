@@ -78,7 +78,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -196,7 +196,7 @@ class User implements UserInterface
 
     public function __toString(): string
     {
-        return $this->firstName.' '.$this->email;
+        return $this->firstName.' '.$this->lastName;
     }
 
     /**
@@ -363,4 +363,5 @@ class User implements UserInterface
     {
         return $this->cards;
     }
+
 }
