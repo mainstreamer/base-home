@@ -35,7 +35,7 @@ class MailerService
         $message = $this->mailer->createMessage();
         $message->setFrom('info@billscontrol.top')
             ->setTo($user->getEmail())
-            ->setSubject('Invitation to Shortlist for Companies')
+            ->setSubject('Welcome to Billscontrol!')
             ->setBody($this->twig->render('emails/invitation.html.twig', ['user' => $user]), 'text/html');
         $this->mailer->send($message);
     }
@@ -125,7 +125,7 @@ class MailerService
         $message = $this->mailer->createMessage();
         $message->setFrom('info@billscontrol.top')
             ->setTo($user->getEmail())
-            ->setSubject('Password change for Shortlist')
+            ->setSubject('Password change for Billscontrol')
             ->setBody($this->twig->render('emails/password_changed.html.twig', ['user' => $user]), 'text/html');
         $this->mailer->send($message);
     }
