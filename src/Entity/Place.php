@@ -69,9 +69,11 @@ class Place
      * @param UserInterface|null $user
      * @return $this
      */
-    public function addUser(?UserInterface $user): self
+    public function addUser(?User $user): self
     {
         $this->users[] = $user;
+
+        $user->addPlace($this);
 
         return $this;
     }

@@ -49,14 +49,13 @@ class PlaceController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $form = $this->createForm(PlaceType::class, $place = (new Place())->setUser($this->getUser()));
-//        $form->remove('user');
-//        $this->dispatcher->dispatch(StartPlaceCreationEvent::NAME, new StartPlaceCreationEvent($form, $this->getUser(), $place));
-//        dd($form->get);
+        $form = $this->createForm(PlaceType::class, $place = new Place());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $place = $form->getData();
+            $place->addUser($this->getUser());
             $em->persist($place);
             $em->flush();
             $this->addFlash('message', 'place.created');
@@ -75,7 +74,7 @@ class PlaceController extends AbstractController
      * @param Place $place
      * @param TranslatorInterface $translator
      * @return Response
-     * @Security("place.getUsers().contains(user)")
+    * @Security("place.getUsers().contains(user)", message="You have to be owner of this place")
      */
     public function show(Request $request, Place $place, TranslatorInterface $translator, DataTableFactory $tableFactory): Response
     {
@@ -199,7 +198,7 @@ class PlaceController extends AbstractController
     public function myNew(Request $request): Response
     {
         $place = new Place();
-        $place->setUser($this->getUser());
+        $place->addUser($this->getUser());
         $form = $this->createForm(PlaceType::class, $place)->remove('user');
         $form->handleRequest($request);
 

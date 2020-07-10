@@ -156,9 +156,9 @@ class User implements UserInterface
      */
     public function addPlace($place)
     {
-        $this->places->add($place);
+        $this->places[] = $place;
         // uncomment if you want to update other side
-        $place->setUser($this);
+//        $place->addUser($this);
     }
 
     /**
