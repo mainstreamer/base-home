@@ -83,12 +83,12 @@ class MailerService
     public function sendResetLink(User $user): void
     {
         $email = new Mail();
-        $email->setFrom("info@billscontrol.top", "Example User");
+        $email->setFrom("info@billscontrol.top", (string) $user);
         $email->setSubject("PWD reset");
         $email->addTo($user->getEmail(), (string) $user);
 //        $email->addContent("text/plain", "and easy to do anywhere, even with PHP");
         $email->addContent(
-            "text/html", "<strong>Plase reset your password by following the link: <a href='/password/reset/".$user->getToken()."'></a></strong> "
+            "text/html", "<strong>Plase reset your password by following the <a href='https://billscontrol.top/password/reset/".$user->getToken()."'>link</a></strong> "
         );
 
         $sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
@@ -101,6 +101,7 @@ class MailerService
         } catch (Exception $e) {
             echo 'Caught exception: '. $e->getMessage() ."\n";
         }
+
 
 
 

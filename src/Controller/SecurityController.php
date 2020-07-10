@@ -72,7 +72,7 @@ class SecurityController extends Controller
 //        dd($form->getData()['email']);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($user = $this->getDoctrine()->getRepository(User::class)->findOneByEmail($form->getData()['email'])) {
-                /** @var $user User*/
+                /** @var $user User */
                 $user->setToken($generator->generateToken());
                 $mailerService->sendResetLink($user);
                 $this->getDoctrine()->getManager()->flush();
