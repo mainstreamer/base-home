@@ -8,10 +8,12 @@ use App\Entity\User;
 use App\Form\ChangePasswordRequest;
 use App\Form\UserPasswordType;
 use App\Services\MailerService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -95,7 +97,8 @@ class SecurityController extends Controller
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
-     * @Security("user === userObject")
+     * @Route("/password/reset/{userObject}")
+     * @ParamConverter("userObject", options={"mapping": {"userObject": "token"}})
      */
     public function changePasswordConfirm(Request $request, User $userObject, MailerService $mailerService, UserPasswordEncoderInterface $passwordEncoder): Response
     {
