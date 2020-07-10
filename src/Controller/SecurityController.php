@@ -69,13 +69,12 @@ class SecurityController extends Controller
     {
         $form = $this->createForm(ChangePasswordRequest::class);
         $form->handleRequest($request);
-//        dd($form->getData()['email']);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($user = $this->getDoctrine()->getRepository(User::class)->findOneByEmail($form->getData()['email'])) {
                 /** @var $user User */
                 $user->setToken($generator->generateToken());
-                $mailerService->sendResetLink($user);
                 $this->getDoctrine()->getManager()->flush();
+                $mailerService->sendResetLink($user);
                 $this->addFlash('message', 'security.message.reset_letter_sent');
             } else {
                 $this->addFlash('error', 'security.message.not_found');
