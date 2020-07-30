@@ -6,11 +6,11 @@ services:
       APP_ENV: "dev"
       XDEBUG_CONFIG: "remote_host=host.docker.internal"
       PHP_IDE_CONFIG: "serverName=Docker"
-      DB_NAME: ${DB_NAME}
+      DB_NAME: ${DB_NAME_DOCKER}
       DB_PASS: ${DB_PASS}
       DB_USER: ${DB_USER}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
+      DB_HOST: ${DB_HOST_DOCKER}
+      DB_PORT: ${DB_PORT_DOCKER}
       DB_ROOT: ${DB_ROOT}
       APP_SECRET: ${APP_SECRET}
       JWT_PASSPHRASE: ${JWT_PASSPHRASE}

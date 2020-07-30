@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -11,15 +12,15 @@ use App\Repository\PlaceRepository;
 use Doctrine\ORM\QueryBuilder;
 use Omines\DataTablesBundle\Adapter\Doctrine\ORMAdapter;
 use Omines\DataTablesBundle\Column\TwigColumn;
+use Omines\DataTablesBundle\Controller\DataTablesTrait;
 use Omines\DataTablesBundle\DataTableFactory;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Omines\DataTablesBundle\Controller\DataTablesTrait;
 use Symfony\Component\Translation\TranslatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PlaceController extends AbstractController
 {
@@ -33,9 +34,8 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @param PlaceRepository $placeRepository
      * @return Response
-     * TODO remove
+     *                  TODO remove
      */
     public function index(PlaceRepository $placeRepository): Response
     {
@@ -43,9 +43,8 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @param Request $request
      * @return Response
-     * TODO remove
+     *                  TODO remove
      */
     public function new(Request $request): Response
     {
@@ -70,11 +69,7 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @param Request $request
-     * @param Place $place
-     * @param TranslatorInterface $translator
-     * @return Response
-    * @Security("place.getUsers().contains(user)", message="You have to be owner of this place")
+     * @Security("place.getUsers().contains(user)", message="You have to be owner of this place")
      */
     public function show(Request $request, Place $place, TranslatorInterface $translator, DataTableFactory $tableFactory): Response
     {
@@ -138,11 +133,7 @@ class PlaceController extends AbstractController
         return $this->render('place/show.html.twig', ['place' => $place, 'datatable' => $table, 'release' => $matches[0] ?? '']);
     }
 
-
     /**
-     * @param Request $request
-     * @param Place $place
-     * @return Response
      * @Security("place.getUsers().contains(user)")
      */
     public function edit(Request $request, Place $place): Response
@@ -165,9 +156,6 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @param Request $request
-     * @param Place $place
-     * @return Response
      * @Security("place.getUsers().contains(user)")
      */
     public function delete(Request $request, Place $place): Response
@@ -183,7 +171,6 @@ class PlaceController extends AbstractController
     }
 
     /**
-     * @return iterable
      * @Template()
      */
     public function myPlaces(): iterable
@@ -191,10 +178,6 @@ class PlaceController extends AbstractController
         return ['places' => $this->getUser()->getPlaces()];
     }
 
-    /**
-     * @param Request $request
-     * @return Response
-     */
     public function myNew(Request $request): Response
     {
         $place = new Place();
@@ -208,7 +191,7 @@ class PlaceController extends AbstractController
             $em->flush();
             $this->addFlash('message', 'place.created');
 
-            return $this->redirectToRoute('place_show',  ['id' => $place->getId()]);
+            return $this->redirectToRoute('place_show', ['id' => $place->getId()]);
         }
 
         return $this->render('place/new.html.twig', [
