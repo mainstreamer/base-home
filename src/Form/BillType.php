@@ -75,7 +75,8 @@ class BillType extends AbstractType
                             function ($stringToDate) {
                                 // transform the array to a string
                                 $stringToDate = str_replace(
-                                    [   'Січень',
+                                    [   ' ',
+                                        'Січень',
                                         'Лютий',
                                         'Березень',
                                         'Квітень',
@@ -87,12 +88,10 @@ class BillType extends AbstractType
                                         'Жовтень',
                                         'Листопад',
                                         'Грудень',
-                                        ' ',],
-                                    ['01/', '02/', '03/', '04/', '05/', '06/', '07/', '08/', '09/', '10/', '11/', '12/', ''], $stringToDate);
+                                        ],
+                                    ['', '01/', '02/', '03/', '04/', '05/', '06/', '07/', '08/', '09/', '10/', '11/', '12/'], $stringToDate);
 
-//                                $stringToDate = mb_str_replace(' ', '', $stringToDate);
-
-                                return $stringToDate ? \DateTime::createFromFormat('m/Y', $stringToDate) : null;
+                                return $stringToDate ? \DateTime::createFromFormat('d/m/Y', '01/'.$stringToDate) : null;
                             }
                         )
                     )
