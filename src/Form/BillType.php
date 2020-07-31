@@ -75,21 +75,22 @@ class BillType extends AbstractType
                             function ($stringToDate) {
                                 // transform the array to a string
                                 $stringToDate = str_replace(
-                                    [   'Січень ',
-                                        'Лютий ',
-                                        'Березень ',
-                                        'Квітень ',
-                                        'Травень ',
+                                    [   'Січень',
+                                        'Лютий',
+                                        'Березень',
+                                        'Квітень',
+                                        'Травень',
                                         'Червень',
-                                        'Липень ',
-                                        'Серпень ',
-                                        'Вересень ',
-                                        'Жовтень ',
-                                        'Листопад ',
-                                        'Грудень '],
-                                    ['01/', '02/', '03/', '04/', '05/', '06/', '07/', '08/', '09/', '10/', '11/', '12/'], $stringToDate);
+                                        'Липень',
+                                        'Серпень',
+                                        'Вересень',
+                                        'Жовтень',
+                                        'Листопад',
+                                        'Грудень',
+                                        ' ',],
+                                    ['01/', '02/', '03/', '04/', '05/', '06/', '07/', '08/', '09/', '10/', '11/', '12/', ''], $stringToDate);
 
-                                $stringToDate = str_replace(' ', '', $stringToDate);
+//                                $stringToDate = mb_str_replace(' ', '', $stringToDate);
 
                                 return $stringToDate ? \DateTime::createFromFormat('m/Y', $stringToDate) : null;
                             }

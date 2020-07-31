@@ -14,8 +14,8 @@ doctrine:
         default_table_options:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
-#        url: '%env(resolve:DATABASE_URL)%'
-        url: "mysql://%env(DB_USER)%:%env(DB_PASS)%@%env(DB_HOST)%:%env(DB_PORT)%/%env(DB_NAME)%?ssl-mode=REQUIRED"
+        url: '%env(resolve:DATABASE_URL)%'
+#        url: "mysql://%env(DB_USER)%:%env(DB_PASS)%@%env(DB_HOST)%:%env(DB_PORT)%/%env(DB_NAME)%?ssl-mode=REQUIRED"
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
