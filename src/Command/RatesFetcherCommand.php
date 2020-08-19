@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Services\RatesFetcherService;
+use App\Services\RatesFormatterService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,13 +22,14 @@ class RatesFetcherCommand extends Command
 
     private $botKey = '1092299871:AAGvl46y4bRpso-_u-wN2hSpkuNYkstb600';
     private $ratesFetcher;
-
     private $client;
+    private $formatter;
 
-    public function __construct(RatesFetcherService $service)
+    public function __construct(RatesFetcherService $service, RatesFormatterService $formatter)
     {
         parent::__construct();
         $this->ratesFetcher = $service;
+        $this->formatter = $formatter;
         $this->client = HttpClient::create();
     }
 
@@ -42,8 +44,6 @@ class RatesFetcherCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->sendMessage('HELO WORLD', '263800667');
-
         $io = new SymfonyStyle($input, $output);
         $arg1 = $input->getArgument('arg1');
 
@@ -56,6 +56,8 @@ class RatesFetcherCommand extends Command
         }
 
         $this->ratesFetcher->execute();
+        $rates = $this->ratesFetcher->fetchOrGet();
+        $this->sendMessage($this->formatter->formatForMessenger($rates), '263800667');
 
         $io->success('OK');
 

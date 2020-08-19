@@ -29,6 +29,7 @@ class ExchangeRateRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('e')
             ->andWhere('e.currency = :usd')
             ->orderBy('e.date', 'DESC')
+            ->addOrderBy('e.bank', 'ASC')
             ->setMaxResults(1)
             ->setParameter('usd', 'USD')
             ->getQuery()

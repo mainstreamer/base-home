@@ -24,7 +24,7 @@ class RatesFetcherService
         return $this->fetchOrGet();
     }
 
-    private function fetchOrGet()
+    public function fetchOrGet()
     {
         $rates = $this->repository->getLatest();
         if (null !== $rates && !empty($rates) && $rates[0]->getDate()->format('d-m-Y') === (new \DateTime())->format('d-m-Y')) {

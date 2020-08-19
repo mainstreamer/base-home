@@ -6,12 +6,13 @@ services:
       APP_ENV: "dev"
       XDEBUG_CONFIG: "remote_host=host.docker.internal"
       PHP_IDE_CONFIG: "serverName=Docker"
-      DB_NAME: ${DB_NAME_DOCKER}
-      DB_PASS: ${DB_PASS}
-      DB_USER: ${DB_USER}
-      DB_HOST: ${DB_HOST_DOCKER}
-      DB_PORT: ${DB_PORT_DOCKER}
-      DB_ROOT: ${DB_ROOT}
+#      DB_NAME: ${DB_NAME_DOCKER}
+#      DB_PASS: ${DB_PASS}
+#      DB_USER: ${DB_USER_DEV}
+#      DB_HOST: ${DB_HOST_DOCKER}
+#      DB_HOST_DOCKER: ${DB_HOST_DOCKER}
+#      DB_PORT: ${DB_PORT_DOCKER}
+#      DB_ROOT: ${DB_ROOT}
       APP_SECRET: ${APP_SECRET}
       JWT_PASSPHRASE: ${JWT_PASSPHRASE}
       JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}
@@ -53,10 +54,10 @@ services:
       dockerfile: .docker/mysql/Dockerfile
     container_name: "db-${PROJECT_NAME}"
     environment:
-      MYSQL_ROOT_PASSWORD: "${DB_ROOT}"
-      MYSQL_DATABASE: "${DB_NAME}"
-      MYSQL_USER: "${DB_USER_DEV}"
-      MYSQL_PASSWORD: "${DB_PASS}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
     volumes:
       - db-data:/var/lib/mysql
     restart: always
@@ -72,7 +73,8 @@ services:
       context: .
       dockerfile: .docker/nginx/Dockerfile
     volumes:
-      - ${PROJECT_NAME}-codesync:/var/www/webapp:nocopy
+#      - ${PROJECT_NAME}-codesync:/var/www/webapp:nocopy
+      - ${PROJECT_NAME}-volume:/var/www/webapp:delegated
     expose:
       - 80
     ports:
@@ -85,5 +87,5 @@ networks:
    backend:
 volumes:
   db-data: ~
-  base-home-codesync:
-    external: true
+  base-volume: ~
+#    external: true

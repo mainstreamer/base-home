@@ -54,7 +54,8 @@ run-live-env)   docker-compose -f docker-compose-live.yaml up -d;;
 run-ci-env)     docker-compose -f docker-compose-ci.yaml up -d;;
 run-staging-env) docker-compose -f docker-compose-staging.yaml up -d;;
 run)            docker-compose up -d;;
-operate)        docker-sync-stack start;;
+run-sync)        docker-sync-stack start;;
+operate)        now run;;
 stop)           docker stop $(docker ps -q);;
 rm)             docker-compose down
                 docker-sync-stack clean;;

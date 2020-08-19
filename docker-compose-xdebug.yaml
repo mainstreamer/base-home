@@ -9,9 +9,9 @@ services:
       XDEBUG_CONFIG: "remote_host=host.docker.internal remote_enable=1 remote_autostart=off  remote_port=9001"
       PHP_IDE_CONFIG: "serverName=Docker"
       APP_ENV: "dev"
-      DB_NAME: ${DB_NAME}
-      DB_PASS: ${DB_PASS}
-      DB_USER: ${DB_USER}
+#      DB_NAME: ${DB_NAME}
+#      DB_PASS: ${DB_PASS}
+#      DB_USER: ${DB_USER}
       APP_SECRET: ${APP_SECRET}
       JWT_PASSPHRASE: ${JWT_PASSPHRASE}
       JWT_PUBLIC_KEY: ${JWT_PUBLIC_KEY}

@@ -11,10 +11,10 @@ use Doctrine\ORM\EntityManagerInterface;
 class BillCreatorService
 {
     private $repository;
-
     private $entityManager;
     private $ratesFetcher;
     private $ratesRepo;
+    private $textMessage = '';
 
     public function __construct(SubscriptionRepository $repository, EntityManagerInterface $entityManager, RatesFetcherService $ratesFetcher, ExchangeRateRepository $repo)
     {
@@ -28,12 +28,16 @@ class BillCreatorService
     {
         $subscriptions = $this->findBillableSubscriptions();
 
+        /** @var Subscription $subscription */
         foreach ($subscriptions as $subscription) {
+            $price = $subscription->getPrice()/100;
+            $this->textMessage .= 'New bill: ' .$subscription->getService()->getName().' '.$subscription->getName().' '.$subscription->getCurrency(). ' '.$price.PHP_EOL;
             $this->createBill($subscription);
         }
 
         $this->entityManager->flush();
     }
+
     public function findBillableSubscriptions(): array
     {
         return $this->repository->findDueSubscriptions();
@@ -74,5 +78,10 @@ class BillCreatorService
         $rate = 'UAH' === $currency ? 1 : $this->ratesRepo->getRateByBankAndCurrency($currency, $bank)->getSellRate();
 
         return $rate;
+    }
+
+    public function getTextMessage(): string
+    {
+        return $this->textMessage;
     }
 }
