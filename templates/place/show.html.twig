@@ -29,7 +29,6 @@
 {% endblock head %}
 
 {% block content %}
-
     {#<div class="page-breadcrumb card">#}
         {#<div class="row">#}
             {#<div  class="col-1">#}
@@ -62,7 +61,7 @@
         <div class="col-11">
             <div class="row">
                 {% for meter in place.meters %}
-                    <div class="col-2 card card-hover">
+                    <div class="col-md-6 col-lg-2 col-xlg-3 card card-hover">
                         <a href="{{ path('meter_show', {'id': meter.id}) }}">
                             <div class="bg-dark p-10 text-white text-center">
                                 <span class="font-24">️{{ meter.type.icon}}</span>
@@ -72,7 +71,7 @@
                         </a>
                     </div>
                 {% endfor %}
-                <div class="col-2 card card-hover" >
+                <div class="col-md-6 col-lg-2 col-xlg-3 card card-hover" >
                     <a href="{{ path('meter_new_for_place', {'place' : place.id }) }}"  >
                         {#<div class="card card-hover">#}
                         <div class="box text-center ">
@@ -93,15 +92,19 @@
                 </div>
             </div>
         </div>
-        <div class="col-1 card-hover card">
-            <a href="{{ path('place_edit', {'id' : place.id }) }}">
-                <div class="box bg-white text-center">
-                    <h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>
-                    <h5 class="font-light text-dark" style="color: black;">{{ 'options'|trans|capitalize }}</h5>
-                    {#<small class="text-dark">{{ 'options'|trans|capitalize }}</small>#}
-                </div>
-            </a>
-        </div>
+{#        <div class="col-md-6 col-lg-2 col-xlg-3 card card-hover float-right">#}
+{#        <div class="col-1 card-hover card">#}
+{#            <a href="{{ path('place_edit', {'id' : place.id }) }}">#}
+{#                <div class="box bg-white text-center">#}
+{#                    <h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>#}
+{#                    <h5 class="font-light text-dark" style="color: black;">{{ 'options'|trans|capitalize }}</h5>#}
+{#                    #}{#<small class="text-dark">{{ 'options'|trans|capitalize }}</small>#}
+{#                </div>#}
+{#            </a>#}
+{#        </div>#}
+
+        
+        
     </div>
     </div>
     <div class="container-fluid">
@@ -138,7 +141,12 @@
             {#<a class="dropdown-item" href="{{ path('place_edit', {'id': place.id}) }}">{{ 'place.edit.title' |trans }}</a>#}
         {#</div>#}
     {#</li>#}
+
+{#    <li class="nav-item nav-d-none d-md-block"><a class="nav-link waves-effect waves-light right" href="{{ path('place_edit', {'id' : place.id }) }}"><i class="font-16 fas fa-cog"></i></a></li>#}
 {% endblock actions %}
+      {% block menuactions %}
+          <a class="dropdown-item" href="{{ path('place_edit', {'id' : place.id }) }}"> <i class="fas font-18 fa-cog m-r-5 m-l-5"></i> {{ 'options' |trans }}</a>
+      {% endblock menuactions %}
 
 {% block javascripts %}
     {% include('common/_toastr.html.twig')%}

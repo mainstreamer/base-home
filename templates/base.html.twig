@@ -110,6 +110,16 @@
                 <div class="navbar-header" data-logobg="skin5">
                     <!-- This is for the sidebar toggle which is visible on mobile only -->
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+                    {% if returnurl is defined %}
+                        <a class="waves-effect waves-light d-block d-md-none" href="{{ returnurl }}"><i class="mdi text-white mdi-chevron-left font-24"></i></a>
+                    {% endif %}
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">&nbsp;</a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">&nbsp;</a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">&nbsp;</a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">&nbsp;</a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">&nbsp;</a>
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">&nbsp;</a>
+                    
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
@@ -122,6 +132,9 @@
 
                         </b>
                         <!--End Logo icon -->
+
+                        
+                        
                         <!-- Logo text -->
                         <span class="logo-text">
                              <!-- dark Logo text -->
@@ -138,6 +151,7 @@
                         <!-- </b> -->
                         <!--End Logo icon -->
                     </a>
+                   
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
@@ -156,8 +170,13 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto">
                         <li class="nav-item d-none d-md-block"><a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar"><i class="mdi mdi-menu font-24"></i></a></li>
+
+                        {% if returnurl is defined %}
+                            <li class="nav-item d-none d-md-block"><a class="nav-link waves-effect waves-light" href="{{ returnurl }}"><i class="mdi mdi-chevron-left font-24"></i></a></li>
+                        {% endif %}
                        {% block actions %}
                        {% endblock actions %}
+                        
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
@@ -262,6 +281,9 @@
                                 {#<div class="dropdown-divider"></div>#}
                                 {#<a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> {{ 'profile.title.settings' |trans }}</a>#}
                                 <div class="dropdown-divider"></div>
+                                {% block menuactions %}
+                                {% endblock menuactions %}
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/logout"><i class="fa fa-power-off m-r-5 m-l-5"></i> {{ 'profile.title.logout' |trans }}</a>
                                 {#<div class="dropdown-divider"></div>#}
                                 {#<div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>#}
@@ -320,14 +342,14 @@
                 <div class="ml-auto text-right">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            {% if returnurl is defined %}
-                            {#<a href="{{ path('meter_show', {'id':indication.meter.id}) }}">#}
-                            <a href="{{ returnurl }}">
-                                <li class="breadcrumb-item">
-                                    <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}
-                                </li>
-                            </a>
-                            {% endif %}
+{#                            {% if returnurl is defined %}#}
+{#                            #}{#<a href="{{ path('meter_show', {'id':indication.meter.id}) }}">#}
+{#                            <a href="{{ returnurl }}">#}
+{#                                <li class="breadcrumb-item">#}
+{#                                    <i class="ti ti-angle-left" style="padding-right: 0.5rem;"></i> {{ 'back'|trans }}#}
+{#                                </li>#}
+{#                            </a>#}
+{#                            {% endif %}#}
                         </ol>
                     </nav>
                 </div>

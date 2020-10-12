@@ -22,41 +22,25 @@
         <div class="m-l-10 m-t-10">{{ 'place.missing'|trans|capitalize }}</div>
     {% endif %}
     {% for place in places %}
-    <div class="row border-top">
-        <div class="col-11">
-            <a href="{{ path('place_show', {'id': place.id}) }}">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row" style="flex-wrap: nowrap">
-                            <div class="col-12">
-                                <h5 class="card-title">{{ place.name }}</h5>
-                                <p class="text-dark">{{ 'address'|trans }}: {{ place.address }}
-                                </p>
-                            </div>
-                            {#<div class="col-1 card-hover card">#}
-                                {#<a href="{{ path('place_edit', {'id' : place.id }) }}">#}
-                                    {#<div class="box bg-white text-center">#}
-                                        {#<h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>#}
-                                        {#<h5 class="font-light text-dark" style="color: black;">{{ 'options'|trans|capitalize }}</h5>#}
-                                        {#<small class="text-dark">{{ 'options'|trans|capitalize }}</small>#}
-                                    {#</div>#}
-                                {#</a>#}
-                            {#</div>#}
-                        </div>
-                    </div>
+        <div class="d-flex flex-row comment-row p-t-10 border-top">
+            <div class="p-2"><h1>🏢</h1>
+{#                <img src="../../assets/images/users/1.jpg" alt="user" width="50" class="rounded-circle">#}
+            </div>
+            <div class="comment-text w-100">
+                <a class="text-dark" href="{{ path('place_show', {'id': place.id}) }}">
+                <h6 class="font-bold">{{ place.name }}</h6>
+                <span class="m-b-15 d-block">{{ 'address'|trans }}: {{ place.address }}</span>
+                </a>
+                <div class="comment-footer">
+                    <span class="text-muted float-right">
+                        
+                          <a href="{{ path('place_edit', {'id' : place.id }) }}" type="button" class="btn btn-cyan btn-sm"><i  class="text-white font-18 fas fa-cog"></i></a>
+                    </span>
+{#                    <button type="button" class="btn btn-cyan btn-sm">Edit</button>#}
                 </div>
-            </a>
+            </div>
         </div>
-        <div class="col-1 card-hover card m-t-5">
-            <a href="{{ path('place_edit', {'id' : place.id }) }}">
-                <div class="box bg-white text-center">
-                    <h1 class="font-light text-white" ><i  style="color: black!important;" class="text-bl text-dark fas fa-cog"></i></h1>
-                    <h5 class="font-light text-dark" style="color: black;">{{ 'options'|trans|capitalize }}</h5>
-                    {#<small class="text-dark">{{ 'options'|trans|capitalize }}</small>#}
-                </div>
-            </a>
-        </div>
-    </div>
+   
     {% endfor %}
 </div>
 {% endblock %}
