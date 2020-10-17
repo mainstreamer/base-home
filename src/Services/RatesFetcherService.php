@@ -79,7 +79,7 @@ class RatesFetcherService
         $privatExchangeRateEur->setCurrency('EUR');
         $privatExchangeRateEur->setBank(ExchangeRate::PRIVAT);
         $privatExchangeRateEur->setDate(new \DateTime());
-        $privatExchangeRateEur->setBuyRate(round((float) $result[1]['buy']), 2);
+        $privatExchangeRateEur->setBuyRate(round((float) $result[1]['buy'], 2));
         $privatExchangeRateEur->setSellRate(round((float) $result[1]['sale'], 2));
         $this->entityManager->persist($privatExchangeRateEur);
 
