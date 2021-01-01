@@ -42,6 +42,7 @@ class RemindBillsCommand extends Command
             // ...
         }
 
+        $this->service->setRemindBeforeDays(1);
         $this->service->execute();
         
         $io->success('OK');
