@@ -5,24 +5,28 @@ namespace App\Services;
 use App\Repository\ExchangeRateRepository;
 use App\Repository\SubscriptionRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MessageSenderService
 {
-    private string $botKey = '';
+    private string $botKey;
     private ServiceEntityRepositoryInterface $repository;
     private ServiceEntityRepositoryInterface $ratesRepo;
     private HttpClientInterface $client;
     private string $chatId = '';
     private string $message = '';
 
-    public function __construct(SubscriptionRepository $repository, EntityManagerInterface $entityManager, RatesFetcherService $ratesFetcher, ExchangeRateRepository $repo, HttpClientInterface $client)
+    public function __construct(
+        SubscriptionRepository $repository,
+        ExchangeRateRepository $repo,
+        HttpClientInterface $client,
+        string $botKey
+    )
     {
         $this->repository = $repository;
         $this->ratesRepo = $repo;
-        $this->botKey = getenv('BOT_KEY_BILLSCONTROL');
+        $this->botKey = $botKey;
         $this->chatId = getenv('MESSAGE_RECEIVER_CHAT_ID');
         $this->client = $client;
     }

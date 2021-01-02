@@ -9,21 +9,24 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class CreateBillsCommand extends Command
 {
     protected static $defaultName = 'app:create:bills';
 
-    private $billsCreator;
+    protected BillCreatorService $billsCreator;
 
-    private $client;
-    private $botKey = '1092299871:AAGvl46y4bRpso-_u-wN2hSpkuNYkstb600';
-    public function __construct(BillCreatorService $service)
+    protected HttpClientInterface $client;
+
+    protected string $botKey;
+
+    public function __construct(BillCreatorService $service, HttpClientInterface $client, string $botKey)
     {
         parent::__construct();
         $this->billsCreator = $service;
-        $this->client = HttpClient::create();
+        $this->client = $client;
+        $this->botKey = $botKey;
     }
 
     protected function configure()
@@ -65,13 +68,9 @@ class CreateBillsCommand extends Command
      */
     public function sendMessage(string $message, string $chatId): bool
     {
-//        $chatId = isset($message['parsedObj']) ? $message['parsedObj']->getChat() : null;
-//        if (!$chatId) { return false;}
-
         $this->client->request('GET',
             'https://api.telegram.org/bot'.
             $this->botKey.'/sendMessage?parse_mode=HTML&text='.
-//                $this->botKey.'/sendMessage?text='.
             urlencode($message).'&chat_id='.$chatId
         );
 
